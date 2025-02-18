@@ -18,19 +18,11 @@ header
                 img.p-header__title-img(src!="<?= $main_img; ?>" alt="<?= $title; ?>")
                 |<?php endif; ?>
 
-            |<?php if(!is_front_page()): ?>
-            .p-header__button-another.js-fit-content__item
-                button.p-header__button-another-body.js-hover.js-scroll-to-btn(data-target="1")
-                    span 本講座に関するお問い合わせ｜↓
-            |<?php endif; ?>
-
         |<?php $img_array = get_image_array('header_img', 'option'); ?>
         .c-half-layout__item.p-header__item.js-fit-content__img(data-width!="<?= $img_array['width']; ?>" data-height!="<?= $img_array['height']; ?>")
             .c-half-layout__img
                 include ./_mixin/_get-large-image.pug
 
-        |<?php if(is_front_page()): ?>
         .p-header__button
             button.p-header__button-body.js-hover.js-scroll-to-btn(data-target="1")
                 span 本講座に関するお問い合わせ｜↓
-        |<?php endif; ?>

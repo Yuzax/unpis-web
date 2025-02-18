@@ -9,25 +9,17 @@
           if($text):
           ?>
           <div class="p-news-letter__text p-main-text js-fit-content__item"><?= $text; ?></div><?php endif; ?>
-          <?php if(is_front_page()): ?>
           <?php
           $link = $news_group['link_url'];
           $text = $news_group['link_text'];
           if($link && $text):
           ?>
-          <div class="p-news-letter__link js-fit-content__item"><a class="p-news-letter__link-body js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></div><?php endif; endif; ?>
+          <div class="p-news-letter__link js-fit-content__item"><a class="p-news-letter__link-body js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></div><?php endif;?>
           <?php
           $note = $news_group['note'];
           if($note):
           ?>
           <p class="p-news-letter__note p-note-text js-fit-content__item"><?= $note; ?></p><?php endif; ?>
-          <?php if(!is_front_page()): ?>
-          <?php
-          $link = $news_group['link_url'];
-          $text = $news_group['link_text'];
-          if($link && $text):
-          ?>
-          <div class="p-news-letter__link-another js-fit-content__item"><a class="p-news-letter__link-another-body js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></div><?php endif; endif; ?>
         </div><?php $contact_group = get_field('contact_and_links', 'option'); ?>
         <div class="c-vertical-half__item p-contact-group js-fit-content__container">
           <?php
@@ -47,10 +39,7 @@
                   $text = $related_link['name'];
                   if($link && $text):
             ?>
-            <?php if(is_front_page()): ?>
-            <li class="p-contact-group__link-item"><a class="js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></li><?php else: ?>
-            <li class="p-contact-group__link-item-another"><a class="js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></li><?php endif; ?>
-            <?php endif; endforeach; ?>
+            <li class="p-contact-group__link-item"><a class="js-hover" href="<?= $link; ?>" target="_blank" rel="noopener noreferrer"><span><?= $text; ?></span></a></li><?php endif; endforeach; ?>
           </ol><?php endif; ?>
         </div>
       </div>

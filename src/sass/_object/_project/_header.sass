@@ -3,16 +3,7 @@
 .p-header
     position: relative
     @include f.media()
-        //- another
-        display: flex
-        flex-direction: column
         height: 100svh
-
-
-    //- another
-    &__item
-        display: flex
-        flex-direction: column
 
 
     &__title
@@ -51,26 +42,3 @@
             &.is-hover
                 background: #FFF
                 color: f.$color-blue
-
-    &__button-another
-        display: block
-        margin: auto 0 0
-        width: calc(100% + 44/676 * 100%)
-        margin: auto calc(-22/676 * 100%) calc(-21/676 * 100%)
-        @include f.media(largeDesktop)
-            width: calc(100% + 44px)
-            margin: auto -22px -21px
-        @include f.media()
-            position: absolute
-            bottom: 0
-            left: 0
-            width: 100%
-            padding: 0
-            margin: auto 0 0
-
-        &-body
-            @include f.maxButton(#FFF, rgb(0, 163, 218))
-
-            &.is-hover
-                background: #FFF
-                color: rgb(0, 163, 218)

@@ -11,7 +11,6 @@ footer(data-section="1")
                     .p-news-letter__text.p-main-text.js-fit-content__item <?= $text; ?>
                     |<?php endif; ?>
 
-                    |<?php if(is_front_page()): ?>
                     |<?php
                     |$link = $news_group['link_url'];
                     |$text = $news_group['link_text'];
@@ -20,7 +19,7 @@ footer(data-section="1")
                     .p-news-letter__link.js-fit-content__item
                         a.p-news-letter__link-body.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
                             span <?= $text; ?>
-                    |<?php endif; endif; ?>
+                    |<?php endif;?>
 
                     |<?php
                     |$note = $news_group['note'];
@@ -28,17 +27,6 @@ footer(data-section="1")
                     |?>
                     p.p-news-letter__note.p-note-text.js-fit-content__item <?= $note; ?>
                     |<?php endif; ?>
-
-                    |<?php if(!is_front_page()): ?>
-                    |<?php
-                    |$link = $news_group['link_url'];
-                    |$text = $news_group['link_text'];
-                    |if($link && $text):
-                    |?>
-                    .p-news-letter__link-another.js-fit-content__item
-                        a.p-news-letter__link-another-body.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
-                            span <?= $text; ?>
-                    |<?php endif; endif; ?>
 
 
                 |<?php $contact_group = get_field('contact_and_links', 'option'); ?>
@@ -62,15 +50,9 @@ footer(data-section="1")
                         |       $text = $related_link['name'];
                         |       if($link && $text):
                         |?>
-                        |<?php if(is_front_page()): ?>
                         li.p-contact-group__link-item
                             a.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
                                 span <?= $text; ?>
-                        |<?php else: ?>
-                        li.p-contact-group__link-item-another
-                            a.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
-                                span <?= $text; ?>
-                        |<?php endif; ?>
                         |<?php endif; endforeach; ?>
                     |<?php endif; ?>
 
