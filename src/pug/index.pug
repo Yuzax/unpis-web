@@ -31,6 +31,18 @@ block contents
             p.p-description__text.p-main-text.js-fit-content__item <?= $text; ?>
             |<?php endif; ?>
 
+            //- Member
+            |<?php if(have_rows('member')): ?>
+            .p-description__member.p-member.js-fit-content__item
+                h5.p-member__title メンバー
+                ol.p-member__list
+                    |<?php while(have_rows('member')): the_row(); ?>
+                    li.p-member__item
+                        span.p-member__name <?= get_sub_field('name'); ?>
+                        span.p-member__information <?= get_sub_field('information'); ?>
+                    |<?php endwhile; ?>
+            |<?php endif; ?>
+
         |<?php $img_array = get_image_array('description_image'); ?>
         .c-half-layout__item.p-description__img.js-fit-content__img(data-width!="<?= $img_array['width']; ?>" data-height!="<?= $img_array['height']; ?>")
             .c-half-layout__img

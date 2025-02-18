@@ -1,0 +1,56 @@
+@use "../../_foundation" as f
+
+.p-member
+    @include f.font-styling(f.rationalFontSize(24, 1440), 1.8, 0)
+    max-width: 930px
+    padding: calc(49/676 * 100%) calc(18/676 * 100%) 0 0
+    @include f.media(largeDesktop)
+        font-size: 2.4rem
+    @include f.media()
+        @include f.font-styling(1.6rem, 1.6, 0)
+        max-width: 557px
+        padding: 40px 36px 68px 18px
+
+
+    &__title
+        padding: 0 0 calc(10/676 * 100%)
+        @include f.media(largeDesktop)
+            padding: 0 0 10px
+        @include f.media()
+            font-size: 1.6rem
+            padding: 0 0 14px
+
+
+    &__list
+        width: 100%
+
+    &__item
+        display: flex
+        width: 100%
+        @include f.media()
+            display: block
+
+        &:not(:last-child)
+            @include f.media()
+                margin: 0 0 12px
+
+    &__name
+        display: inline-block
+        flex-shrink: 0
+        width: 23%
+        @include f.media(largeDesktop)
+            width: 154px
+        @include f.media()
+            width: 100%
+
+    &__information
+        display: inline-block
+        flex-shrink: 0
+        width: 77%
+        @include f.media(largeDesktop)
+            width: calc(100% - 154px)
+        @include f.media()
+            width: 100%
+
+
+
