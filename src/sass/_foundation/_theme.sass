@@ -1,0 +1,74 @@
+@use "./_typography" as t
+@use "./_easing" as e
+@use "./_media" as m
+@use "./_function" as f
+
+@mixin roundButton($background)
+    display: flex
+    align-items: center
+    justify-content: center
+    box-sizing: border-box
+    background: $background
+    transition: color 0.1s e.ease('easeOutCubic'), background 0.1s e.ease('easeOutCubic')
+    span
+        pointer-events: none
+        display: inline-block
+
+
+@mixin largeButton($color, $background, $line-color)
+    @include t.font-bold
+    @include t.font-styling(f.rationalFontSize(16, 1440), 3.75, 0)
+    @include roundButton($background)
+    width: calc(320/1440 * 100svw)
+    border-radius: 32px
+    border: 2px solid $line-color
+    color: $color
+    @include m.media(smallDesktop)
+        width: 240px
+        font-size: 1.2rem
+    @include m.media(largeDesktop)
+        width: 320px
+        font-size: 1.6rem
+    @include m.media()
+        font-size: 1.4rem
+
+@mixin smallButton($color, $background, $line-color)
+    @include t.font-styling(f.rationalFontSize(24, 1440), (38/24), 0)
+    @include roundButton($background)
+    min-width: calc(65/1440 * 100svw)
+    padding: 0 calc(24/1440 * 100svw)
+    border-radius: 20px
+    border: 1px solid $line-color
+    color: $color
+    @include m.media(smallDesktop)
+        min-width: 51px
+        font-size: 1.8rem
+    @include m.media(largeDesktop)
+        min-width: 65px
+        font-size: 2.4rem
+        padding: 0 24px
+    @include m.media()
+        font-size: 1.8rem
+
+@mixin maxButton($color, $background)
+    @include t.font-styling(1.6rem, 62px, 0)
+    @include t.font-bold
+    position: relative
+    display: block
+    box-sizing: border-box
+    width: 100%
+    height: 64px
+    text-align: center
+    color: $color
+    background: $background
+    border-top: 2px solid $background
+    span
+        pointer-events: none
+    @include m.media(smallDesktop)
+        height: 46px
+        line-height: 44px
+        font-size: 1.2rem
+    @include m.media()
+        height: 54px
+        line-height: 52px
+        font-size: 1.4rem

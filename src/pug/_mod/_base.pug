@@ -1,0 +1,10 @@
+block variable
+include ../head.pug
+body(data-section="0" data-barba="wrapper")
+    div(data-barba = "container" data-barba-namespace="common")
+        |<?php get_header(); ?>
+        div
+            block contents
+        |<?php get_footer(); ?>
+        |<?php wp_footer(); ?>
+</html>

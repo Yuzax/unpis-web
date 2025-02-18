@@ -1,0 +1,40 @@
+@use "../../_foundation" as f
+
+.c-half-layout
+    display: flex
+    width: 100svw
+    height: 100svh
+    @include f.media(desktop)
+        flex-direction: row-reverse
+    @include f.media()
+        flex-wrap: wrap
+        height: auto
+
+
+    &__item
+        flex-shrink: 0
+        width: 50%
+        box-sizing: border-box
+        @include f.media()
+            width: 100%
+
+        &--only-pc
+            @include f.media()
+                display: none
+
+        &:not(.c-half-layout__item--vertical):first-child
+            padding: calc(21/1440 * 100%) calc(22/1440 * 100%)
+            @include f.media(largeDesktop)
+                padding: 21px 22px
+            @include f.media()
+                padding: 0
+
+
+    &__img
+        width: 100%
+        height: 100%
+
+        picture, img
+            width: 100%
+            height: 100%
+            object-fit: cover

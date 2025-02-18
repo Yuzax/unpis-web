@@ -1,0 +1,19 @@
+@mixin backgroundImage
+    background-size: contain
+    background-repeat: no-repeat
+
+@mixin hideScrollBar
+    /*スクロールバー非表示（IE・Edge）*/
+    -ms-overflow-style: none
+    /*スクロールバー非表示（Firefox）*/
+    scrollbar-width: none
+    /*スクロールバー非表示（Chrome・Safari）*/
+    &::-webkit-scrollbar
+        display: none
+
+@mixin underline($color, $line-width, $offset: 0px)
+    background-image: linear-gradient(to right, $color, $color) // 線の色
+    background-repeat: no-repeat // 背景を繰り返さない
+    background-size: 100% $line-width // 幅(100%=文字の長さ) | 高さ(線の太さ)
+    background-position: bottom // 下に配置
+    padding: $offset 0 // オフセット

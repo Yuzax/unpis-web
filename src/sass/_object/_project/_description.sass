@@ -1,0 +1,24 @@
+@use "../../_foundation" as f
+
+.p-description
+    background: f.$color-light-bg
+
+    &__title
+        @include f.font-styling(f.rationalFontSize(32, 1440), 1.6, 0.0)
+        max-width: 955px
+        padding: 0 0 calc(44/676 * 100%)
+        @include f.media(largeDesktop)
+            font-size: 3.2rem
+            padding: 0 0 44px
+        @include f.media()
+            font-size: 2.2rem
+            max-width: 557px
+            padding: 18px 18px 63px
+
+
+    &__text
+        max-width: 930px
+        padding: 0 calc(18/676 * 100%) 0 0
+        @include f.media()
+            max-width: 557px
+            padding: 0 18px 68px

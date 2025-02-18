@@ -1,0 +1,20 @@
+@use "../../_foundation" as f
+
+.c-vertical-half
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    height: 100%
+
+
+    &__item
+        box-sizing: border-box
+        height: 50%
+        padding: calc(21/720 * 100%) calc(22/720 * 100%)
+        @include f.media(largeDesktop)
+            padding: 21px 22px
+        @include f.media()
+            padding: 22px 14px
+
+        &:first-child
+            background: f.$color-light-bg

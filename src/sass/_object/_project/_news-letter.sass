@@ -1,0 +1,55 @@
+@use "../../_foundation" as f
+
+.p-news-letter
+    position: relative
+
+
+    &__text
+        max-width: 930px
+        padding: 0 calc(18/676 * 100%) calc(32/676 * 100%) 0
+        @include f.media(largeDesktop)
+            padding: 0 calc(18/676 * 100%) 32px 0
+        @include f.media()
+            width: 100%
+            max-width: 557px
+            padding: 0 0 23px
+
+
+    &__link
+        padding: 0 0 calc(24/676 * 100%)
+        @include f.media(largeDesktop)
+            padding: 0 0 24px
+        @include f.media()
+            padding: 0 0 18px
+
+        &-body
+            @include f.largeButton(#FFF, f.$color-blue, f.$color-blue)
+
+            &.is-hover
+                background: #FFF
+                color: f.$color-blue
+
+
+    &__link-another
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 100%
+
+        &-body
+            @include f.maxButton(#FFF, rgb(0, 163, 218))
+
+            &.is-hover
+                color: rgb(0, 163, 218)
+                background: #FFF
+
+
+    &__note
+        @include f.font-styling(f.rationalFontSize(14, 1440), 1.8, 0)
+        @include f.media(mediumDesktop)
+            font-size: 1.2rem
+        @include f.media(largeDesktop)
+            font-size: 1.4rem
+        @include f.media()
+            font-size: 1.4rem
+            padding: 0 0 94px

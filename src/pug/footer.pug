@@ -1,0 +1,80 @@
+footer(data-section="1")
+    .c-half-layout.js-fit-content.js-fit-content--only-pc
+        .c-half-layout__item.c-half-layout__item--vertical
+            .c-vertical-half
+                |<?php $news_group = get_field('news_letter', 'option'); ?>
+                .c-vertical-half__item.p-news-letter.js-fit-content__container
+                    |<?php
+                    |$text = $news_group['description'];
+                    |if($text):
+                    |?>
+                    .p-news-letter__text.p-main-text.js-fit-content__item <?= $text; ?>
+                    |<?php endif; ?>
+
+                    |<?php if(is_front_page()): ?>
+                    |<?php
+                    |$link = $news_group['link_url'];
+                    |$text = $news_group['link_text'];
+                    |if($link && $text):
+                    |?>
+                    .p-news-letter__link.js-fit-content__item
+                        a.p-news-letter__link-body.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
+                            span <?= $text; ?>
+                    |<?php endif; endif; ?>
+
+                    |<?php
+                    |$note = $news_group['note'];
+                    |if($note):
+                    |?>
+                    p.p-news-letter__note.p-note-text.js-fit-content__item <?= $note; ?>
+                    |<?php endif; ?>
+
+                    |<?php if(!is_front_page()): ?>
+                    |<?php
+                    |$link = $news_group['link_url'];
+                    |$text = $news_group['link_text'];
+                    |if($link && $text):
+                    |?>
+                    .p-news-letter__link-another.js-fit-content__item
+                        a.p-news-letter__link-another-body.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
+                            span <?= $text; ?>
+                    |<?php endif; endif; ?>
+
+
+                |<?php $contact_group = get_field('contact_and_links', 'option'); ?>
+                .c-vertical-half__item.p-contact-group.js-fit-content__container
+                    |<?php
+                    |$text = $contact_group['contact_text'];
+                    |if($text):
+                    |?>
+                    .p-contact-group__text.p-main-text.js-fit-content__item <?= $text; ?>
+                    |<?php endif; ?>
+
+                    |<?php
+                    |$related_links = $contact_group['related_links'];
+                    |if($related_links):
+                    |?>
+                    h5.p-contact-group__link-title.js-fit-content__item 関連リンク
+                    ol.p-contact-group__link-list.js-fit-content__item
+                        |<?php
+                        |   foreach($related_links as $related_link):
+                        |       $link = $related_link['link'];
+                        |       $text = $related_link['name'];
+                        |       if($link && $text):
+                        |?>
+                        |<?php if(is_front_page()): ?>
+                        li.p-contact-group__link-item
+                            a.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
+                                span <?= $text; ?>
+                        |<?php else: ?>
+                        li.p-contact-group__link-item-another
+                            a.js-hover(href!="<?= $link; ?>" target="_blank" rel="noopener noreferrer")
+                                span <?= $text; ?>
+                        |<?php endif; ?>
+                        |<?php endif; endforeach; ?>
+                    |<?php endif; ?>
+
+        .c-half-layout__item.c-half-layout__item--only-pc
+            |<?php $img_array = get_image_array('footer_image', 'option'); ?>
+            .c-half-layout__img
+                include ./_mixin/_get-large-image.pug

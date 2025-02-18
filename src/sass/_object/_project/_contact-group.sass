@@ -1,0 +1,67 @@
+@use "../../_foundation" as f
+
+.p-contact-group
+
+
+    &__text
+        max-width: 930px
+        padding: 0 calc(18/676 * 100%) calc(49/676 * 100%) 0
+        @include f.media(largeDesktop)
+            padding: 0 calc(18/676 * 100%) 49px 0
+        @include f.media()
+            width: 100%
+            max-width: 557px
+            padding: 0 0 58px 0
+
+
+    &__link
+
+        &-title
+            @include f.font-styling(f.rationalFontSize(24, 1440), 1.8, 0)
+            padding: 0 0 calc(20/676 * 100%)
+            @include f.media(largeDesktop)
+                font-size: 2.4rem
+                padding: 0 0 20px
+            @include f.media()
+                font-size: 1.6rem
+                padding: 0 0 20px
+
+        &-list
+            display: flex
+            flex-wrap: wrap
+            margin: 0 calc(-14/676 * 100%) calc(-14/676 * 100%) 0
+            max-width: 930px
+            padding: 0 calc(18/676 * 100%) 0 0
+            @include f.media(largeDesktop)
+                margin: 0 -14px -14px 0
+            @include f.media()
+                margin: 0 -12px -12px 0
+                padding: 0 0 64px
+
+        &-item
+            padding: 0 calc(14/676 * 100%) calc(18/676 * 100%) 0
+            @include f.media(largeDesktop)
+                padding: 0 14px 14px 0
+            @include f.media()
+                padding: 0 12px 12px 0
+
+            a
+                @include f.smallButton(f.$color-blue, #FFF, f.$color-blue)
+
+                &.is-hover
+                    background: f.$color-blue
+                    color: #FFF
+
+        &-item-another
+            padding: 0 calc(14/676 * 100%) calc(18/676 * 100%) 0
+            @include f.media(largeDesktop)
+                padding: 0 14px 14px 0
+            @include f.media()
+                padding: 0 12px 12px 0
+
+            a
+                @include f.smallButton(rgb(0, 163, 218), #FFF, rgb(0, 163, 218))
+
+                &.is-hover
+                    background: rgb(0, 163, 218)
+                    color: #FFF

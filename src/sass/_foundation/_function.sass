@@ -1,0 +1,20 @@
+@use 'sass:math'
+
+@function photoshopDropShadow2CSSBoxShadow($color, $opacity, $angle, $distance, $spread, $size)
+    $angle: math.div((180 - $angle) * math.$pi, 180)
+
+    // the color is just an rgba() color with the opacity.
+    // for simplicity this function expects color to be an rgb string
+    // in CSS, opacity is a decimal between 0 and 1 instead of a percentage
+    // $color: "rgba(" + $color + "," + math.div($opacity, 100) + ")"
+
+    // other calculations
+    $offsetX: math.round(math.cos($angle) * $distance),
+    $offsetY: math.round(math.sin($angle) * $distance),
+    $spreadRadius: ($size * math.floor(math.div($spread, 100))),
+    $blurRadius: ($size - ($size * math.floor(math.div($spread, 100))))
+    @return $offsetX px $offsetY px $blurRadius px $spreadRadius px rgba($color, math.div($opacity, 100))
+
+
+@function rationalFontSize($base-size, $base-window-size) // pxで指定
+    @return $base-size/$base-window-size*100vw

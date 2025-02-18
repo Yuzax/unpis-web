@@ -1,0 +1,76 @@
+@use "../../_foundation" as f
+
+.p-header
+    position: relative
+    @include f.media()
+        //- another
+        display: flex
+        flex-direction: column
+        height: 100svh
+
+
+    //- another
+    &__item
+        display: flex
+        flex-direction: column
+
+
+    &__title
+        padding: calc(8.2/676 * 100%) calc(0.84/676 * 100%)
+        width: calc(557/676 * 100%)
+        @include f.media(largeDesktop)
+            padding: 8.2px 0.84px
+            width: 557px
+        @include f.media()
+            padding: 31.234px 17.813px
+            width: 557px
+            @include f.media(logo)
+                padding: calc(18.72/390 * 100%) calc(18.5/676 * 100%)
+                width: calc(334/390 * 100%)
+
+        span
+            display: none
+
+        &-img
+            width: 100%
+            height: auto
+
+
+    &__button
+        position: absolute
+        right: 36px
+        bottom: 37px
+        @include f.media()
+            right: 21px
+            bottom: 30px
+
+        &-body
+            @include f.largeButton(#FFF, f.$color-blue, f.$color-blue)
+            margin: 0 auto
+
+            &.is-hover
+                background: #FFF
+                color: f.$color-blue
+
+    &__button-another
+        display: block
+        margin: auto 0 0
+        width: calc(100% + 44/676 * 100%)
+        margin: auto calc(-22/676 * 100%) calc(-21/676 * 100%)
+        @include f.media(largeDesktop)
+            width: calc(100% + 44px)
+            margin: auto -22px -21px
+        @include f.media()
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 100%
+            padding: 0
+            margin: auto 0 0
+
+        &-body
+            @include f.maxButton(#FFF, rgb(0, 163, 218))
+
+            &.is-hover
+                background: #FFF
+                color: rgb(0, 163, 218)
