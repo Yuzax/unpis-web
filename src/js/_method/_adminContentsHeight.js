@@ -14,11 +14,11 @@ const getPadding = (_elem) => {
 const calcTargetHeight = (_target) => {
     const windowHeight = window.innerHeight;
     for (let i = 0; i < _target.length; i++) {
+        _target[i].style.height = '';
         if (
             isPhoneWindowSize() &&
             _target[i].classList.contains('js-fit-content--only-pc')
         ) {
-            _target[i].style.height = '';
             continue;
         }
         let height = 0;
@@ -26,6 +26,7 @@ const calcTargetHeight = (_target) => {
             'js-fit-content__container',
         );
         const img = _target[i].getElementsByClassName('js-fit-content__img')[0];
+        if (img != undefined) img.style.height = '';
         for (let k = 0; k < container.length; k++) {
             let containerHeight = 0;
             containerHeight += getPadding(container[k]);
@@ -34,23 +35,19 @@ const calcTargetHeight = (_target) => {
             );
             for (let m = 0; m < item.length; m++) {
                 containerHeight += item[m].getBoundingClientRect().height;
-                let imgIdealHeight = 0;
                 if (m == item.length - 1 && k == container.length - 1) {
-                    if (img != undefined) {
-                        if (isPhoneWindowSize()) {
-                            // imgIdealHeight =
-                            //     (parseFloat(img.getAttribute('data-height')) *
-                            //         windowWidth) /
-                            //     parseFloat(img.getAttribute('data-width'));
-                            imgIdealHeight = windowWidth;
-                            containerHeight += imgIdealHeight;
-                            img.style.height = imgIdealHeight + 'px';
-                        } else {
-                            img.style.height = '';
-                        }
+                    let imgIdealHeight = null;
+                    if (img != undefined && isPhoneWindowSize()) {
+                        imgIdealHeight = img.classList.contains(
+                            'js-fit-content__img--logo',
+                        )
+                            ? windowWidth / 2
+                            : windowWidth;
+                        containerHeight += imgIdealHeight;
+                        img.style.height = imgIdealHeight + 'px';
                     }
-                    if (height < containerHeight) height = containerHeight;
-                    height = height * container.length;
+                    //- コンテナが複数ある場合は、コンテナ分掛け合わせておく。
+                    height = containerHeight * container.length;
                     if (windowHeight > height) {
                         if (img != undefined && isPhoneWindowSize()) {
                             const imgTargetHeight =
@@ -83,6 +80,6 @@ export const init = () => {
 export const resize = () => {
     if (target == null || target == undefined) return false;
     if (!isDesktop() && windowWidth == window.innerWidth) return false;
-    windowWidth == window.innerWidth;
+    windowWidth = window.innerWidth;
     calcTargetHeight(target);
 };

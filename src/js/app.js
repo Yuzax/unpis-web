@@ -11,6 +11,7 @@ import {
     init as InitAdminContentsHeight,
     resize as ResizeAdminContentsHeight,
 } from 'AppJs/_method/_adminContentsHeight';
+import { init as InitLogoAnimation } from 'AppJs/_method/_animLogo';
 
 // // variable
 let ticking = false;
@@ -33,6 +34,7 @@ const init = async () => {
     InitLazyLoad();
     InitTargetScroll();
     InitAvoidReload();
+    InitLogoAnimation();
 };
 init();
 

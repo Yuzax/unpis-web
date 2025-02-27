@@ -1,21 +1,4 @@
-
-<header>
-  <section class="c-half-layout p-header js-fit-content">
-    <div class="c-half-layout__item p-header__item js-fit-content__container">
-      <h1 class="p-header__title js-fit-content__item">
-        <?php
-        $title = get_field('header_text', 'option');
-        if($title):
-        ?><span class="p-header__title-text"><?= $title; ?></span><?php endif; ?>
-        <?php
-        $main_img = get_field('header_svg', 'option');
-        if($main_img):
-        ?><img class="p-header__title-img" src="<?= $main_img; ?>" alt="&lt;?= $title; ?&gt;"/><?php endif; ?>
-      </h1>
-    </div>
-    <div class="c-half-layout__item p-header__item js-fit-content__img js-fit-content__img--logo">
-      <div class="c-half-layout__img c-half-layout__img--logo">
-        <?php echo '<?xml version="1.0" encoding="UTF-8"?>' ?><svg class="p-anim-logo js-anim-logo" xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" preserveAspectRatio="none">
+<svg class="p-anim-logo js-anim-logo" xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" preserveAspectRatio="none">
   <g>
     <rect class="p-anim-logo__rect--3 js-anim-logo__rect--3" x="216" y="32" width="64" height="108"/>
     <rect class="p-anim-logo__rect--1 js-anim-logo__rect--1" x="720" y="264" width="80" height="56"/>
@@ -102,10 +85,3 @@
     <rect class="p-anim-logo__rect--2 js-anim-logo__rect--2" x="328" y="264" width="40" height="136"/>
   </g>
 </svg>
-      </div>
-    </div>
-    <div class="p-header__button">
-      <button class="p-header__button-body js-hover js-scroll-to-btn" data-target="1"><span>本講座に関するお問い合わせ｜↓</span></button>
-    </div>
-  </section>
-</header>
