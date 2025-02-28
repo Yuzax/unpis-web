@@ -8,8 +8,12 @@ let colorClassList = [
     'js-anim-logo__rect--4',
 ];
 let colorList = ['#e8374a', '#00a180', '#ed6c00', '#0075c2'];
-let saturateArea = [50, 150];
-let brightnessArea = [50, 100];
+let shuffleInterval = {
+    min: 100,
+    max: 3000,
+};
+// let saturateArea = [50, 150];
+// let brightnessArea = [50, 100];
 
 const shuffleInt = (_min, _max) => {
     return Math.floor(Math.random() * (_max + 1 - _min)) + _min;
@@ -52,11 +56,13 @@ const shuffle = () => {
     shuffleElements();
     shuffleColors();
     // shuffleFilters();
+    // setTimeout(shuffle, shuffleInt(shuffleInterval.min, shuffleInterval.max));
 };
 
 export const init = () => {
     target = document.getElementsByClassName('js-anim-logo')[0];
     pathGroup = target.getElementsByTagName('g')[0];
     paths = Array.from(pathGroup.children);
-    setInterval(shuffle, 3000);
+    setInterval(shuffle, 2000);
+    // setTimeout(shuffle, shuffleInt(shuffleInterval.min, shuffleInterval.max));
 };
