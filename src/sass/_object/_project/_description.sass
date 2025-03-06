@@ -3,22 +3,32 @@
 .p-description
     background: f.$color-light-bg
 
-    &__title
-        @include f.font-styling(f.rationalFontSize(32, 1440), 1.6, 0.0)
-        max-width: 955px
-        padding: 0 0 calc(44/676 * 100%)
-        @include f.media(largeDesktop)
-            font-size: 3.2rem
-            padding: 0 0 44px
-        @include f.media()
-            font-size: 2.2rem
-            max-width: 557px
-            padding: 18px 18px 63px
-
+    &--second
+        background: none
 
     &__text
         max-width: 930px
-        padding: 0 calc(18/676 * 100%) 0 0
         @include f.media()
             max-width: 557px
-            padding: 0 18px 0
+            padding: 18px 18px 63px
+
+        h3
+            @include f.font-styling(f.rationalFontSize(32, 1440), 1.6, 0.0)
+            max-width: 955px
+            padding: 0 0 calc(40/676 * 100%)
+            @include f.media(largeDesktop)
+                font-size: 3.2rem
+                padding: 0 0 40px
+            @include f.media()
+                font-size: 2.2rem
+                max-width: 557px
+
+            &:not(:first-child)
+                padding: calc(20/676 * 100%) 0
+                @include f.media(largeDesktop)
+                    padding: 20px 0
+
+        p:not(:last-child)
+            margin: 0 0 calc(32/676 * 100%)
+            @include f.media(largeDesktop)
+                margin: 0 0 32px

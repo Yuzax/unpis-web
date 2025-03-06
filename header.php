@@ -91,4 +91,4 @@ if($main_img):
     <rect class="p-anim-logo__rect--2 js-anim-logo__rect--2" x="280" y="144" width="56" height="120"/>
     <rect class="p-anim-logo__rect--2 js-anim-logo__rect--2" x="328" y="264" width="40" height="136"/>
   </g>
-</svg></div></div><div class="p-header__button"><button class="p-header__button-body js-hover js-scroll-to-btn" data-target="1"><span>本講座に関するお問い合わせ｜↓</span></button></div></section></header>
+</svg></div></div><div class="p-header__button"><button class="p-header__button-body js-hover js-scroll-to-btn" data-target="1"><span>講座開設記念シンポジウム｜↓</span></button></div></section></header>
