@@ -1,29 +1,21 @@
-header
+header.l-header
 
-    section.c-half-layout.p-header.js-fit-content
+    a.l-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動")
+        |unpis
 
-        .c-half-layout__item.p-header__item.js-fit-content__container
-            h1.p-header__title.js-fit-content__item
-                |<?php
-                |$title = get_field('header_text', 'option');
-                |if($title):
-                |?>
-                span.p-header__title-text <?= $title; ?>
-                |<?php endif; ?>
+    |<?php  if (is_front_page()): ?>
+    .l-header__kv-note.js-change-color-target.js-kv-note
+        include ../../src/img/kv-note-arrow.svg
+        p.js-kv-note__text Keep pushing
 
-                |<?php
-                |$main_img = get_field('header_svg', 'option');
-                |if($main_img):
-                |?>
-                img.p-header__title-img(src!="<?= $main_img; ?>" alt="<?= $title; ?>")
-                |<?php endif; ?>
+    button.l-header__button.l-header__button--arrow.js-kv-note__visible-target.js-change-color-target.js-hover.js-scroll-to-btn.js-is-in-kv.is-hide(type="button" aria-label="ワークス一覧へ移動" data-target="1")
+        include ../../src/img/kv-arrow.svg
+    |<?php endif; ?>
 
-        .c-half-layout__item.p-header__item.js-fit-content__img.js-fit-content__img--logo
-            .c-half-layout__img.c-half-layout__img--logo
-                //- include ./_mixin/_get-large-image.pug
-                |<?php echo '<?xml version="1.0" encoding="UTF-8"?>' ?>
-                include ./../img/logo.svg
+    button.l-header__button.l-header__button--face.js-kv-note__visible-target.js-change-color-btn.js-hover(type="button" aria-label="ダークモード・ライトモードを切り替え" class!="<?php  if (is_front_page()){ echo 'js-is-in-kv is-hide'; }; ?>")
+        span
+            img(src!="<?php bloginfo('template_directory'); ?>/assets/img/base/face.svg" alt="Face")
+            img(src!="<?php bloginfo('template_directory'); ?>/assets/img/base/face-light.svg" alt="Face with Light")
 
-        .p-header__button
-            button.p-header__button-body.js-hover.js-scroll-to-btn(data-target="1")
-                span 講座開設記念シンポジウム｜↓
+    a.l-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/about/' ); ?>" aria-label="Aboutページに移動")
+        |about

@@ -1,9 +1,12 @@
 block variable
 include ../head.pug
-body(data-section="0" data-barba="wrapper")
-    div(data-barba = "container" data-barba-namespace="common")
+body(data-barba="wrapper" data-section="0")
+    div.l-wrap(data-barba = "container" data-barba-namespace="common")
+        |<?php if ( is_front_page() ) : ?>
+        |<?php include get_template_directory() . '/parts/kv.php'; ?>
+        |<?php endif; ?>
         |<?php get_header(); ?>
-        div
+        div.l-container
             block contents
         |<?php get_footer(); ?>
         |<?php wp_footer(); ?>

@@ -1,3 +1,5 @@
+@use "./_media" as m
+
 @mixin backgroundImage
     background-size: contain
     background-repeat: no-repeat
@@ -17,3 +19,12 @@
     background-size: 100% $line-width // 幅(100%=文字の長さ) | 高さ(線の太さ)
     background-position: bottom // 下に配置
     padding: $offset 0 // オフセット
+
+@mixin contentNarrowWidth($mt: 0, $mb: 0)
+    width: calc(100% - 192px)
+    max-width: 1728px
+    margin: $mt auto $mb auto
+    @include m.media()
+        width: calc(100% - 64px)
+        max-width: none
+        margin: $mt auto $mb auto

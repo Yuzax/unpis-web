@@ -1,26 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Quicksand:wght@500;600;700&display=swap')
+// 500: medium, 600: semi-bold, 700: bold
 
-@mixin font-face($family, $file, $path, $weight: normal, $style: normal)
-    @font-face
-        font-family: $family
-        src: url($path + $file + '.woff') format('woff'), url($path + $file + '.otf') format('opentype')
-        font-weight: $weight
-        font-style: $style
-
-@mixin font-styling($font-size, $line-height, $letter-spacing)
+@mixin font-styling($font-size, $line-height, $letter-spacing, $font-weight: 600)
     font-size: $font-size
     line-height: $line-height
     letter-spacing: $letter-spacing
-    // font-weight: $font-weight
+    font-weight: $font-weight
 
 @mixin font
-    font-family: "Space Grotesk", "Noto Sans JP", sans-serif
-    font-weight: 300
-
-@mixin font-jp
-    font-family: "Noto Sans JP", sans-serif
-    font-weight: 300
-
-@mixin font-bold
-    font-family: "Space Grotesk", "Noto Sans JP", sans-serif
-    font-weight: 700
+    font-family: "Quicksand", "Kosugi Maru", sans-serif

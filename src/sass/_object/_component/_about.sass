@@ -1,0 +1,117 @@
+@use "../../_foundation" as f
+
+.c-about
+    padding: 21.5px 0 252px
+    @include f.contentNarrowWidth()
+    @include f.media()
+        padding: 23px 0 129px
+
+
+    &__arrow
+        margin: 0 0 50.5px
+        text-align: center
+        @include f.media()
+            margin: 0 0 44px
+
+        svg
+            width: 27px
+            height: auto
+            @include f.media()
+                width: 18px
+
+            path
+                fill: f.$color-black
+
+        &.is-rev
+            svg
+                path
+                    fill: f.$color-white
+
+
+    &__profile-jp
+        @include f.font-styling(1.6rem, calc(24/16), 0.02em, 400)
+        margin: 0 0 20.3px
+        text-align: center
+        opacity: 0.5
+        @include f.media()
+            font-size: 1.3rem
+            line-height: calc(20/13)
+            text-align: left
+            margin: 0 0 20px
+
+        &.is-active
+            opacity: 1
+
+
+    &__profile-en
+        @include f.font-styling(1.8rem, calc(24/18), 0.02em, 500)
+        margin: 0 0 51.5px
+        text-align: center
+        opacity: 0.5
+        @include f.media()
+            font-size: 1.4rem
+            line-height: calc(20/14)
+            text-align: left
+            margin: 0 0 42px
+
+        &.is-active
+            opacity: 1
+
+
+    &__border
+        width: 27px
+        height: 3px
+        margin: 0 auto 49.5px
+        border: none
+        border-radius: 1.5px
+        background: f.$color-black
+        @include f.media()
+            width: 18px
+            height: 2px
+            margin: 0 auto 37px
+            border-radius: 1px
+
+        &.is-rev
+            background: f.$color-white
+
+
+    &__mail
+        text-align: center
+
+
+        &-button
+            position: relative
+            padding: 8px 0
+            margin: -8px 0
+            color: inherit
+            @include f.font-styling(3.2rem, calc(34/32), 0.02em)
+            @include f.media()
+                font-size: 2.2rem
+                line-height: calc(34/22)
+
+            &::after
+                content: ''
+                position: absolute
+                left: -1.5px
+                bottom: -12.5px
+                display: block
+                width: calc(100% + 3px)
+                height: 3px
+                border-radius: 1.5px
+                background: f.$color-black
+                pointer-events: none
+                @include f.hover-opacity
+                @include f.media()
+                    left: -1px
+                    bottom: -4px
+                    width: calc(100% + 2px)
+                    height: 2px
+                    border-radius: 1px
+
+            &.is-hover
+                &::after
+                    opacity: 0
+
+            &.is-rev
+                &::after
+                    background: f.$color-white

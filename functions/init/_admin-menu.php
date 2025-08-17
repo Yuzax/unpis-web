@@ -42,6 +42,7 @@ function custom_menu_order($menu_old) {
     return array(
         'index.php', // ダッシュボード
         'theme-options', //共通オプション
+        'edit.php', 
         'edit.php?post_type=page',
         'edit-comments.php', // コメント
         'separator1', // 区切り線１

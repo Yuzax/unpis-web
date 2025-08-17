@@ -13,8 +13,12 @@ html
     font-size: 62.5%
     -webkit-font-smoothing: antialiased
     background: v.$color-bg
-    color: v.$color-black
+    color: v.$color-plain-text
     font-feature-settings: "palt"
+
+    &.is-rev
+        background: v.$color-bg-dark
+        color: v.$color-plain-text-dark
 
 body
     margin: 0
@@ -25,8 +29,6 @@ body
     position: relative
     box-sizing: border-box
     min-height: 100%
-    color: v.$color-black
-    background: v.$color-bg
 
 
 // ==========================================================================

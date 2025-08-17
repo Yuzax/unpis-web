@@ -1,0 +1,30 @@
+.c-sort
+    .c-sort__wrap
+
+
+        ul.c-sort__category
+            |<?php
+            |$page_for_posts_id = get_option( 'page_for_posts' );
+            |$posts_page_url = get_permalink( $page_for_posts_id );
+            |?>
+            li
+                a.js-change-color-target.js-hover(class!="<?php if(is_home() || is_front_page()){ echo 'is-active'; }; ?>" href!="<?= $posts_page_url; ?>" aria-label!="全てのカテゴリ一覧へ")
+                    |all
+            |<?php
+            |$categories = get_categories();
+            |$current_cat = get_queried_object();
+            |foreach ($categories as $category):
+            |?>
+            li
+                a.js-change-color-target.js-hover(class!="<?php if($current_cat->name == $category->name){ echo 'is-active'; }; ?>" href!="<?= get_category_link($category->term_id); ?>" aria-label!="<?= $category->name . 'でフィルター'; ?>")
+                    |<?= $category->name; ?>
+            |<?php endforeach; ?>
+
+
+        .c-sort__layout.js-change-color-target
+            button.js-change-color-target.js-hover.js-change-style__button.js-change-style__button--tile.is-active(type="button" aria-label="タイルレイアウトにレイアウトを変更" aria-pressed="true")
+                |tile
+            span.js-change-color-target.js-change-style__arrow
+                include ../../../src/img/sort-arrow.svg
+            button.js-hover.js-change-style__button(type="button" aria-label="リストレイアウトにレイアウトを変更" aria-pressed="false")
+                |list

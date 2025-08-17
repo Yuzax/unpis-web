@@ -1,0 +1,123 @@
+@use "../../_foundation" as f
+
+.c-sort
+    position: relative
+    width: 100%
+    padding: 170px 0 0
+    @include f.contentNarrowWidth(0, 91px)
+    @include f.media()
+        padding: 65px 0 0
+        margin: 0 auto 39px
+
+    &__wrap
+        position: relative
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        width: 100%
+        @include f.media()
+            display: block
+
+    &__category
+        display: flex
+        flex-wrap: wrap
+        flex-shrink: 0
+        max-width: calc(100% - 195px) // 本当の横幅は215pxだが、カテゴリボタン横のマージン分削る
+        margin: 0 0 -18px
+        @include f.media()
+            width: calc(100% + 14px)
+            max-width: none
+            margin: 0 -14px 39px 0
+
+        li
+            margin: 0 20px 18px 0
+            @include f.media()
+                margin: 0 14px 2px 0
+
+
+        a
+            @include f.font-styling(3.2rem, calc(34/32), 0.02em)
+            @include f.hover-opacity
+            padding: 8px 0
+            margin: -8px 0
+            opacity: 0.6
+            color: inherit
+            @include f.media()
+                font-size: 2.2rem
+                line-height: calc(34/22)
+
+            &.is-rev
+                opacity: 0.5
+
+            &.is-active, &.is-hover
+                opacity: 1
+
+
+    &__layout
+        position: absolute
+        right: 0
+        bottom: 0
+        display: flex
+        flex-wrap: wrap
+        flex-shrink: 0
+        margin: 0 0 0 auto
+        @include f.media()
+            position: relative
+            margin: 0
+
+        @include f.media()
+            &::before
+                content: ''
+                position: absolute
+                top: -20px
+                left: 0
+                display: block
+                width: 22px
+                height: 2px
+                background: f.$color-icon-gray
+
+            &.is-rev
+                &:before
+                    background: f.$color-icon-gray-dark
+
+        span
+            margin: 6.95px 22.5px 4.95px
+            @include f.media()
+                margin: 10.64px 13px 8.64px
+
+            svg
+                width: 27px
+                height: 22.9px
+                @include f.media()
+                    width: 17px
+                    height: 14.73px
+
+        button
+            @include f.font-styling(3.2rem, calc(34/32), 0.02em)
+            @include f.hover-opacity
+            padding: 8px 0
+            margin: -8px 0
+            color: inherit
+            opacity: 0.6
+            @include f.media()
+                font-size: 2.2rem
+                line-height: calc(34/22)
+
+            &.is-rev
+                opacity: 0.5
+
+            &.is-active, &.is-hover
+                opacity: 1
+
+
+        span
+            svg path
+                fill: f.$color-black
+
+            &.is-rev
+                svg path
+                    fill: f.$color-white
+
+            &.is-list
+                svg
+                    rotate: 180deg

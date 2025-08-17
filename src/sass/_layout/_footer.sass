@@ -1,0 +1,50 @@
+@use "../_foundation" as f
+
+.l-footer
+    position: relative
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    flex-shrink: 0
+    padding: 0 0 235px
+    @include f.font-styling(3.2rem, calc(34/32), 0.02em)
+    @include f.contentNarrowWidth(auto)
+    @include f.media()
+        padding: 0 0 63px
+        @include f.font-styling(2.2rem, calc(34/22), 0.02em)
+
+
+    &__nav
+        position: absolute
+        left: 50%
+        display: flex
+        align-items: flex-start
+        transform: translate(-50%, 0)
+        @include f.media()
+            position: static
+            left: auto
+            transform: translate(0, 0)
+
+        &-link
+            @include f.hover-opacity
+            padding: 8px 0
+            margin: -8px 0
+
+            &.is-hover
+                opacity: 0.6
+
+        &-dot
+            display: block
+            width: 4px
+            height: 4px
+            margin: 16px 8px 0
+            border-radius: 4px
+            background: f.$color-gray
+            @include f.media()
+                width: 14px
+                height: 0px
+                margin: 0
+                border-radius: 0
+
+            &.is-rev
+                background: f.$color-gray-dark

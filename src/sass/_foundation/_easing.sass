@@ -1,3 +1,5 @@
+@use "sass:string"
+
 @function returnEaseTypeToCubicBezier($type)
     $easingValue: ""
 
@@ -63,11 +65,11 @@
     @else if $type ==  "easeInOutBack"
         $easingValue: "0.680, -0.550, 0.265, 1.550"
 
-    @return unquote($easingValue)
+    @return string.unquote($easingValue)
 
 // cubic-bezierの呼び出し
 @function ease($type)
-    @return unquote("cubic-bezier(#{returnEaseTypeToCubicBezier($type)})")
+    @return string.unquote("cubic-bezier(#{returnEaseTypeToCubicBezier($type)})")
 
 // ease
 // ref(https://easings.net/ja)

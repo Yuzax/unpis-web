@@ -3,19 +3,29 @@ import 'AppSass/_style.sass';
 
 // import methods
 import { init as InitHover } from 'AppJs/_method/_hover';
+import {
+    init as InitChangeColor,
+    update as UpdateChangeColor,
+} from 'AppJs/_method/_changeColor';
+import { init as InitCopyAddress } from 'AppJs/_method/_copyAddress';
 import { init as InitLazyLoad } from 'AppJs/_method/_activateLazyload';
 import { init as InitTargetScroll } from 'AppJs/_method/_targetScroll';
 import { init as InitBarba } from 'AppJs/_method/_barba';
 import { init as InitAvoidReload } from 'AppJs/_method/_avoidReload';
 import {
-    init as InitAdminContentsHeight,
-    resize as ResizeAdminContentsHeight,
-} from 'AppJs/_method/_adminContentsHeight';
-import { init as InitLogoAnimation } from 'AppJs/_method/_animLogo';
+    init as InitIsInKV,
+    toggle as ToggleIsInKV,
+} from 'AppJs/_method/_isInKV';
+import { init as InitKvNote } from 'AppJs/_method/_kvNote';
+import {
+    init as InitMasonry,
+    resize as ResizeMasonry,
+} from 'AppJs/_method/_masonry';
+import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 
 // // variable
 let ticking = false;
-// let scrollTop = 0;
+let scrollTop = 0;
 
 // 下記で環境変数を取得可能
 // process.env.NODE_ENV
@@ -28,15 +38,26 @@ let ticking = false;
 // DOM LOADED
 ///////////////////////////////////////////////////////
 const init = async () => {
-    // const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    InitAdminContentsHeight();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    InitMasonry();
     InitHover();
     InitLazyLoad();
     InitTargetScroll();
     InitAvoidReload();
-    InitLogoAnimation();
+    InitChangeColor();
+    InitCopyAddress();
+    InitIsInKV(scrollTop);
+    InitKvNote();
+    InitChangeStyle();
 };
 init();
+
+///////////////////////////////////////////////////////
+// UPDATE（ページ遷移時のBarbaの挙動）
+///////////////////////////////////////////////////////
+const update = () => {
+    UpdateChangeColor();
+};
 
 ///////////////////////////////////////////////////////
 // RESIZE
@@ -46,8 +67,10 @@ const resize = () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 ticking = false;
-                ResizeAdminContentsHeight();
-                //   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollTop =
+                    window.pageYOffset || document.documentElement.scrollTop;
+                ResizeMasonry();
+                ToggleIsInKV(scrollTop);
             });
             ticking = true;
         }
@@ -58,27 +81,19 @@ resize();
 ///////////////////////////////////////////////////////
 // SCROLL
 ///////////////////////////////////////////////////////
-// window.addEventListener( 'scroll', () => {
-//   if( !ticking ) {
-//   window.requestAnimationFrame( () => {
-//     ticking = false;
-//     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-//   });
-//   ticking = true;
-//   }
-// })
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            ticking = false;
+            scrollTop =
+                window.pageYOffset || document.documentElement.scrollTop;
+            ToggleIsInKV(scrollTop);
+        });
+        ticking = true;
+    }
+});
 
 ///////////////////////////////////////////////////////
 // Barba
 ///////////////////////////////////////////////////////
-InitBarba(init);
-
-///////////////////////////////////////////////////////
-// Fonts
-///////////////////////////////////////////////////////
-const fontReady = () => {
-    document.fonts.ready.then(() => {
-        InitAdminContentsHeight();
-    });
-};
-fontReady();
+InitBarba(init, update);

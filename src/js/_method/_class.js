@@ -40,7 +40,7 @@ export const isDesktopWindowSize = () => {
 };
 
 export const isLargeDesktopWindowSize = () => {
-    return window.matchMedia('(min-width:1441px)').matches;
+    return window.matchMedia('(min-width:2001px)').matches;
 };
 
 export const getWindowSize = () => {

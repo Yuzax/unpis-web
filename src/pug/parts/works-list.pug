@@ -1,0 +1,41 @@
+ol.c-works-list.js-masonry.js-change-style
+
+    //- 必要なポストを抽出
+    |<?php
+    |$cat_slug = '';
+    |if(!is_home() && !is_front_page()) $cat_slug = get_queried_object() -> slug;
+    |$args = array(
+    |   'posts_per_page' => 12,
+    |   'post_type' => 'post',
+    |   'post_status' => 'publish',
+    |   'orderby' => 'date',
+    |   'order' => 'DESC',
+    |   'category_name' => $cat_slug
+    |);
+    |$posts = get_posts($args);
+    |?>
+
+    //- ポストのループ処理
+    |<?php if (have_posts()): foreach ($posts as $post): setup_postdata($post); ?>
+    //- ポストの各素材を取得
+    |<?php
+    |$image_array = get_thumbnail_image_array(get_post_thumbnail_id());
+    |if((is_home() || is_front_page()) && get_field('top_thumbnail')) $image_array = get_image_array('top_thumbnail');
+    |?>
+    li.c-works-list__item.js-masonry__item.js-change-style__item(class!="<?php if($image_array['width'] <= $image_array['height']){ echo 'c-works-list__item--vertical'; } ?>")
+        a.c-works-list__item-link.js-hover(href!="<?php the_permalink(); ?>")
+            img.js-change-style__image(
+                alt!="<?= get_the_title() . ' thumbnail image'; ?>"
+                width!="<?= $image_array['width']; ?>"
+                height!="<?= $image_array['height']; ?>"
+                src!="<?= $image_array['small']; ?>"
+                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
+                sizes="(max-width: 768px) 50vw, (max-width: 2000px) 33vw, 25vw"
+                data-sizes-list="100vw"
+            )
+        .c-works-list__text
+            h2.c-works-list__title <?= get_the_title(); ?>
+            |<?php if(get_field('works_remarks')): ?>
+            p.c-works-list__note <?= get_field('works_remarks'); ?>
+            |<?php endif; ?>
+    |<?php endforeach; endif; wp_reset_postdata(); ?>

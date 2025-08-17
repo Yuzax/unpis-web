@@ -1,0 +1,139 @@
+@use "../../_foundation" as f
+
+.c-works-list
+    position: relative
+    display: flex
+    flex-wrap: wrap
+    align-items: flex-start
+    opacity: 0
+    width: calc(100% - 64px)
+    margin: 0 auto 313px
+    @include f.hover-opacity
+    @include f.media()
+        width: calc(100% - 32px)
+        margin: 0 auto 118px
+
+    //- リストタイプの時（デフォルトはメーソンリーになってる）
+    &.is-active-list
+        display: block
+        width: calc(100% - 480px)
+        @include f.media(smallDesktop)
+            width: calc(100% - 240px)
+            @include f.media()
+                width: calc(100% - 32px)
+
+    &.is-active
+        opacity: 100
+
+
+    &__item
+        position: absolute
+        width: calc((100% - 64px)/3)
+        margin: 0
+
+        @include f.media()
+            width: calc((100% - 16px)/2)
+            &:nth-child(2n-1)
+                margin: 0 16px 16px 0
+
+        @include f.media(mediumDesktop)
+            &:nth-child(3n-2)
+                margin: 0 32px 32px 0
+            &:nth-child(3n)
+                margin: 0 0 32px 32px
+
+        @include f.media(largeDesktop)
+            width: calc((100% - 96px)/4)
+            &:nth-child(4n-3)
+                margin: 0 32px 32px 0
+            &:nth-child(4n)
+                margin: 0 0 32px 32px
+
+        //- リストタイプの時
+        &.is-active-list
+            position: static
+            width: 100%
+            margin: 0 auto 93px
+            @include f.media()
+                margin: 0 auto 46px
+
+        &--vertical.is-active-list
+            width: calc(100% - 208px)
+            @include f.media()
+                width: calc(100% - 94px)
+
+        //- メーソンリーの時（デフォルトのスタイルにアタッチ）
+        &.is-active-masonry
+            position: absolute
+            will-change: top
+
+            @include f.media()
+                &:nth-child(2n-1)
+                    left: 0
+                &:nth-child(2n)
+                    right: 0
+
+            @include f.media(mediumDesktop)
+                &:nth-child(3n-2)
+                    left: 0
+                &:nth-child(3n-1)
+                    transform: translate(50%, 0)
+                    right: 50%
+                &:nth-child(3n)
+                    right: 0
+
+            @include f.media(largeDesktop)
+                &:nth-child(4n-3)
+                    left: 0
+                &:nth-child(4n-2)
+                    transform: translate(calc(-16px), 0)
+                    right: 50%
+                &:nth-child(4n-1)
+                    transform: translate(calc(100% + 16px), 0)
+                    right: 50%
+                &:nth-child(4n)
+                    right: 0
+
+            .c-works-list__text
+                display: none
+
+        &-link
+            display: block
+
+        img
+            width: 100%
+            height: auto
+            pointer-events: none
+            // opacity: 0
+            @include f.hover-opacity
+
+            &.is-entered
+                opacity: 1
+                transition: none
+
+
+    &__text
+        padding: 26px 0 0
+        text-align: center
+        @include f.media()
+            padding: 20px 0 0
+
+
+    &__title
+        @include f.font-styling(1.6rem, calc(22/16), 0.02em)
+        @include f.media()
+            font-size: 1.4rem
+            line-height: calc(16/14)
+
+        &:not(:last-child)
+            margin: 0 0 6px
+            @include f.media()
+                margin: 0 0 7px
+
+
+    &__note
+        @include f.font-styling(1.2rem, calc(16/12), 0.02em)
+        opacity: 0.3
+        @include f.media()
+            font-size: 1.1rem
+            line-height: calc(12/11)
