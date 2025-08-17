@@ -22,9 +22,16 @@
 
 
         .c-sort__layout.js-change-color-target
-            button.js-change-color-target.js-hover.js-change-style__button.js-change-style__button--tile.is-active(type="button" aria-label="タイルレイアウトにレイアウトを変更" aria-pressed="true")
+            |<?php
+            |// JavaScriptで設定されたレイアウト状態を確認
+            |$is_list_layout = false;
+            |if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
+            |    $is_list_layout = true;
+            |}
+            |?>
+            button.js-change-color-target.js-hover.js-change-style__button.js-change-style__button--tile(class!="<?php if(!$is_list_layout){ echo 'is-active'; }; ?>" type="button" aria-label="タイルレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'false' : 'true'; ?>")
                 |tile
-            span.js-change-color-target.js-change-style__arrow
+            span.js-change-color-target.js-change-style__arrow(class!="<?php if($is_list_layout){ echo 'is-list'; }; ?>")
                 include ../../../src/img/sort-arrow.svg
-            button.js-hover.js-change-style__button(type="button" aria-label="リストレイアウトにレイアウトを変更" aria-pressed="false")
+            button.js-hover.js-change-style__button.js-change-style__button--list(class!="<?php if($is_list_layout){ echo 'is-active'; }; ?>" type="button" aria-label="リストレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'true' : 'false'; ?>")
                 |list

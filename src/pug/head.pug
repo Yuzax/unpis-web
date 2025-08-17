@@ -1,4 +1,15 @@
-<html class="js-change-color-target" lang="ja">
+|<?php
+|// Cookieからカラーモードとレイアウトスタイルを取得
+|$is_dark_mode = false;
+|if (isset($_COOKIE['color_mode']) && $_COOKIE['color_mode'] === 'dark') {
+|    $is_dark_mode = true;
+|}
+|$is_list_layout = false;
+|if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
+|    $is_list_layout = true;
+|}
+|?>
+<html class="js-change-color-target js-change-style-target<?php if($is_dark_mode){ echo ' is-rev'; }; ?><?php if($is_list_layout){ echo ' is-list'; }; ?>" lang="ja">
 head
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width,initial-scale=1')

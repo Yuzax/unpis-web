@@ -5,7 +5,8 @@ import {
 
 let arrow = null,
     worksWrap = null,
-    worksItem = [];
+    worksItem = [],
+    htmlTarget = null;
 
 const changeImageSize = (_target, _isList = false) => {
     const img = _target.getElementsByClassName('js-change-style__image')[0];
@@ -27,6 +28,10 @@ const changeToTile = (_targetButton) => {
     _targetButton.classList.add('is-active');
     changeArrowState();
     worksWrap.classList.remove('is-active-list');
+    // htmlタグからis-listクラスを削除
+    if (htmlTarget) htmlTarget.classList.remove('is-list');
+    // Cookieにタイルレイアウトを保存
+    document.cookie = 'layout_style=tile; path=/; max-age=31536000'; // 1年間有効
     for (let i = 0; i < worksItem.length; i++) {
         changeImageSize(worksItem[i]);
         worksItem[i].classList.remove('is-active-list');
@@ -41,6 +46,10 @@ const changeToList = (_targetButton) => {
     changeArrowState(true);
     DeleteMasonry();
     worksWrap.classList.add('is-active-list');
+    // htmlタグにis-listクラスを追加
+    if (htmlTarget) htmlTarget.classList.add('is-list');
+    // Cookieにリストレイアウトを保存
+    document.cookie = 'layout_style=list; path=/; max-age=31536000'; // 1年間有効
     for (let i = 0; i < worksItem.length; i++) {
         changeImageSize(worksItem[i], true);
         worksItem[i].classList.add('is-active-list');
@@ -59,11 +68,65 @@ const setEventListener = (_targetButtons) => {
     }
 };
 
+// Cookieから値を取得する関数
+const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+};
+
+// ページ遷移時にスタイルを復元
+const restoreStyleFromCookie = () => {
+    if (!htmlTarget || !worksWrap) return;
+
+    const layoutStyle = getCookie('layout_style');
+    const isListFromCookie = layoutStyle === 'list';
+
+    // Cookieの状態に基づいてhtmlタグにクラスを設定
+    if (isListFromCookie) {
+        htmlTarget.classList.add('is-list');
+    } else {
+        htmlTarget.classList.remove('is-list');
+    }
+
+    const isListFromWrap = worksWrap.classList.contains('is-active-list');
+
+    // Cookieの状態とworksWrapの状態が異なる場合、Cookieの状態に合わせる
+    if (isListFromCookie && !isListFromWrap) {
+        // リストスタイルに変更
+        worksWrap.classList.add('is-active-list');
+        changeArrowState(true);
+        DeleteMasonry();
+        for (let i = 0; i < worksItem.length; i++) {
+            changeImageSize(worksItem[i], true);
+            worksItem[i].classList.add('is-active-list');
+        }
+    } else if (!isListFromCookie && isListFromWrap) {
+        // タイルスタイルに変更
+        worksWrap.classList.remove('is-active-list');
+        changeArrowState();
+        for (let i = 0; i < worksItem.length; i++) {
+            changeImageSize(worksItem[i]);
+            worksItem[i].classList.remove('is-active-list');
+            if (i == worksItem.length - 1) {
+                SetMasonry();
+            }
+        }
+    }
+};
+
 export const init = () => {
     const buttons = document.getElementsByClassName('js-change-style__button');
     ((arrow = document.getElementsByClassName('js-change-style__arrow')[0]),
         (worksWrap = document.getElementsByClassName('js-change-style')[0]),
-        (worksItem = document.getElementsByClassName('js-change-style__item')));
+        (worksItem = document.getElementsByClassName('js-change-style__item')),
+        (htmlTarget = document.getElementsByClassName(
+            'js-change-style-target',
+        )[0]));
     if (worksItem.length == 0) return false;
     setEventListener(buttons);
+
+    // ページ読み込み時にCookieの状態からスタイルを復元
+    restoreStyleFromCookie();
 };

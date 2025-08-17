@@ -53,8 +53,29 @@ const loadMorePosts = async () => {
             const newItems = targetContainer.querySelectorAll(
                 '.js-masonry__item:not(.is-initialized)',
             );
+
+            // 現在のレイアウト状態を確認（htmlタグの状態を優先）
+            const htmlTarget = document.getElementsByClassName(
+                'js-change-style-target',
+            )[0];
+            const isListLayout = htmlTarget
+                ? htmlTarget.classList.contains('is-list')
+                : targetContainer.classList.contains('is-active-list');
+
             newItems.forEach((item) => {
                 item.classList.add('is-initialized');
+
+                // 現在のレイアウトに合わせてクラスを追加
+                if (isListLayout) {
+                    item.classList.add('is-active-list');
+
+                    // 画像のsizesを調整
+                    const img = item.querySelector('.js-change-style__image');
+                    if (img && img.dataset.sizesList) {
+                        img.dataset.sizesTile = img.sizes;
+                        img.sizes = img.dataset.sizesList;
+                    }
+                }
             });
 
             // ホバーイベントを再初期化
@@ -66,10 +87,12 @@ const loadMorePosts = async () => {
             // スタイル変更機能を再初期化
             InitChangeStyle();
 
-            // Masonryレイアウトを再計算
-            setTimeout(() => {
-                SetMasonryStyle();
-            }, 100);
+            // レイアウトに応じてMasonryを再計算
+            if (!isListLayout) {
+                setTimeout(() => {
+                    SetMasonryStyle();
+                }, 100);
+            }
 
             // 次のページ情報を更新
             currentPage = result.data.next_page;
