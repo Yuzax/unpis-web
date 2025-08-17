@@ -28,5 +28,6 @@ require_once locate_template('functions/init/_others.php');     // その他の�
 // ==========================================================================
 require_once locate_template('functions/theme/_modify-wysiwyg.php');     // wysiwygタグを変更する関数
 require_once locate_template('functions/theme/_get-theme-image.php');     // カテゴリを出力する関数
+require_once locate_template('functions/theme/_infinite-scroll.php');     // 無限スクロール機能
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

@@ -22,6 +22,7 @@ import {
     resize as ResizeMasonry,
 } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
+import { init as InitInfiniteScroll } from 'AppJs/_method/_infiniteScroll';
 
 // // variable
 let ticking = false;
@@ -49,6 +50,7 @@ const init = async () => {
     InitIsInKV(scrollTop);
     InitKvNote();
     InitChangeStyle();
+    InitInfiniteScroll();
 };
 init();
 

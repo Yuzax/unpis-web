@@ -1,19 +1,20 @@
-ol.c-works-list.js-masonry.js-change-style
-
-    //- 必要なポストを抽出
-    |<?php
-    |$cat_slug = '';
-    |if(!is_home() && !is_front_page()) $cat_slug = get_queried_object() -> slug;
-    |$args = array(
-    |   'posts_per_page' => 12,
-    |   'post_type' => 'post',
-    |   'post_status' => 'publish',
-    |   'orderby' => 'date',
-    |   'order' => 'DESC',
-    |   'category_name' => $cat_slug
-    |);
-    |$posts = get_posts($args);
-    |?>
+//- 必要なポストを抽出
+|<?php
+|$cat_slug = '';
+|if(!is_home() && !is_front_page()) $cat_slug = get_queried_object() -> slug;
+|$args = array(
+|   'posts_per_page' => 12,
+|   'post_type' => 'post',
+|   'post_status' => 'publish',
+|   'orderby' => 'date',
+|   'order' => 'DESC',
+|   'category_name' => $cat_slug
+|);
+|$query = new WP_Query($args);
+|$posts = $query->posts;
+|$has_more_posts = ($query->max_num_pages > 1);
+|?>
+ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-slug!="<?= $cat_slug; ?>")
 
     //- ポストのループ処理
     |<?php if (have_posts()): foreach ($posts as $post): setup_postdata($post); ?>
@@ -21,6 +22,18 @@ ol.c-works-list.js-masonry.js-change-style
     |<?php
     |$image_array = get_thumbnail_image_array(get_post_thumbnail_id());
     |if((is_home() || is_front_page()) && get_field('top_thumbnail')) $image_array = get_image_array('top_thumbnail');
+    |// 画像配列が空の場合はデフォルト画像を設定
+    |if (empty($image_array) || empty($image_array['small'])) {
+    |    $default_image_url = get_template_directory_uri() . '/src/img/default-thumbnail.jpg';
+    |    $image_array = array(
+    |        'small' => $default_image_url,
+    |        'thumbnail' => $default_image_url,
+    |        'medium' => $default_image_url,
+    |        'large' => $default_image_url,
+    |        'width' => 300,
+    |        'height' => 200
+    |    );
+    |}
     |?>
     li.c-works-list__item.js-masonry__item.js-change-style__item(class!="<?php if($image_array['width'] <= $image_array['height']){ echo 'c-works-list__item--vertical'; } ?>")
         a.c-works-list__item-link.js-hover(href!="<?php the_permalink(); ?>")
@@ -39,3 +52,8 @@ ol.c-works-list.js-masonry.js-change-style
             p.c-works-list__note <?= get_field('works_remarks'); ?>
             |<?php endif; ?>
     |<?php endforeach; endif; wp_reset_postdata(); ?>
+
+|<?php if($has_more_posts): ?>
+button.p-infinite-scroll-button.js-infinite-scroll-button(type="button" aria-label="投稿を更に読み込む" aria-pressed="false")
+    |投稿を読み込む
+|<?php endif; ?>
