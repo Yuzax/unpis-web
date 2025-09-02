@@ -2,6 +2,10 @@ import barba from '@barba/core';
 
 export const init = (_init, _update) => {
     barba.init({
+        // モーダル用のリンクをBarbaの処理から除外
+        prevent: ({ el }) => {
+            return el.classList.contains('js-works-modal-link');
+        },
         transitions: [
             {
                 // 現在のページを離れる時のフック

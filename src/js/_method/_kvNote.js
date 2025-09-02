@@ -7,6 +7,7 @@ let target = null,
 const setEventListener = () => {
     targetText.addEventListener('animationend', () => {
         setTimeout(() => {
+            if (targetText == null || target == null) return false;
             targetText.classList.remove('is-animating');
             target.classList.add('is-hide');
             for (let i = 0; i < visibleTarget.length; i++) {

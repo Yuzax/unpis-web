@@ -16,16 +16,20 @@ if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
 </head>
 <body data-barba="wrapper" data-section="0">
   <div class="l-wrap" data-barba="container" data-barba-namespace="common">
+    <?php if ( !is_single() ) : ?>
     <?php if ( is_front_page() ) : ?>
     <?php include get_template_directory() . '/parts/kv.php'; ?>
     <?php endif; ?>
     <?php get_header(); ?>
+    <?php endif; ?>
     <div class="l-container">
       <div data-section="1">
         <?php include get_template_directory() . '/parts/sort-button.php'; ?>
         <?php include get_template_directory() . '/parts/works-list.php'; ?>
       </div>
-    </div><?php get_footer(); ?>
+    </div><?php if ( !is_single() ) : ?>
+    <?php get_footer(); ?>
+    <?php endif; ?>
     <?php wp_footer(); ?>
   </div>
 </body></html>

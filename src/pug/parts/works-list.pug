@@ -22,21 +22,9 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
     |<?php
     |$image_array = get_thumbnail_image_array(get_post_thumbnail_id());
     |if((is_home() || is_front_page()) && get_field('top_thumbnail')) $image_array = get_image_array('top_thumbnail');
-    |// 画像配列が空の場合はデフォルト画像を設定
-    |if (empty($image_array) || empty($image_array['small'])) {
-    |    $default_image_url = get_template_directory_uri() . '/src/img/default-thumbnail.jpg';
-    |    $image_array = array(
-    |        'small' => $default_image_url,
-    |        'thumbnail' => $default_image_url,
-    |        'medium' => $default_image_url,
-    |        'large' => $default_image_url,
-    |        'width' => 300,
-    |        'height' => 200
-    |    );
-    |}
     |?>
     li.c-works-list__item.js-masonry__item.js-change-style__item(class!="<?php if($image_array['width'] <= $image_array['height']){ echo 'c-works-list__item--vertical'; } ?>")
-        a.c-works-list__item-link.js-hover(href!="<?php the_permalink(); ?>")
+        a.c-works-list__item-link.js-hover.js-works-modal-link(href!="<?php the_permalink(); ?>")
             img.js-change-style__image(
                 alt!="<?= get_the_title() . ' thumbnail image'; ?>"
                 width!="<?= $image_array['width']; ?>"
@@ -46,6 +34,8 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
                 sizes="(max-width: 768px) 50vw, (max-width: 2000px) 33vw, 25vw"
                 data-sizes-list="100vw"
             )
+            .c-works-list__seen-icon.js-change-color-target
+                |seen
         .c-works-list__text
             h2.c-works-list__title <?= get_the_title(); ?>
             |<?php if(get_field('works_remarks')): ?>
@@ -57,3 +47,8 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
 button.p-infinite-scroll-button.js-infinite-scroll-button(type="button" aria-label="投稿を更に読み込む" aria-pressed="false")
     |投稿を読み込む
 |<?php endif; ?>
+
+//- モーダル
+.c-works-modal.js-works-modal
+    .c-works-modal__container.js-change-color-target
+        .c-works-modal__content.js-works-modal__content

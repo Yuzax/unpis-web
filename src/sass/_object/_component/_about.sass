@@ -1,5 +1,6 @@
 @use "../../_foundation" as f
 
+
 .c-about
     padding: 21.5px 0 252px
     @include f.contentNarrowWidth()
@@ -110,7 +111,7 @@
 
             &.is-hover
                 &::after
-                    opacity: 0
+                    @include f.flash-border
 
             &.is-rev
                 &::after

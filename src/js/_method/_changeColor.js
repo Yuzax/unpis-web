@@ -55,6 +55,7 @@ const restoreColorFromCookie = () => {
 };
 
 const addMouseEvents = async (_target) => {
+    if (_target == undefined) return false;
     _target.addEventListener('click', () => {
         updateColor();
     });

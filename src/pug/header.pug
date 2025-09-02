@@ -5,11 +5,11 @@ header.l-header
 
     |<?php  if (is_front_page()): ?>
     .l-header__kv-note.js-change-color-target.js-kv-note
-        include ../../src/img/kv-note-arrow.svg
+        include ../../src/img/arrow.svg
         p.js-kv-note__text Keep pushing
 
     button.l-header__button.l-header__button--arrow.js-kv-note__visible-target.js-change-color-target.js-hover.js-scroll-to-btn.js-is-in-kv.is-hide(type="button" aria-label="ワークス一覧へ移動" data-target="1")
-        include ../../src/img/kv-arrow.svg
+        include ../../src/img/arrow-down.svg
     |<?php endif; ?>
 
     button.l-header__button.l-header__button--face.js-kv-note__visible-target.js-change-color-btn.js-hover(type="button" aria-label="ダークモード・ライトモードを切り替え" class!="<?php  if (is_front_page()){ echo 'js-is-in-kv is-hide'; }; ?>")

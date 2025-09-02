@@ -23,6 +23,12 @@ import {
 } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 import { init as InitInfiniteScroll } from 'AppJs/_method/_infiniteScroll';
+import {
+    init as InitWorksModal,
+    update as UpdateWorksModal,
+} from 'AppJs/_method/_worksModal';
+// import { init as InitIframeDetection } from 'AppJs/_method/_iframeDetection';
+import { init as InitWorksSlider } from 'AppJs/_method/_worksSlider';
 
 // // variable
 let ticking = false;
@@ -51,6 +57,9 @@ const init = async () => {
     InitKvNote();
     InitChangeStyle();
     InitInfiniteScroll();
+    InitWorksModal();
+    // InitIframeDetection();
+    InitWorksSlider();
 };
 init();
 
@@ -59,6 +68,7 @@ init();
 ///////////////////////////////////////////////////////
 const update = () => {
     UpdateChangeColor();
+    UpdateWorksModal();
 };
 
 ///////////////////////////////////////////////////////

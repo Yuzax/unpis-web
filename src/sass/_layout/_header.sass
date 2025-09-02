@@ -46,12 +46,18 @@
         transform: translate(-50%, 0)
         margin: 9px 0 0
         text-align: center
+        @include f.media()
+            margin: -11px 0 0
 
         svg
+            rotate: 90deg
             width: auto
             height: 16px
             margin: 0 0 13px
             pointer-events: none
+            @include f.media()
+                height: 14px
+                margin: 0 0 20px
 
             path
                 fill: f.$color-black
@@ -66,6 +72,9 @@
 
         p
             @include f.font-styling(1.6rem, calc(34/16), 0.02em)
+            @include f.media()
+                font-size: 1.4rem
+                line-height: calc(34/14)
 
 
             &.is-animating
@@ -87,26 +96,48 @@
             width: 56px
             height: 56px
             margin: 26px 0 0
+            border: 3px solid f.$color-black
+            border-radius: 50%
             opacity: 0
             pointer-events: none
-            @include f.hover-opacity
+            @include f.expand-circle
+            @include f.media()
+                width: 48px
+                height: 48px
+                margin: 17px 0 0
+                border: 2px solid f.$color-black
 
             &.is-in-kv
                 opacity: 1
                 pointer-events: all
 
             &.is-hover
-                opacity: 0.6
+                width: 64px
+                height: 64px
+                margin: 22px 0 0
+                @include f.media()
+                    width: 52px
+                    height: 52px
+                    margin: 15px 0 0
 
             svg
-                width: 100%
-                height: auto
+                position: absolute
+                right: 50%
+                bottom: 50%
+                transform: translate(50%, 50%)
+                width: auto
+                height: 23px
                 pointer-events: none
+                @include f.media()
+                    height: 19px
 
                 path
                     fill: f.$color-black
 
             &.is-rev
+                border: 3px solid f.$color-white
+                @include f.media()
+                    border: 2px solid f.$color-white
                 svg
                     path
                         fill: f.$color-white

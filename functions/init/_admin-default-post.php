@@ -62,11 +62,11 @@ function change_post_menu_label() {
 
 
 // 投稿ページのパーマリンクをカスタマイズ
-function add_article_post_permalink( $permalink ) {
-    $permalink = '/works' . $permalink;
-    return $permalink;
-}
-add_filter( 'pre_post_link', 'add_article_post_permalink' );
+// function add_article_post_permalink( $permalink ) {
+//     $permalink = '/works' . $permalink;
+//     return $permalink;
+// }
+// add_filter( 'pre_post_link', 'add_article_post_permalink' );
 
 
 // function add_article_post_rewrite_rules( $post_rewrite ) {

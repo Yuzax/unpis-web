@@ -1,0 +1,130 @@
+@use "../../_foundation" as f
+
+.c-works-slider
+    position: relative
+    width: 100svw
+    height: 100svh
+
+
+    &__button-wrap
+        @include f.media()
+            position: absolute
+            right: 50%
+            bottom: 18px
+            transform: translate(50%, 0)
+            width: 152px
+
+
+
+    &__button
+        position: absolute
+        width: 48px
+        height: 48px
+        border: 3px solid f.$color-black
+        border-radius: 50%
+        box-sizing: border-box
+        @include f.work-slider-item
+        @include f.media()
+            bottom: 0
+            flex-shrink: 0
+            width: 40px
+            height: 40px
+            border: 2px solid f.$color-black
+
+        svg
+            pointer-events: none
+            position: absolute
+            right: 50%
+            bottom: 50%
+            transform: translate(50%, 50%)
+
+        &.is-rev
+            border: 3px solid f.$color-white
+            @include f.media()
+                border: 2px solid f.$color-white
+
+            svg
+                path
+                    fill: f.$color-white
+
+            &::after
+                background: f.$color-white
+
+        &.is-hover
+            width: 56px
+            height: 56px
+            margin: -4px
+            @include f.media()
+                width: 44px
+                height: 44px
+                margin: -2px
+
+
+    &__close-button
+        @include f.media(desktop)
+            top: 24px
+            right: 24px
+        @include f.media()
+            top: 18px
+            right: 16px
+
+        &::after
+            content: ''
+            position: absolute
+            right: 50%
+            bottom: 50%
+            transform: translate(50%, 50%)
+            display: block
+            width: 23px
+            height: 3px
+            border-radius: 2px
+            background: f.$color-black
+            @include f.media()
+                width: 18px
+                height: 2px
+
+
+    &__handle
+        @include f.media(desktop)
+            bottom: calc(50% - 24px)
+            left: 24px
+        @include f.media()
+            left: 0
+
+        svg
+            width: 23px
+            height: auto
+            @include f.media()
+                width: 16px
+                height: auto
+
+        &--right
+            left: auto
+            right: 24px
+            @include f.media()
+                right: 0
+
+
+    &__information
+        @include f.media(desktop)
+            bottom: 25px
+            right: 24px
+        @include f.media()
+            right: 56px
+
+        svg
+            width: 4px
+            height: auto
+            @include f.media()
+                width: 3px
+                height: auto
+
+
+    &__hide-target
+        opacity: 100
+        @include f.work-slider-item
+
+        &.is-hide
+            opacity: 0
+            pointer-events: none
+

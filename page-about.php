@@ -16,10 +16,12 @@ if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
 </head>
 <body data-barba="wrapper" data-section="0">
   <div class="l-wrap" data-barba="container" data-barba-namespace="common">
+    <?php if ( !is_single() ) : ?>
     <?php if ( is_front_page() ) : ?>
     <?php include get_template_directory() . '/parts/kv.php'; ?>
     <?php endif; ?>
     <?php get_header(); ?>
+    <?php endif; ?>
     <div class="l-container">
       <?php
       $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
@@ -42,7 +44,9 @@ if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
           <button class="c-about__mail-button js-change-color-target js-hover js-copy-address" type="button" aria-label="メールアドレスをコピー"><?= get_field('mail_address'); ?></button>
         </div><?php endif; ?>
       </div>
-    </div><?php get_footer(); ?>
+    </div><?php if ( !is_single() ) : ?>
+    <?php get_footer(); ?>
+    <?php endif; ?>
     <?php wp_footer(); ?>
   </div>
 </body></html>

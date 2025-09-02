@@ -1,0 +1,33 @@
+@use "../../_foundation" as f
+
+.c-works-information-modal
+    z-index: 10
+    position: relative
+    display: none
+    width: 100svw
+    height: 100svh
+    background: f.$color-bg
+
+    &.is-active
+        display: flex
+        align-items: center
+
+    &.is-rev
+        background: f.$color-bg-dark
+
+
+    &__container
+        flex-shrink: 0
+        width: 524px
+        margin: 0 auto
+        padding: 300px 0
+        @include f.media()
+            width: calc(100% - 32px)
+
+
+    &__close-button
+        top: auto
+        bottom: 25px
+        @include f.media()
+            bottom: 17px
+            right: calc(50% - 20px)
