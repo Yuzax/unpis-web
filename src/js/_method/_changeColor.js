@@ -1,9 +1,11 @@
+import * as faceAnimation from './_faceAnimation.js';
+
 let btn = null,
     target = null,
     htmlTarget = null;
 
 // Cookieから値を取得する関数
-const getCookie = (name) => {
+export const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
@@ -12,6 +14,8 @@ const getCookie = (name) => {
 
 const updateColor = (_change = true) => {
     const isRev = htmlTarget.classList.contains('is-rev');
+    // Face画像のモード変更処理を呼び出し
+    faceAnimation.handleModeChange();
     for (let i = 0; i < target.length; i++) {
         if (_change) {
             if (isRev) {
@@ -44,6 +48,12 @@ const restoreColorFromCookie = () => {
         htmlTarget.classList.remove('is-rev');
     }
 
+    // Face画像のモード変更処理を呼び出し
+    faceAnimation.handleModeChange();
+
+    // Face画像もCookieの状態に復元
+    restoreFaceImageFromCookie();
+
     // 他の要素にも同じ状態を適用
     for (let i = 0; i < target.length; i++) {
         if (isDarkFromCookie) {
@@ -52,6 +62,11 @@ const restoreColorFromCookie = () => {
             target[i].classList.remove('is-rev');
         }
     }
+};
+
+// Face画像をCookieの状態に復元する処理
+const restoreFaceImageFromCookie = () => {
+    faceAnimation.handleModeChange();
 };
 
 const addMouseEvents = async (_target) => {

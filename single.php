@@ -12,7 +12,8 @@ if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
 ?><html class="js-change-color-target js-change-style-target<?php if($is_dark_mode){ echo ' is-rev'; }; ?><?php if($is_list_layout){ echo ' is-list'; }; ?>" lang="ja">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/><?php wp_head(); ?>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="template-directory" content="<?php bloginfo("template_directory"); ?>"/><?php wp_head(); ?>
 </head>
 <body data-barba="wrapper" data-section="0">
   <div class="l-wrap" data-barba="container" data-barba-namespace="common">
@@ -42,20 +43,25 @@ if (isset($_COOKIE['layout_style']) && $_COOKIE['layout_style'] === 'list') {
           <button class="c-works-slider__button c-works-slider__information c-works-slider__hide-target js-works-slider__information-button js-works-slider__hide-target js-change-color-target js-hover" type="button" aria-label="ワークスの詳細情報を表示する"><svg fill="none" height="21" viewBox="0 0 4 21" width="4" xmlns="http://www.w3.org/2000/svg"><g fill="#000"><path d="m3.5 19c0 .8284-.67157 1.5-1.5 1.5s-1.499999-.6716-1.499999-1.5l-.000001-10c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5z"/><path d="m4 2c0 1.10457-.89543 2-2 2s-2-.89543-2-2 .89543-2 2-2 2 .89543 2 2z"/></g></svg></button>
           <button class="c-works-slider__button c-works-slider__handle js-works-slider__right-handle c-works-slider__handle--right c-works-slider__hide-target js-works-slider__hide-target js-change-color-target js-hover" type="button" aria-label="次の画像を表示する"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m11.3936 1.39356c.5857-.585783 1.5353-.585783 2.121 0l9.5459 9.54594c.5858.5857.5858 1.5353 0 2.1211l-9.5459 9.5459c-.5857.5857-1.5353.5857-2.121 0-.5858-.5858-.5858-1.5354 0-2.1211l6.9853-6.9854h-16.3789c-.82843 0-1.5-.6716-1.5-1.5s.67157-1.5 1.5-1.5h16.3789l-6.9853-6.98534c-.5858-.58579-.5858-1.53531 0-2.1211z" fill="#000"/></svg></button>
         </div>
-        <div class="c-works-information-modal js-works-slider__information-modal js-change-color-target is-active">
-          <article class="c-works-information-modal__container">
-            <h2 class="c-works-information-modal__title"><?= get_the_title(); ?></h2><?php if(get_field('works_remarks')): ?>
-            <p class="c-works-information-modal__remarks"><?= get_field('works_remarks'); ?></p><?php endif; ?>
+        <div class="c-works-information-modal js-works-information-modal js-works-slider__information-modal js-change-color-target">
+          <article class="c-works-information-modal__container js-works-information-modal__container">
+            <div class="c-works-information-modal__title-wrap">
+              <h2 class="c-works-information-modal__title"><?= get_the_title(); ?></h2><?php if(get_field('works_remarks')): ?>
+              <p class="c-works-information-modal__remarks"><?= get_field('works_remarks'); ?></p><?php endif; ?>
+            </div><?php if(get_field('works_description')): ?>
+            <p class="c-works-information-modal__description"><?= get_field('works_description'); ?></p><?php endif; ?>
             <?php if(have_rows('links')): ?>
-            <ul class="p-works-link-list"><?php while(have_rows('links')): the_row(); ?>
-              <li class="p-works-link-list__item"><a class="p-works-link-list__link js-hover" href="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く"><?= get_sub_field('url'); ?></a></li><?php endwhile; ?>
+            <ul class="c-works-information-modal__link-list"><?php while(have_rows('links')): the_row(); ?>
+              <li class="p-works-link"><a class="p-works-link__body js-change-color-target js-hover" href="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く"><?= get_sub_field('url'); ?></a></li><?php endwhile; ?>
             </ul><?php endif; ?>
             <?php if(have_rows('works_credit_list')): ?>
-            <ol class="p-works-credit-list"><?php while(have_rows('works_credit_list')): the_row(); ?>
-              <li class="p-works-credit-list__item"><span class="p-works-credit-list__roll"><?= get_sub_field('roll'); ?></span><span class="p-works-credit-list__name"><?= get_sub_field('name'); ?></span></li><?php endwhile; ?>
-            </ol><?php endif; ?>
+            <div class="c-works-information-modal__credit-list">
+              <ul class="p-works-credit"><?php while(have_rows('works_credit_list')): the_row(); ?>
+                <li class="p-works-credit__item"><span class="p-works-credit__role"><?= get_sub_field('roll'); ?></span><span class="p-works-credit__separator"></span><span class="p-works-credit__name"><?= get_sub_field('name'); ?></span></li><?php endwhile; ?>
+              </ul>
+            </div><?php endif; ?>
+            <button class="c-works-slider__button c-works-slider__close-button c-works-information-modal__close-button js-works-slider__information-modal-close-button js-change-color-target js-hover js-works-information-modal__button" type="button" aria-label="情報モーダルを閉じる"></button>
           </article>
-          <button class="c-works-slider__button c-works-slider__close-button c-works-information-modal__close-button js-works-slider__information-modal-close-button js-change-color-target js-hover" type="button" aria-label="情報モーダルを閉じる"></button>
         </div>
       </article>
     </div><?php if ( !is_single() ) : ?>

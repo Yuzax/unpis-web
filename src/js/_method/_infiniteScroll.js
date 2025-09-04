@@ -3,6 +3,8 @@ import { init as InitHover } from 'AppJs/_method/_hover';
 import { init as InitLazyLoad } from 'AppJs/_method/_activateLazyload';
 import { setStyle as SetMasonryStyle } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
+import { update as UpdateWorksModal } from 'AppJs/_method/_worksModal';
+import { update as UpdateWorksSeen } from 'AppJs/_method/_worksSeen';
 
 let targetContainer = null;
 let loadMoreButton = null;
@@ -39,6 +41,10 @@ const loadMorePosts = async () => {
         const response = await fetch(infinite_scroll_ajax.ajax_url, {
             method: 'POST',
             body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            credentials: 'same-origin',
         });
 
         const result = await response.json();
@@ -78,6 +84,27 @@ const loadMorePosts = async () => {
                 }
             });
 
+            // 新しく追加された要素のカラーモードを現在の状態に合わせる
+            const colorHtmlTarget = document.getElementsByClassName(
+                'js-change-color-target',
+            )[0];
+            const isCurrentlyDark = colorHtmlTarget
+                ? colorHtmlTarget.classList.contains('is-rev')
+                : false;
+
+            newItems.forEach((item) => {
+                const colorTargets = item.querySelectorAll(
+                    '.js-change-color-target',
+                );
+                colorTargets.forEach((target) => {
+                    if (isCurrentlyDark) {
+                        target.classList.add('is-rev');
+                    } else {
+                        target.classList.remove('is-rev');
+                    }
+                });
+            });
+
             // ホバーイベントを再初期化
             InitHover();
 
@@ -86,6 +113,12 @@ const loadMorePosts = async () => {
 
             // スタイル変更機能を再初期化
             InitChangeStyle();
+
+            // worksModalのイベントリスナーを再初期化
+            UpdateWorksModal();
+
+            // worksSeenの状態を更新
+            UpdateWorksSeen();
 
             // レイアウトに応じてMasonryを再計算
             if (!isListLayout) {

@@ -1,0 +1,37 @@
+@use "../../_foundation" as f
+
+.p-dancing-man
+    z-index: 999
+    cursor: pointer
+    position: fixed
+    bottom: 0
+    right: -125px
+    width: 125px
+    height: 206px
+    will-change: transform
+    transition: right 0.3s f.ease("easeOutExpo")
+    backface-visibility: hidden
+    transform: translateZ(0)
+    @include f.media()
+        right: -75px
+        bottom: 4px
+        width: 75px
+        height: 124px
+
+
+    img
+        pointer-events: none
+        width: 100%
+        height: auto
+        will-change: auto
+        backface-visibility: hidden
+        transform: translateZ(0)
+        loading: eager
+        decoding: sync
+
+
+    &.is-active
+        right: 6px
+        @include f.media()
+            right: 7px
+

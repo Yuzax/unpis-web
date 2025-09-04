@@ -1,0 +1,2 @@
+
+<button class="p-dancing-man js-dancing-man js-scroll-to-btn" type="button" aria-label="ページの最上部へ移動" data-target="0"><img src="<?php bloginfo('template_directory'); ?>/assets/img/dancers/0.webp" alt="Dancer Image"/></button>

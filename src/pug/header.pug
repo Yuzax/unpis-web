@@ -13,9 +13,10 @@ header.l-header
     |<?php endif; ?>
 
     button.l-header__button.l-header__button--face.js-kv-note__visible-target.js-change-color-btn.js-hover(type="button" aria-label="ダークモード・ライトモードを切り替え" class!="<?php  if (is_front_page()){ echo 'js-is-in-kv is-hide'; }; ?>")
-        span
-            img(src!="<?php bloginfo('template_directory'); ?>/assets/img/base/face.svg" alt="Face")
-            img(src!="<?php bloginfo('template_directory'); ?>/assets/img/base/face-light.svg" alt="Face with Light")
+        span.l-header__button--face-wrapper
+            img.js-face-animation(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/<?php echo (isset($_COOKIE['color_mode']) && $_COOKIE['color_mode'] === 'dark') ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face")
+            span
+                img(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/beam.webp" alt="Face with Light")
 
     a.l-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/about/' ); ?>" aria-label="Aboutページに移動")
         |about

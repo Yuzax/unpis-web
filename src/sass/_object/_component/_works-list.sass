@@ -139,7 +139,7 @@
         position: absolute
         bottom: 16px
         right: 16px
-        display: block
+        display: none // デフォルトは非表示
         width: 64px
         height: 32px
         padding: 8px 0 10px
@@ -159,6 +159,9 @@
         &.is-rev
             background: f.$color-bg-dark
 
+        // 表示状態
+        &.is-visible
+            display: block
 
     &__text
         padding: 26px 0 0

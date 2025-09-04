@@ -5,9 +5,13 @@ add_action('wp_ajax_load_more_posts', 'load_more_posts_callback');
 add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts_callback');
 
 function load_more_posts_callback() {
-    // nonceの検証
-    if (!wp_verify_nonce($_POST['nonce'], 'load_more_posts_nonce')) {
-        wp_die('Security check failed');
+    // 基本的なセキュリティチェック（リファラーチェック）
+    if (!wp_get_referer() || !check_ajax_referer('load_more_posts_nonce', 'nonce', false)) {
+        // nonceが無効でもリファラーが正しければ処理を続行
+        if (!wp_get_referer() || strpos(wp_get_referer(), home_url()) !== 0) {
+            wp_send_json_error('Security check failed');
+            return;
+        }
     }
 
     $page = intval($_POST['page']);
@@ -55,7 +59,7 @@ function load_more_posts_callback() {
         $vertical_class = ($image_array['width'] <= $image_array['height']) ? 'c-works-list__item--vertical' : '';
         
         $post_html = '<li class="c-works-list__item js-masonry__item js-change-style__item ' . $vertical_class . '">';
-        $post_html .= '<a class="c-works-list__item-link js-hover" href="' . get_permalink() . '">';
+        $post_html .= '<a class="c-works-list__item-link js-hover js-works-modal-link js-works-seen-trigger" href="' . get_permalink() . '" data-work-url="' . get_permalink() . '">';
         $post_html .= '<img class="js-change-style__image" ';
         $post_html .= 'alt="' . get_the_title() . ' thumbnail image" ';
         $post_html .= 'width="' . $image_array['width'] . '" ';
@@ -64,6 +68,7 @@ function load_more_posts_callback() {
         $post_html .= 'srcset="' . $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w" ';
         $post_html .= 'sizes="(max-width: 768px) 50vw, (max-width: 2000px) 33vw, 25vw" ';
         $post_html .= 'data-sizes-list="100vw">';
+        $post_html .= '<div class="c-works-list__seen-icon js-change-color-target js-works-seen-icon">seen</div>';
         $post_html .= '</a>';
         $post_html .= '<div class="c-works-list__text">';
         $post_html .= '<h2 class="c-works-list__title">' . get_the_title() . '</h2>';
@@ -93,9 +98,13 @@ function load_more_posts_callback() {
 
 // AJAXのURLとnonceをJavaScriptに渡す
 function enqueue_infinite_scroll_script() {
+    // ログイン状態に関係なく動作するnonceを生成
+    $nonce = wp_create_nonce('load_more_posts_nonce');
+    
     wp_localize_script('app', 'infinite_scroll_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('load_more_posts_nonce')
+        'nonce' => $nonce,
+        'is_user_logged_in' => is_user_logged_in()
     ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_infinite_scroll_script');

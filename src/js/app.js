@@ -7,6 +7,10 @@ import {
     init as InitChangeColor,
     update as UpdateChangeColor,
 } from 'AppJs/_method/_changeColor';
+import {
+    init as InitFaceAnimation,
+    update as UpdateFaceAnimation,
+} from 'AppJs/_method/_faceAnimation';
 import { init as InitCopyAddress } from 'AppJs/_method/_copyAddress';
 import { init as InitLazyLoad } from 'AppJs/_method/_activateLazyload';
 import { init as InitTargetScroll } from 'AppJs/_method/_targetScroll';
@@ -23,12 +27,23 @@ import {
 } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 import { init as InitInfiniteScroll } from 'AppJs/_method/_infiniteScroll';
+import { init as InitWorksModal } from 'AppJs/_method/_worksModal';
 import {
-    init as InitWorksModal,
-    update as UpdateWorksModal,
-} from 'AppJs/_method/_worksModal';
+    init as InitWorksSeen,
+    update as UpdateWorksSeen,
+} from 'AppJs/_method/_worksSeen';
 // import { init as InitIframeDetection } from 'AppJs/_method/_iframeDetection';
 import { init as InitWorksSlider } from 'AppJs/_method/_worksSlider';
+import {
+    init as InitWorksInformationModal,
+    resize as ResizeWorksInformationModal,
+} from 'AppJs/_method/_worksInformationModal';
+import {
+    init as InitDancingMan,
+    onScroll as OnScrollDancingMan,
+    onResize as OnResizeDancingMan,
+    update as UpdateDancingMan,
+} from 'AppJs/_method/_dancingMan';
 
 // // variable
 let ticking = false;
@@ -52,14 +67,18 @@ const init = async () => {
     InitTargetScroll();
     InitAvoidReload();
     InitChangeColor();
+    InitFaceAnimation();
     InitCopyAddress();
     InitIsInKV(scrollTop);
     InitKvNote();
     InitChangeStyle();
     InitInfiniteScroll();
     InitWorksModal();
+    InitWorksSeen();
     // InitIframeDetection();
     InitWorksSlider();
+    InitWorksInformationModal();
+    InitDancingMan(scrollTop);
 };
 init();
 
@@ -68,7 +87,9 @@ init();
 ///////////////////////////////////////////////////////
 const update = () => {
     UpdateChangeColor();
-    UpdateWorksModal();
+    UpdateFaceAnimation();
+    UpdateDancingMan();
+    UpdateWorksSeen();
 };
 
 ///////////////////////////////////////////////////////
@@ -83,6 +104,9 @@ const resize = () => {
                     window.pageYOffset || document.documentElement.scrollTop;
                 ResizeMasonry();
                 ToggleIsInKV(scrollTop);
+                ResizeWorksInformationModal();
+                // dancing-manのリサイズ処理を統合
+                OnResizeDancingMan();
             });
             ticking = true;
         }
@@ -100,6 +124,8 @@ window.addEventListener('scroll', () => {
             scrollTop =
                 window.pageYOffset || document.documentElement.scrollTop;
             ToggleIsInKV(scrollTop);
+            // dancing-manのスクロール処理を統合
+            OnScrollDancingMan(scrollTop);
         });
         ticking = true;
     }

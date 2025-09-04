@@ -1,0 +1,34 @@
+@use "../../_foundation" as f
+
+.p-works-link
+    &:not(:last-child)
+        margin: 0 8px 0 0
+
+
+    &__body
+        position: relative
+        @include f.font-styling(1.3rem, calc(20/13), 0.02em)
+        padding: 15px 0
+        margin: -15px 0
+        color: inherit
+        white-space: nowrap
+
+        &::after
+            content: ''
+            position: absolute
+            bottom: 10px
+            display: block
+            width: 100%
+            height: 1px
+            background: f.$color-black
+            pointer-events: none
+            @include f.hover-opacity
+
+        &.is-hover
+            &::after
+                @include f.flash-border
+
+        &.is-rev
+            &::after
+                background: f.$color-white
+

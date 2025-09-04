@@ -3,6 +3,8 @@
  * .c-works-list__item-linkクリック時にモーダルを開き、Push Stateでリンクを設定
  */
 
+import { markModalAsSeen } from './_worksSeen.js';
+
 let modal = null;
 let modalClose = null;
 let modalContent = null;
@@ -35,6 +37,9 @@ const openModal = (url) => {
     // モーダルを表示
     modal.classList.add('is-active');
     document.body.style.overflow = 'hidden';
+
+    // seenマークを付与
+    markModalAsSeen(url);
 };
 
 /**
@@ -94,10 +99,7 @@ const init = () => {
         ? modal.querySelector('.js-works-modal__content')
         : null;
 
-    if (!modal || !modalContent) {
-        console.warn('Works modal elements not found');
-        return;
-    }
+    if (!modal || !modalContent) return;
 
     // works-listのリンクにイベントリスナーを追加
     const workLinks = document.querySelectorAll('.js-works-modal-link');

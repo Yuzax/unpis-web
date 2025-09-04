@@ -55,40 +55,50 @@ block contents
 
 
         //- information モーダル
-        .c-works-information-modal.js-works-slider__information-modal.js-change-color-target.is-active
+        .c-works-information-modal.js-works-information-modal.js-works-slider__information-modal.js-change-color-target
 
-            article.c-works-information-modal__container
+            article.c-works-information-modal__container.js-works-information-modal__container
 
-                h2.c-works-information-modal__title <?= get_the_title(); ?>
+                .c-works-information-modal__title-wrap
 
-                //- 備考
-                |<?php if(get_field('works_remarks')): ?>
-                p.c-works-information-modal__remarks
-                    |<?= get_field('works_remarks'); ?>
+                    h2.c-works-information-modal__title <?= get_the_title(); ?>
+
+                    //- 備考
+                    |<?php if(get_field('works_remarks')): ?>
+                    p.c-works-information-modal__remarks
+                        |<?= get_field('works_remarks'); ?>
+                    |<?php endif; ?>
+
+                //- プロジェクト概要
+                |<?php if(get_field('works_description')): ?>
+                p.c-works-information-modal__description
+                    |<?= get_field('works_description'); ?>
                 |<?php endif; ?>
 
                 //- リンクリスト
                 |<?php if(have_rows('links')): ?>
-                ul.p-works-link-list
+                ul.c-works-information-modal__link-list
                     |<?php while(have_rows('links')): the_row(); ?>
-                    li.p-works-link-list__item
-                        a.p-works-link-list__link.js-hover(href!="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く")
+                    li.p-works-link
+                        a.p-works-link__body.js-change-color-target.js-hover(href!="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く")
                             |<?= get_sub_field('url'); ?>
                     |<?php endwhile; ?>
                 |<?php endif; ?>
 
                 //- クレジットリスト
                 |<?php if(have_rows('works_credit_list')): ?>
-                ol.p-works-credit-list
-                    |<?php while(have_rows('works_credit_list')): the_row(); ?>
-                    li.p-works-credit-list__item
-                        span.p-works-credit-list__roll
-                            |<?= get_sub_field('roll'); ?>
-                        span.p-works-credit-list__name
-                            |<?= get_sub_field('name'); ?>
-                    |<?php endwhile; ?>
+                .c-works-information-modal__credit-list
+                    ul.p-works-credit
+                        |<?php while(have_rows('works_credit_list')): the_row(); ?>
+                        li.p-works-credit__item
+                            span.p-works-credit__role
+                                |<?= get_sub_field('roll'); ?>
+                            span.p-works-credit__separator
+                            span.p-works-credit__name
+                                |<?= get_sub_field('name'); ?>
+                        |<?php endwhile; ?>
                 |<?php endif; ?>
 
-            //- クローズボタン
-            button.c-works-slider__button.c-works-slider__close-button.c-works-information-modal__close-button.js-works-slider__information-modal-close-button.js-change-color-target.js-hover(type="button" aria-label="情報モーダルを閉じる")
+                //- クローズボタン
+                button.c-works-slider__button.c-works-slider__close-button.c-works-information-modal__close-button.js-works-slider__information-modal-close-button.js-change-color-target.js-hover.js-works-information-modal__button(type="button" aria-label="情報モーダルを閉じる")
 

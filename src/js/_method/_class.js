@@ -80,3 +80,15 @@ export const browser = () => {
 export const isIE = () => {
     return !!document.documentMode;
 };
+
+export const isSafari = () => {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+};
+
+export const isIOS = () => {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent);
+};
+
+export const isMobile = () => {
+    return isSmartphone() || isIpad();
+};

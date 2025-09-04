@@ -10,6 +10,23 @@
     100%
         opacity: 0%
 
+@keyframes expandBeam
+    0%
+        right: calc(50% - 45px)
+        width: 90px
+    100%
+        right: calc(50% - 261px)
+        width: 522px
+
+@keyframes expandBeamSP
+    0%
+        width: 70px
+        right: calc(50% - 35px)
+    100%
+        right: calc(50% - 201.5px)
+        width: 403px
+
+
 .l-header
     display: flex
     justify-content: space-between
@@ -157,10 +174,14 @@
                 pointer-events: none
 
             &.is-hover
-                img:nth-child(2)
+                .l-header__button--face-wrapper > span
+                    animation: expandBeam 0.4s f.ease('easeOutExpo') forwards
+                    @include f.media()
+                        animation: expandBeamSP 0.4s f.ease('easeOutExpo') forwards
+                img:last-child
                     opacity: 1
 
-            span
+            &-wrapper
                 display: flex
                 justify-content: center
                 align-items: center
@@ -168,20 +189,31 @@
                 height: 100%
                 pointer-events: none
 
-                img
+                &>img, &>span
                     position: absolute
                     top: -21.5px
-                    right: 50%
-                    transform: translate(50%, 0)
-                    width: 466px
+                    right: calc(50% - 261px)
+                    width: 522px
                     height: 112px
                     pointer-events: none
                     @include f.media()
                         top: -17px
-                        width: 357.64px
+                        right: calc(50% - 201.5px)
+                        width: 403px
                         height: 86px
 
+                &>span
+                    right: calc(50% - 45px)
+                    width: 90px
+                    will-change: width, right
+                    @include f.media()
+                        right: calc(50% - 35px)
+                        width: 70px
+
                 img:last-child
+                    width: 100%
+                    height: 100%
+                    object-fit: cover
                     opacity: 0
                     @include f.hover-opacity
 

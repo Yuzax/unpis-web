@@ -29,9 +29,9 @@
             |    $is_list_layout = true;
             |}
             |?>
-            button.js-change-color-target.js-hover.js-change-style__button.js-change-style__button--tile(class!="<?php if(!$is_list_layout){ echo 'is-active'; }; ?>" type="button" aria-label="タイルレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'false' : 'true'; ?>")
+            button.js-hover.js-change-style__button.js-change-style__button--tile(type="button" aria-label="タイルレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'false' : 'true'; ?>")
                 |tile
             span.js-change-color-target.js-change-style__arrow(class!="<?php if($is_list_layout){ echo 'is-list'; }; ?>")
                 include ../../../src/img/arrow.svg
-            button.js-hover.js-change-style__button.js-change-style__button--list(class!="<?php if($is_list_layout){ echo 'is-active'; }; ?>" type="button" aria-label="リストレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'true' : 'false'; ?>")
+            button.js-hover.js-change-style__button.js-change-style__button--list(type="button" aria-label="リストレイアウトにレイアウトを変更" aria-pressed!="<?php echo $is_list_layout ? 'true' : 'false'; ?>")
                 |list

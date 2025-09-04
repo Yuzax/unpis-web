@@ -12,22 +12,71 @@
         display: flex
         align-items: center
 
+        &.is-min-height
+            display: block
+
     &.is-rev
         background: f.$color-bg-dark
 
 
     &__container
+        position: relative
         flex-shrink: 0
         width: 524px
         margin: 0 auto
-        padding: 300px 0
+        padding: 56px 0
         @include f.media()
             width: calc(100% - 32px)
+            padding: 76px 0
+
+
+    &__title-wrap
+        margin: 0 0 32px
+
+
+    &__title
+        @include f.font-styling(2.0rem, calc(30/20), 0.02em, 400)
+        width: 100%
+        text-align: center
+        &:not(:last-child)
+            margin: 0 0 12px
+        @include f.media()
+            font-size: 1.8rem
+            line-height: calc(26/18)
+
+
+    &__remarks
+        @include f.font-styling(1.2rem, calc(16/12), 0.02em)
+        width: 100%
+        text-align: center
+        opacity: 0.6
+
+
+    &__description
+        @include f.font-styling(1.3rem, calc(20/13), 0, 400)
+        width: 100%
+        margin: 0 0 30px
+
+
+    &__link-list
+        display: flex
+        justify-content: center
+        width: 100%
+        margin: 0 0 40px
+
+
+    &__credit-list
+        width: 100%
 
 
     &__close-button
+        position: fixed
         top: auto
         bottom: 25px
         @include f.media()
             bottom: 17px
             right: calc(50% - 20px)
+
+        &.is-min-height
+            @include f.media()
+                position: absolute

@@ -25,6 +25,12 @@ const changeArrowState = (_isList = false) => {
 };
 
 const changeToTile = (_targetButton) => {
+    // 他のボタンからis-activeクラスを削除
+    const listButton = document.getElementsByClassName(
+        'js-change-style__button--list',
+    )[0];
+    if (listButton) listButton.classList.remove('is-active');
+
     _targetButton.classList.add('is-active');
     changeArrowState();
     worksWrap.classList.remove('is-active-list');
@@ -42,6 +48,12 @@ const changeToTile = (_targetButton) => {
 };
 
 const changeToList = (_targetButton) => {
+    // 他のボタンからis-activeクラスを削除
+    const tileButton = document.getElementsByClassName(
+        'js-change-style__button--tile',
+    )[0];
+    if (tileButton) tileButton.classList.remove('is-active');
+
     _targetButton.classList.add('is-active');
     changeArrowState(true);
     DeleteMasonry();
@@ -83,6 +95,24 @@ const restoreStyleFromCookie = () => {
     const layoutStyle = getCookie('layout_style');
     const isListFromCookie = layoutStyle === 'list';
 
+    // ボタンの状態を更新
+    const tileButton = document.getElementsByClassName(
+        'js-change-style__button--tile',
+    )[0];
+    const listButton = document.getElementsByClassName(
+        'js-change-style__button--list',
+    )[0];
+
+    if (tileButton && listButton) {
+        if (isListFromCookie) {
+            tileButton.classList.remove('is-active');
+            listButton.classList.add('is-active');
+        } else {
+            tileButton.classList.add('is-active');
+            listButton.classList.remove('is-active');
+        }
+    }
+
     // Cookieの状態に基づいてhtmlタグにクラスを設定
     if (isListFromCookie) {
         htmlTarget.classList.add('is-list');
@@ -113,6 +143,9 @@ const restoreStyleFromCookie = () => {
                 SetMasonry();
             }
         }
+    } else {
+        // 状態が同じ場合でも矢印の状態を確実に設定
+        changeArrowState(isListFromCookie);
     }
 };
 

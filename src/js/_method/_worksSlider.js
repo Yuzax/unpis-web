@@ -1,4 +1,5 @@
 import { isDesktop } from 'AppJs/_method/_class';
+import { toggleModalState as ToggleInformationModalState } from 'AppJs/_method/_worksInformationModal';
 
 let item = [],
     leftHandle = null,
@@ -29,10 +30,12 @@ const addEventListener = () => {
 const addInformationModalEventListener = () => {
     informationButton.addEventListener('click', () => {
         informationModal.classList.add('is-active');
+        ToggleInformationModalState(true);
     });
 
     informationModalCloseButton.addEventListener('click', () => {
         informationModal.classList.remove('is-active');
+        ToggleInformationModalState(false);
     });
 };
 
