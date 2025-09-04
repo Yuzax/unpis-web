@@ -1,4 +1,54 @@
+@use "../../_foundation" as f
+    
 .p-infinite-scroll-button
+    position: absolute
+    right: calc(50% - 24px)
+    bottom: 313px
+    width: 48px
+    height: 48px
+    border: 3px solid f.$color-black
+    border-radius: 50%
+    box-sizing: border-box
+    @include f.expand-circle
+    @include f.media()
+        bottom: 118px
+        flex-shrink: 0
+        width: 40px
+        height: 40px
+        border: 2px solid f.$color-black
+
+    &::before, &::after
+        content: ''
+        position: absolute
+        right: 50%
+        bottom: 50%
+        width: 23px
+        height: 3px
+        border-radius: 3px
+        background: f.$color-black
+        transform: translate(50%, 50%) rotate(0deg)
+        @include f.media()
+            width: 18px
+            height: 2px
+
+    &::after
+        transform: translate(50%, 50%) rotate(90deg)
+
+    &.is-rev
+        border: 3px solid f.$color-white
+        &::before, &::after
+            background: f.$color-white
+        @include f.media()
+            border: 2px solid f.$color-white
+
+    &.is-hover
+        width: 56px
+        height: 56px
+        margin: -4px
+        @include f.media()
+            width: 44px
+            height: 44px
+            margin: -2px
 
     &:not(.is-active)
         display: none

@@ -28,7 +28,7 @@ $has_more_posts = ($query->max_num_pages > 1);
     </div>
   </li><?php endforeach; endif; wp_reset_postdata(); ?>
 </ol><?php if($has_more_posts): ?>
-<button class="p-infinite-scroll-button js-infinite-scroll-button" type="button" aria-label="投稿を更に読み込む" aria-pressed="false">投稿を読み込む</button><?php endif; ?>
+<button class="p-infinite-scroll-button js-infinite-scroll-button js-change-color-target js-hover" type="button" aria-label="投稿を更に読み込む" aria-pressed="false"></button><?php endif; ?>
 <div class="c-works-modal js-works-modal">
   <div class="c-works-modal__container js-change-color-target">
     <div class="c-works-modal__content js-works-modal__content"></div>

@@ -5,6 +5,7 @@ import { setStyle as SetMasonryStyle } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 import { update as UpdateWorksModal } from 'AppJs/_method/_worksModal';
 import { update as UpdateWorksSeen } from 'AppJs/_method/_worksSeen';
+import { recalculateHeight as RecalculateDancingManHeight } from 'AppJs/_method/_dancingMan';
 
 let targetContainer = null;
 let loadMoreButton = null;
@@ -29,7 +30,7 @@ const loadMorePosts = async () => {
     if (isLoading || !hasMorePosts) return;
 
     isLoading = true;
-    updateButtonState();
+    // updateButtonState();
 
     const formData = new FormData();
     formData.append('action', 'load_more_posts');
@@ -126,6 +127,11 @@ const loadMorePosts = async () => {
                     SetMasonryStyle();
                 }, 100);
             }
+
+            // dancing-manの最下部判定を再計算（新しいコンテンツ追加後）
+            setTimeout(() => {
+                RecalculateDancingManHeight();
+            }, 150); // Masonryの再計算後に実行
 
             // 次のページ情報を更新
             currentPage = result.data.next_page;

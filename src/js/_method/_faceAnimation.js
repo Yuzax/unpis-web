@@ -1,3 +1,5 @@
+import { isMobile } from './_class.js';
+
 // Face画像アニメーション設定
 const FACE_ANIMATION_CONFIG = {
     // ライトモードアニメーション設定
@@ -16,7 +18,7 @@ const FACE_ANIMATION_CONFIG = {
             { image: 'dark-2.webp', duration: 1000 },
             { image: 'dark-1.webp', duration: 1000 },
         ],
-        interval: 5000, // アニメーション間隔（ミリ秒）
+        interval: 4000, // アニメーション間隔（ミリ秒）
     },
 };
 
@@ -175,19 +177,45 @@ const handleClick = () => {
     }
 };
 
+// タッチ開始時の処理（タッチデバイス専用）
+const handleTouchStart = () => {
+    // アニメーションタイマーを停止（setTimeoutもクリア）
+    stopAnimationTimer();
+
+    // デフォルト画像に即座に切り替え
+    const currentMode = getCurrentMode();
+    const config = FACE_ANIMATION_CONFIG[currentMode + 'Mode'];
+    const defaultImage = config.defaultImage;
+
+    if (faceImg) {
+        faceImg.src = getImagePath(defaultImage);
+    }
+};
+
+// タッチ終了時の処理（タッチデバイス専用）
+const handleTouchEnd = () => {
+    // 少し遅延してからアニメーション再開（clickイベントとの競合を避ける）
+    setTimeout(() => {
+        startAnimationTimer();
+    }, 300);
+};
+
 // ホバーイベントを追加
 const addHoverEvents = () => {
     if (!faceButton) return;
 
-    // マウスイベント
-    faceButton.addEventListener('mouseenter', handleMouseEnter);
-    faceButton.addEventListener('mouseleave', handleMouseLeave);
-    faceButton.addEventListener('click', handleClick);
-
-    // タッチイベント（SP版対応）
-    faceButton.addEventListener('touchstart', handleMouseEnter);
-    faceButton.addEventListener('touchend', handleMouseLeave);
-    faceButton.addEventListener('touchcancel', handleMouseLeave);
+    if (isMobile()) {
+        // タッチデバイス（スマホ・タブレット・iPad）の場合：タッチイベントのみ
+        faceButton.addEventListener('touchstart', handleTouchStart);
+        faceButton.addEventListener('touchend', handleTouchEnd);
+        faceButton.addEventListener('touchcancel', handleTouchEnd);
+        faceButton.addEventListener('click', handleClick);
+    } else {
+        // デスクトップの場合：マウスイベントのみ
+        faceButton.addEventListener('mouseenter', handleMouseEnter);
+        faceButton.addEventListener('mouseleave', handleMouseLeave);
+        faceButton.addEventListener('click', handleClick);
+    }
 };
 
 // モード変更時の処理（_changeColor.jsから呼び出される）
@@ -260,15 +288,18 @@ export const destroy = () => {
 
     // ホバーイベントを削除
     if (faceButton) {
-        // マウスイベント
-        faceButton.removeEventListener('mouseenter', handleMouseEnter);
-        faceButton.removeEventListener('mouseleave', handleMouseLeave);
-        faceButton.removeEventListener('click', handleClick);
-
-        // タッチイベント
-        faceButton.removeEventListener('touchstart', handleMouseEnter);
-        faceButton.removeEventListener('touchend', handleMouseLeave);
-        faceButton.removeEventListener('touchcancel', handleMouseLeave);
+        if (isMobile()) {
+            // タッチデバイス（スマホ・タブレット・iPad）の場合：タッチイベントを削除
+            faceButton.removeEventListener('touchstart', handleTouchStart);
+            faceButton.removeEventListener('touchend', handleTouchEnd);
+            faceButton.removeEventListener('touchcancel', handleTouchEnd);
+            faceButton.removeEventListener('click', handleClick);
+        } else {
+            // デスクトップの場合：マウスイベントを削除
+            faceButton.removeEventListener('mouseenter', handleMouseEnter);
+            faceButton.removeEventListener('mouseleave', handleMouseLeave);
+            faceButton.removeEventListener('click', handleClick);
+        }
     }
 
     faceImg = null;

@@ -326,3 +326,17 @@ export const onResize = () => {
     // リサイズ後に最下部判定を再実行
     checkIfAtBottom(lastScrollTop);
 };
+
+// 外部から呼び出し可能な高さ再計算関数（infiniteScrollから使用）
+export const recalculateHeight = () => {
+    if (!isInitialized) {
+        return;
+    }
+
+    // 現在のスクロール位置を取得
+    const currentScrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+    // 最下部判定を再実行
+    checkIfAtBottom(currentScrollTop);
+};
