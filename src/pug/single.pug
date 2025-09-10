@@ -25,8 +25,8 @@ block contents
             //- |<?php if($index == 0): ?>
             //- h1.c-works-slider-item__title.js-works-slider__hide-target <?= the_title(); ?>
             //- |<?php endif; ?>
-            .c-works-slider-item__image(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
-                img(
+            .c-works-slider-item__image.js-works-slider-image-fit__wrap(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
+                img.js-works-slider-image-fit__img(
                     alt!="<?= get_the_title() . ' image'; ?>"
                     width!="<?= $image_array['width']; ?>"
                     height!="<?= $image_array['height']; ?>"

@@ -3,12 +3,12 @@
 .c-works-slider-item
     position: absolute
     top: 0
-    right: 50%
-    transform: translate(50%, 0)
-    width: calc(100svw - 192px)
+    right: 0
+    width: 100dvw
     height: 100dvh
+    overflow: hidden
     @include f.media()
-        width: calc(100svw - 32px)
+        width: 100dvw
 
     &.is-hide
         display: none
@@ -43,15 +43,18 @@
 
     &__image
         position: absolute
+        right: 50%
         bottom: 50%
-        transform: translate(0, 50%)
+        transform: translate(50%, 50%)
         display: flex
         align-items: center
         justify-content: center
-        width: 100%
+        width: calc(100% - 192px)
         height: calc(100% - 112px)
         pointer-events: none
+        overflow: hidden
         @include f.media()
+            width: calc(100% - 32px)
             height: calc(100% - 194px)
 
         picture
@@ -68,6 +71,14 @@
             max-height: 100%
             border-radius: 2px
             display: block
+
+            &.is-vertical
+                width: auto
+                height: 100%
+
+            &.is-horizontal
+                width: 100%
+                height: auto
 
 
         &--with-description

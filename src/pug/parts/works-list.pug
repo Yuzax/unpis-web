@@ -25,12 +25,13 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
     |?>
     li.c-works-list__item.js-masonry__item.js-change-style__item(class!="<?php if($image_array['width'] <= $image_array['height']){ echo 'c-works-list__item--vertical'; } ?>")
         a.c-works-list__item-link.js-hover.js-works-modal-link.js-works-seen-trigger(href!="<?php the_permalink(); ?>" data-work-url!="<?php the_permalink(); ?>")
-            img.js-change-style__image(
+            img.js-change-style__image.js-lazy(
                 alt!="<?= get_the_title() . ' thumbnail image'; ?>"
                 width!="<?= $image_array['width']; ?>"
                 height!="<?= $image_array['height']; ?>"
                 src!="<?= $image_array['small']; ?>"
-                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
+                data-src!="<?= $image_array['small']; ?>"
+                data-srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
                 sizes="(max-width: 768px) 50vw, (max-width: 2000px) 33vw, 25vw"
                 data-sizes-list="100vw"
             )

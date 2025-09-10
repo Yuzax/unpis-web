@@ -74,7 +74,7 @@
         margin: 28px 0 34px
         padding: 8px 0
         @include f.font-styling(3.2rem, calc(34/32), 0.02em)
-        transition: transform 0.3s, opacity 0.1s f.ease("easeOutCubic")
+        transition: color 0.1s f.ease("easeOutCubic")
         @include f.media()
             margin: 15px 0 21px
             padding: 8px 0
@@ -83,7 +83,10 @@
         &.is-hover
             color: f.$color-orange
 
-        &.is-hide
+        &.is-on
+            transition: transform 0.3s, color 0.1s f.ease("easeOutCubic")
+
+        &.is-out
             transform: translate(0, -130px)
             @include f.media()
                 transform: translate(0, -109px)
@@ -120,6 +123,14 @@
         &.is-hide
             visibility: hidden
 
+        &.is-on
+            transition: transform 0.3s
+
+        &.is-out
+            transform: translate(-50%, -130px)
+            @include f.media()
+                transform: translate(-50%, -109px)
+
         p
             @include f.font-styling(1.6rem, calc(34/16), 0.02em)
             @include f.media()
@@ -140,6 +151,14 @@
 
         &.is-hide
             visibility: hidden
+
+        &.is-on
+            transition: transform 0.3s
+
+        &.is-out
+            transform: translate(-50%, -130px)
+            @include f.media()
+                transform: translate(-50%, -109px)
 
 
         &--arrow

@@ -2,13 +2,12 @@
 
 // WebP画像のURLを取得する関数
 function get_webp_url($original_url) {
-    return $original_url;
-    // if (empty($original_url)) {
-    //     return $original_url;
-    // }
+    if (empty($original_url)) {
+        return $original_url;
+    }
     
-    // // ファイル名の後ろに.webpを追加
-    // return $original_url . '.webp';
+    // ファイル名の後ろに.webpを追加
+    return $original_url . '.webp';
 }
 
 // 画像を出力するfunction（WebP対応版）

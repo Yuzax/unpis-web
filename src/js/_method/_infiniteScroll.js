@@ -6,6 +6,7 @@ import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 import { update as UpdateWorksModal } from 'AppJs/_method/_worksModal';
 import { update as UpdateWorksSeen } from 'AppJs/_method/_worksSeen';
 import { recalculateHeight as RecalculateDancingManHeight } from 'AppJs/_method/_dancingMan';
+import { recalculate as RecalculateHeaderScroll } from 'AppJs/_method/_headerScroll';
 
 let targetContainer = null;
 let loadMoreButton = null;
@@ -114,9 +115,9 @@ const loadMorePosts = async () => {
                 .map((item) => item.querySelector('.js-lazy'))
                 .filter((img) => img !== null);
 
-            // if (newLazyImages.length > 0) {
-            //     processIntersectingLazyImages(newLazyImages);
-            // }
+            if (newLazyImages.length > 0) {
+                processIntersectingLazyImages(newLazyImages);
+            }
 
             // スタイル変更機能を再初期化
             InitChangeStyle();
@@ -138,6 +139,11 @@ const loadMorePosts = async () => {
             setTimeout(() => {
                 RecalculateDancingManHeight();
             }, 150); // Masonryの再計算後に実行
+
+            // ヘッダーの位置を再計算（新しいコンテンツ追加後）
+            setTimeout(() => {
+                RecalculateHeaderScroll();
+            }, 200); // Masonryとdancing-manの再計算後に実行
 
             // 次のページ情報を更新
             currentPage = result.data.next_page;

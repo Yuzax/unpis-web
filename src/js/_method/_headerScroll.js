@@ -1,56 +1,106 @@
 let header = null,
     headerContainer = null,
     headerLinks = null;
-let headerOffsetTop = 0;
-let initialHeaderOffsetTop = 0; // 初期位置を保存
+let initialHeaderTopOffset = 0; // 初期のヘッダー上部位置を保存
 let isHeaderFixed = false;
 let isFrontPage = false;
 let lastScrollTop = 0;
 let isLinksHidden = false;
+let isLinksOn = false; // is-onクラスの状態管理
 
 const updateHeaderPosition = (scrollTop) => {
     if (!headerContainer) return;
 
-    // フロントページの場合のみ、ヘッダーの固定制御を行う
+    // ヘッダーの位置を計算
+    const currentHeaderBottomOffset = header.offsetTop + header.offsetHeight;
+    const currentHeaderTopOffset = header.offsetTop;
+
+    // ページ種別に応じたヘッダー固定制御
     if (isFrontPage) {
-        // 初期位置が設定されていない場合は設定
-        if (initialHeaderOffsetTop === 0) {
-            initialHeaderOffsetTop = headerContainer.offsetTop;
-            headerOffsetTop = initialHeaderOffsetTop;
+        // フロントページ：KVがあるので、ヘッダーの位置に応じて制御
+        // 初期のヘッダー上部位置を保存（リセット後または固定されていない時）
+        if (
+            initialHeaderTopOffset === 0 &&
+            !isHeaderFixed &&
+            currentHeaderTopOffset > 0
+        ) {
+            initialHeaderTopOffset = currentHeaderTopOffset;
         }
 
-        // 固定状態でない場合のみ、現在の位置を確認
-        if (!isHeaderFixed) {
-            const currentOffset = headerContainer.offsetTop;
-            // 現在の位置が0でない場合のみ更新（ブラウザ高さ変更時の誤計算を防ぐ）
-            if (currentOffset > 0) {
-                headerOffsetTop = currentOffset;
-            } else {
-                // 0になった場合は初期位置を使用
-                headerOffsetTop = initialHeaderOffsetTop;
-            }
-        }
-
-        // フロントページ：ヘッダーがブラウザ上部に当たったら追従
-        if (scrollTop >= headerOffsetTop) {
+        // ブラウザの上がheaderの最下部についたら追従開始
+        if (scrollTop >= currentHeaderBottomOffset) {
             if (!isHeaderFixed) {
                 header.classList.add('is-fixed');
                 headerContainer.classList.add('is-fixed');
                 isHeaderFixed = true;
             }
-        } else {
+
+            // 最初にくっつくタイミングでis-onクラスを追加（timeout付き）
+            if (!isLinksOn) {
+                setTimeout(() => {
+                    for (let i = 0; i < headerLinks.length; i++) {
+                        headerLinks[i].classList.add('is-on');
+                    }
+                }, 10);
+                isLinksOn = true;
+            }
+        } else if (
+            initialHeaderTopOffset > 0 &&
+            scrollTop <= initialHeaderTopOffset
+        ) {
+            // 初期のヘッダー上部位置まで戻ったらis-fixedを外す
             if (isHeaderFixed) {
                 header.classList.remove('is-fixed');
                 headerContainer.classList.remove('is-fixed');
                 isHeaderFixed = false;
+
+                // is-fixedが外れたらis-onクラスもremove
+                if (isLinksOn) {
+                    for (let i = 0; i < headerLinks.length; i++) {
+                        headerLinks[i].classList.remove('is-on');
+                    }
+                    isLinksOn = false;
+                }
+            }
+        }
+    } else {
+        // 非フロントページ：KVがないので、ページトップを基準に制御
+        // ブラウザの上がheaderの最下部についたら追従開始
+        if (scrollTop >= currentHeaderBottomOffset) {
+            if (!isHeaderFixed) {
+                header.classList.add('is-fixed');
+                headerContainer.classList.add('is-fixed');
+                isHeaderFixed = true;
+            }
+
+            // 最初にくっつくタイミングでis-onクラスを追加（timeout付き）
+            if (!isLinksOn) {
+                setTimeout(() => {
+                    for (let i = 0; i < headerLinks.length; i++) {
+                        headerLinks[i].classList.add('is-on');
+                    }
+                }, 10);
+                isLinksOn = true;
+            }
+        } else if (scrollTop <= 0) {
+            // ページトップ（scrollTop = 0）まで戻ったらis-fixedを外す
+            if (isHeaderFixed) {
+                header.classList.remove('is-fixed');
+                headerContainer.classList.remove('is-fixed');
+                isHeaderFixed = false;
+
+                // is-fixedが外れたらis-onクラスもremove
+                if (isLinksOn) {
+                    for (let i = 0; i < headerLinks.length; i++) {
+                        headerLinks[i].classList.remove('is-on');
+                    }
+                    isLinksOn = false;
+                }
             }
         }
     }
 
-    // .js-headerの下部についた時のリンク表示/非表示制御（全ページ共通）
-    // ヘッダーの下端位置を毎回計算（ページ遷移時に正しく更新されるように）
-    const currentHeaderBottomOffset = header.offsetTop + header.offsetHeight;
-
+    // is-outの制御（全ページ共通）
     const isCurrentlyFixed = headerContainer.classList.contains('is-fixed');
     if (isCurrentlyFixed && scrollTop >= currentHeaderBottomOffset) {
         const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
@@ -58,13 +108,13 @@ const updateHeaderPosition = (scrollTop) => {
         if (scrollDirection === 'down' && !isLinksHidden) {
             // 下スクロール：リンクを隠す
             for (let i = 0; i < headerLinks.length; i++) {
-                headerLinks[i].classList.add('is-hide');
+                headerLinks[i].classList.add('is-out');
             }
             isLinksHidden = true;
         } else if (scrollDirection === 'up' && isLinksHidden) {
             // 上スクロール：リンクを表示
             for (let i = 0; i < headerLinks.length; i++) {
-                headerLinks[i].classList.remove('is-hide');
+                headerLinks[i].classList.remove('is-out');
             }
             isLinksHidden = false;
         }
@@ -72,7 +122,7 @@ const updateHeaderPosition = (scrollTop) => {
         // fixedでない時、またはヘッダー下部に到達していない時はリンクを表示
         if (isLinksHidden) {
             for (let i = 0; i < headerLinks.length; i++) {
-                headerLinks[i].classList.remove('is-hide');
+                headerLinks[i].classList.remove('is-out');
             }
             isLinksHidden = false;
         }
@@ -87,16 +137,27 @@ export const onScroll = (scrollTop) => {
 };
 
 const onResize = () => {
-    // ヘッダーの位置を再計算
+    // リサイズ時にヘッダー位置を再計算
     if (headerContainer) {
-        if (isFrontPage) {
-            const currentOffset = headerContainer.offsetTop;
-            // リサイズ時も0でない場合のみ更新
-            if (currentOffset > 0) {
-                initialHeaderOffsetTop = currentOffset;
-                headerOffsetTop = currentOffset;
-            }
+        // リサイズ時は現在固定されていない場合のみ初期位置をリセット
+        if (isFrontPage && !isHeaderFixed) {
+            initialHeaderTopOffset = 0;
         }
+
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+        updateHeaderPosition(scrollTop);
+    }
+};
+
+// コンテンツ変更時の位置再計算（works追加読み込み等）
+export const recalculate = () => {
+    if (headerContainer && isFrontPage) {
+        // フロントページの場合、現在固定されていない場合のみ初期位置をリセット
+        if (!isHeaderFixed) {
+            initialHeaderTopOffset = 0;
+        }
+
         const scrollTop =
             window.pageYOffset || document.documentElement.scrollTop;
         updateHeaderPosition(scrollTop);
@@ -109,8 +170,10 @@ const initVariable = () => {
         'js-header__container',
     )[0];
     headerLinks = document.getElementsByClassName('js-header__link');
+
     // フロントページかどうかを判定（KVがあるかどうか）
-    isFrontPage = document.getElementsByClassName('l-kv')[0] !== null;
+    const kvElements = document.getElementsByClassName('c-kv');
+    isFrontPage = kvElements.length > 0;
 };
 
 const initEvents = () => {
@@ -130,17 +193,33 @@ export const init = (scrollTop = 0) => {
 export const update = (scrollTop = 0) => {
     initVariable();
     if (headerContainer) {
-        headerOffsetTop = 0; // リセット
-        initialHeaderOffsetTop = 0; // リセット
-        isHeaderFixed = false; // リセット
-        isLinksHidden = false; // リセット
-        lastScrollTop = 0; // リセット
-        header.classList.remove('is-fixed'); // クラスもリセット
-        headerContainer.classList.remove('is-fixed'); // クラスもリセット
-        for (let i = 0; i < headerLinks.length; i++) {
-            headerLinks[i].classList.remove('is-hide');
+        // 状態を完全にリセット
+        initialHeaderTopOffset = 0;
+        isHeaderFixed = false;
+        isLinksHidden = false;
+        isLinksOn = false;
+        lastScrollTop = 0;
+
+        // クラスを確実にリセット
+        if (header) {
+            header.classList.remove('is-fixed');
         }
-        updateHeaderPosition(scrollTop);
+        if (headerContainer) {
+            headerContainer.classList.remove('is-fixed');
+        }
+
+        // リンクのクラスもリセット
+        if (headerLinks && headerLinks.length > 0) {
+            for (let i = 0; i < headerLinks.length; i++) {
+                headerLinks[i].classList.remove('is-out');
+                headerLinks[i].classList.remove('is-on');
+            }
+        }
+
+        // 少し遅延してから新しいページの状態で位置を更新
+        setTimeout(() => {
+            updateHeaderPosition(scrollTop);
+        }, 50);
     }
 };
 

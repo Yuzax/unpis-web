@@ -2,6 +2,7 @@ import {
     isLargeIpadWindowSize as IsPhoneWindowSize,
     isLargeDesktopWindowSize as IsLargeDesktopWindowSize,
 } from './_class.js';
+import { recalculate as RecalculateHeaderScroll } from './_headerScroll.js';
 
 let targetContainer = null,
     targetItem = [];
@@ -55,6 +56,11 @@ export const setStyle = () => {
             targetContainer.style.height = containerHeight + 'px';
             showItem();
             targetContainer.classList.add('is-active-masonry');
+
+            // Masonryレイアウト完了後にヘッダー位置を再計算
+            setTimeout(() => {
+                RecalculateHeaderScroll();
+            }, 10);
         }
     }
 };

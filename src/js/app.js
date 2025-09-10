@@ -56,6 +56,7 @@ import {
     onScroll as OnScrollHeaderScroll,
 } from 'AppJs/_method/_headerScroll';
 import 'AppJs/_method/_faviconAnimation';
+import { worksSliderImageFit } from 'AppJs/_method/_worksSliderImageFit';
 
 // // variable
 let ticking = false;
@@ -89,6 +90,7 @@ const init = async () => {
     InitWorksSeen();
     // InitIframeDetection();
     InitWorksSlider();
+    worksSliderImageFit();
     InitWorksInformationModal();
     InitDancingMan(scrollTop);
     InitKv();

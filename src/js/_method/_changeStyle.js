@@ -2,6 +2,7 @@ import {
     setStyle as SetMasonry,
     setDefaultStyle as DeleteMasonry,
 } from 'AppJs/_method/_masonry';
+import { recalculate as RecalculateHeaderScroll } from 'AppJs/_method/_headerScroll';
 
 let arrow = null,
     worksWrap = null,
@@ -43,6 +44,10 @@ const changeToTile = (_targetButton) => {
         worksItem[i].classList.remove('is-active-list');
         if (i == worksItem.length - 1) {
             SetMasonry();
+            // タイルレイアウト変更後にヘッダー位置を再計算
+            setTimeout(() => {
+                RecalculateHeaderScroll();
+            }, 50);
         }
     }
 };
@@ -65,6 +70,12 @@ const changeToList = (_targetButton) => {
     for (let i = 0; i < worksItem.length; i++) {
         changeImageSize(worksItem[i], true);
         worksItem[i].classList.add('is-active-list');
+        if (i == worksItem.length - 1) {
+            // リストレイアウト変更後にヘッダー位置を再計算
+            setTimeout(() => {
+                RecalculateHeaderScroll();
+            }, 50);
+        }
     }
 };
 
@@ -131,6 +142,12 @@ const restoreStyleFromCookie = () => {
         for (let i = 0; i < worksItem.length; i++) {
             changeImageSize(worksItem[i], true);
             worksItem[i].classList.add('is-active-list');
+            if (i == worksItem.length - 1) {
+                // Cookie復元時のリストレイアウト変更後にヘッダー位置を再計算
+                setTimeout(() => {
+                    RecalculateHeaderScroll();
+                }, 50);
+            }
         }
     } else if (!isListFromCookie && isListFromWrap) {
         // タイルスタイルに変更
@@ -141,6 +158,10 @@ const restoreStyleFromCookie = () => {
             worksItem[i].classList.remove('is-active-list');
             if (i == worksItem.length - 1) {
                 SetMasonry();
+                // Cookie復元時のタイルレイアウト変更後にヘッダー位置を再計算
+                setTimeout(() => {
+                    RecalculateHeaderScroll();
+                }, 50);
             }
         }
     } else {
