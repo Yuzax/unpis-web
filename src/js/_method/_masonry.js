@@ -1,5 +1,5 @@
 import {
-    isPhoneWindowSize as IsPhoneWindowSize,
+    isLargeIpadWindowSize as IsPhoneWindowSize,
     isLargeDesktopWindowSize as IsLargeDesktopWindowSize,
 } from './_class.js';
 
@@ -60,11 +60,8 @@ export const setStyle = () => {
 };
 
 export const resize = () => {
-    if (
-        targetItem.length == 0 ||
-        !targetContainer.classList.contains('is-active-masonry')
-    )
-        return false;
+    if (targetContainer == null || targetItem.length == 0) return false;
+    if (!targetContainer.classList.contains('is-active-masonry')) return false;
     setStyle();
 };
 

@@ -1,6 +1,7 @@
 @use "../../_foundation" as f
 
 .c-kv
+    position: relative
     flex-shrink: 0
     width: 100%
     height: calc(100svh - 144px)
@@ -10,3 +11,77 @@
     justify-content: center
     @include f.media()
         height: calc(100svh - 132px)
+
+
+    &__container
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        cursor: pointer
+        overflow: hidden
+        -webkit-tap-highlight-color: transparent
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        outline: none
+        border: none
+        background: transparent
+
+        &::selection
+            background-color: transparent
+
+        &:focus
+            outline: none
+            border: none
+
+        &:active
+            outline: none
+            border: none
+
+
+    &__image-wrap
+        position: relative
+        width: 100%
+        height: 100%
+        pointer-events: none
+
+        picture, img
+            pointer-events: none
+
+        img
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            object-fit: cover
+
+        .is-hide
+            display: none
+
+        &--pc
+            @include f.media()
+                display: none
+
+        &--sp
+            @include f.media(desktop)
+                display: none
+
+        &--parallax
+            position: absolute
+            top: 0
+            left: 0
+            will-change: transform
+
+            @include f.media()
+                picture:first-child
+                    display: none
+
+            @include f.media(desktop)
+                picture:last-child
+                    display: none
+

@@ -10,12 +10,34 @@ let item = [],
     informationModal = null,
     informationModalCloseButton = null;
 
+const updateHandleStates = () => {
+    // leftHandleの状態を更新
+    if (itemIndex === 0) {
+        leftHandle.classList.add('is-disable');
+    } else {
+        leftHandle.classList.remove('is-disable');
+    }
+
+    // rightHandleの状態を更新
+    if (itemIndex === item.length - 1) {
+        rightHandle.classList.add('is-disable');
+    } else {
+        rightHandle.classList.remove('is-disable');
+    }
+};
+
 const switchSlide = (_isRight = false) => {
     item[itemIndex].classList.add('is-hide');
     itemIndex = _isRight ? itemIndex + 1 : itemIndex - 1;
-    if (itemIndex < 0) itemIndex = item.length - 1;
-    if (itemIndex > item.length - 1) itemIndex = 0;
+
+    // ループ処理を削除し、境界チェックのみ行う
+    if (itemIndex < 0) itemIndex = 0;
+    if (itemIndex > item.length - 1) itemIndex = item.length - 1;
+
     item[itemIndex].classList.remove('is-hide');
+
+    // ハンドルのdisable状態を更新
+    updateHandleStates();
 };
 
 const addEventListener = () => {
@@ -126,7 +148,7 @@ export const init = () => {
         (informationModalCloseButton = document.querySelector(
             '.js-works-slider__information-modal-close-button',
         )));
-    if (item.length != 0) addEventListener();
+    if (item.length != 0 && item.length != 1) addEventListener();
     if (informationModal) addInformationModalEventListener();
     if (hideTarget.length != 0 && isDesktop()) hideUI();
     addIframeCloseEvent();

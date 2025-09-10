@@ -1,16 +1,21 @@
 @use "../../_foundation" as f
 
 .p-works-credit
-    @include f.font-styling(1.2rem, calc(16/12), 0.02em)
+    @include f.font-styling(1.2rem, calc(16/12), 0.02em, 400)
+    @include f.font-jp
     opacity: 0.6
     width: 100%
     margin: 0 auto
+
+    span.is-en
+        @include f.font
+        font-weight: 600
 
 
     &__item
         display: flex
         justify-content: center
-        align-items: center
+        align-items: flex-top
         width: 100%
 
     &__role

@@ -22,6 +22,7 @@
 
             path
                 fill: f.$color-black
+                transition: fill 0.1s f.ease("easeOutCubic")
 
         &.is-rev
             svg
@@ -45,10 +46,10 @@
 
 
     &__profile-en
-        @include f.font-styling(1.8rem, calc(24/18), 0.02em, 500)
+        @include f.font-styling(1.8rem, calc(24/18), 0.01em, 500)
         margin: 0 0 51.5px
         text-align: center
-        opacity: 0.5
+        opacity: 0.6
         @include f.media()
             font-size: 1.4rem
             line-height: calc(20/14)
@@ -66,6 +67,7 @@
         border: none
         border-radius: 1.5px
         background: f.$color-black
+        transition: background 0.1s f.ease("easeOutCubic")
         @include f.media()
             width: 18px
             height: 2px
@@ -101,7 +103,7 @@
                 border-radius: 1.5px
                 background: f.$color-black
                 pointer-events: none
-                @include f.hover-opacity
+                transition: background 0.1s f.ease("easeOutCubic")
                 @include f.media()
                     left: -1px
                     bottom: -4px

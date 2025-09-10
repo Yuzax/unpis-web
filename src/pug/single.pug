@@ -10,7 +10,8 @@ block contents
 
     article.c-works-slider
 
-        h1.c-works-slider-item__title.c-works-slider__hide-target.js-works-slider__hide-target <?= get_the_title(); ?>
+        h1.c-works-slider-item__title.c-works-slider__hide-target.js-works-slider__hide-target
+            span <?= add_span_to_en(get_the_title()); ?>
 
         //- スライダーコンテンツ
         |<?php
@@ -19,12 +20,12 @@ block contents
         |while(have_rows('works_slider')): the_row();
         |?>
         //- スライド内の情報を取得
-        |<?php $image_array = get_image_array('image', '', true); ?>
+        |<?php $image_array = get_image_array(get_sub_field('image')); ?>
         .c-works-slider-item.js-works-slider__item(class!="<?php if($index != 0) echo 'is-hide'; ?>")
             //- |<?php if($index == 0): ?>
             //- h1.c-works-slider-item__title.js-works-slider__hide-target <?= the_title(); ?>
             //- |<?php endif; ?>
-            .c-works-slider-item__image
+            .c-works-slider-item__image(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
                 img(
                     alt!="<?= get_the_title() . ' image'; ?>"
                     width!="<?= $image_array['width']; ?>"
@@ -34,8 +35,9 @@ block contents
                     sizes="100vw"
                 )
             |<?php if(get_sub_field('description')): ?>
-            p.c-works-slider-item__description.c-works-slider__hide-target.js-works-slider__hide-target
-                |<?= get_sub_field('description'); ?>
+            .c-works-slider-item__description.c-works-slider__hide-target.c-works-slider__hide-target--light-color.js-works-slider__hide-target
+                p
+                    |<?= add_span_to_en(get_sub_field('description')); ?>
             |<?php endif; ?>
         |<?php
         |$index += 1;
@@ -46,11 +48,11 @@ block contents
         //- ボタンリスト
         a.c-works-slider__button.c-works-slider__close-button.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-works-close-button.js-hover(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動")
         .c-works-slider__button-wrap
-            button.c-works-slider__button.c-works-slider__handle.c-works-slider__hide-target.js-works-slider__left-handle.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="前の画像を表示する")
+            button.c-works-slider__button.c-works-slider__handle.c-works-slider__hide-target.js-works-slider__left-handle.js-works-slider__hide-target.js-change-color-target.js-hover.is-disable(type="button" aria-label="前の画像を表示する")
                 include ../../src/img/arrow.svg
             button.c-works-slider__button.c-works-slider__information.c-works-slider__hide-target.js-works-slider__information-button.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="ワークスの詳細情報を表示する")
                 include ../../src/img/info-icon.svg
-            button.c-works-slider__button.c-works-slider__handle.js-works-slider__right-handle.c-works-slider__handle--right.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="次の画像を表示する")
+            button.c-works-slider__button.c-works-slider__handle.js-works-slider__right-handle.c-works-slider__handle--right.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="次の画像を表示する" class!="<?php if($index == 1){ echo 'is-disable';}; ?>")
                 include ../../src/img/arrow-right.svg
 
 
@@ -61,18 +63,18 @@ block contents
 
                 .c-works-information-modal__title-wrap
 
-                    h2.c-works-information-modal__title <?= get_the_title(); ?>
+                    h2.c-works-information-modal__title <?= add_span_to_en(get_the_title()); ?>
 
                     //- 備考
                     |<?php if(get_field('works_remarks')): ?>
                     p.c-works-information-modal__remarks
-                        |<?= get_field('works_remarks'); ?>
+                        |<?= add_span_to_en(get_field('works_remarks')); ?>
                     |<?php endif; ?>
 
                 //- プロジェクト概要
                 |<?php if(get_field('works_description')): ?>
                 p.c-works-information-modal__description
-                    |<?= get_field('works_description'); ?>
+                    |<?= add_span_to_en(get_field('works_description')); ?>
                 |<?php endif; ?>
 
                 //- リンクリスト
@@ -81,7 +83,10 @@ block contents
                     |<?php while(have_rows('links')): the_row(); ?>
                     li.p-works-link
                         a.p-works-link__body.js-change-color-target.js-hover(href!="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く")
-                            |<?= get_sub_field('url'); ?>
+                            |<?php
+                            |if(get_sub_field('text')) echo get_sub_field('text');
+                            |else echo get_sub_field('url');
+                            |?>
                     |<?php endwhile; ?>
                 |<?php endif; ?>
 
@@ -92,10 +97,10 @@ block contents
                         |<?php while(have_rows('works_credit_list')): the_row(); ?>
                         li.p-works-credit__item
                             span.p-works-credit__role
-                                |<?= get_sub_field('roll'); ?>
+                                |<?= add_span_to_en(get_sub_field('roll')); ?>
                             span.p-works-credit__separator
                             span.p-works-credit__name
-                                |<?= get_sub_field('name'); ?>
+                                |<?= add_span_to_en(get_sub_field('name')); ?>
                         |<?php endwhile; ?>
                 |<?php endif; ?>
 

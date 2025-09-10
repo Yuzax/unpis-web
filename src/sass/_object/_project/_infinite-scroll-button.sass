@@ -9,7 +9,8 @@
     border: 3px solid f.$color-black
     border-radius: 50%
     box-sizing: border-box
-    @include f.expand-circle
+    transition: border 0.1s f.ease("easeOutCubic"), width 0.1s f.ease("easeOutCubic"), height 0.1s f.ease("easeOutCubic"), margin 0.1s f.ease("easeOutCubic"), opacity 0.5s f.ease("easeOutCubic")
+    will-change: width, height, margin
     @include f.media()
         bottom: 118px
         flex-shrink: 0
@@ -27,6 +28,7 @@
         border-radius: 3px
         background: f.$color-black
         transform: translate(50%, 50%) rotate(0deg)
+        transition: background 0.1s f.ease("easeOutCubic")
         @include f.media()
             width: 18px
             height: 2px

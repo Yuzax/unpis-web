@@ -4,9 +4,10 @@
     z-index: 10
     position: relative
     display: none
-    width: 100svw
-    height: 100svh
+    width: 100dvw
+    height: 100dvh
     background: f.$color-bg
+    transition: background 0.1s f.ease("easeOutCubic")
 
     &.is-active
         display: flex
@@ -36,6 +37,7 @@
 
     &__title
         @include f.font-styling(2.0rem, calc(30/20), 0.02em, 400)
+        @include f.font-jp
         width: 100%
         text-align: center
         &:not(:last-child)
@@ -44,25 +46,41 @@
             font-size: 1.8rem
             line-height: calc(26/18)
 
+        span.is-en
+            @include f.font
+            font-weight: 600
+
 
     &__remarks
-        @include f.font-styling(1.2rem, calc(16/12), 0.02em)
+        @include f.font-styling(1.2rem, calc(16/12), 0.02em, 400)
+        @include f.font-jp
         width: 100%
         text-align: center
         opacity: 0.6
 
+        span.is-en
+            @include f.font
+            font-weight: 600
+
 
     &__description
         @include f.font-styling(1.3rem, calc(20/13), 0, 400)
+        @include f.font-jp
         width: 100%
+        text-align: center
         margin: 0 0 30px
+
+        span.is-en
+            @include f.font
+            font-weight: 600
 
 
     &__link-list
         display: flex
         justify-content: center
+        flex-wrap: wrap
         width: 100%
-        margin: 0 0 40px
+        margin: 0 0 35px
 
 
     &__credit-list

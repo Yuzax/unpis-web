@@ -31,7 +31,7 @@
             margin: -8px 0
 
             &.is-hover
-                opacity: 0.6
+                color: f.$color-orange
 
         &-dot
             display: block
@@ -40,6 +40,7 @@
             margin: 16px 8px 0
             border-radius: 4px
             background: f.$color-gray
+            transition: background 0.1s f.ease("easeOutCubic")
             @include f.media()
                 width: 14px
                 height: 0px

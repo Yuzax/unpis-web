@@ -37,11 +37,11 @@
 
         a
             @include f.font-styling(3.2rem, calc(34/32), 0.02em)
-            @include f.hover-opacity
             padding: 8px 0
             margin: -8px 0
             opacity: 0.6
             color: inherit
+            transition: opacity 0.1s f.ease("easeOutCubic")
             @include f.media()
                 font-size: 2.2rem
                 line-height: calc(34/22)
@@ -51,6 +51,9 @@
 
             &.is-active, &.is-hover
                 opacity: 1
+
+            &.is-hover
+                color: f.$color-orange
 
 
     &__layout
@@ -75,6 +78,7 @@
                 width: 22px
                 height: 2px
                 background: f.$color-icon-gray
+                transition: background 0.1s f.ease("easeOutCubic")
 
             &.is-rev
                 &:before
@@ -94,11 +98,11 @@
 
         button
             @include f.font-styling(3.2rem, calc(34/32), 0.02em)
-            @include f.hover-opacity
             padding: 8px 0
             margin: -8px 0
             color: inherit
             opacity: 0.6
+            transition: color 0.1s f.ease("easeOutCubic"), opacity 0.1s f.ease("easeOutCubic")
             @include f.media()
                 font-size: 2.2rem
                 line-height: calc(34/22)
@@ -109,10 +113,14 @@
             &.is-active, &.is-hover
                 opacity: 1
 
+            &.is-hover
+                color: f.$color-orange
+
 
         span
             svg path
                 fill: f.$color-black
+                transition: fill 0.1s f.ease("easeOutCubic")
 
             &.is-rev
                 svg path

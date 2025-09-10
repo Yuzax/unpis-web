@@ -1,8 +1,47 @@
+import * as Devices from 'AppJs/_method/_class';
+
 let target = null,
     targetText = null,
-    visibleTarget = [];
+    visibleTarget = [],
+    kvGesture = null;
 
 // Blinkのアニメーション自体はcssで管理してます。
+
+const setDeviceSpecificText = () => {
+    if (!target || !targetText) return;
+
+    // data-kv-gesture属性からgestureを取得
+    kvGesture = target.dataset.kvGesture || '';
+
+    // PC/SP判定に基づいてテキストを設定
+    let textContent = '';
+    if (Devices.isDesktop()) {
+        // PC用テキスト
+        if (kvGesture === 'click') {
+            textContent = 'Click';
+        } else if (kvGesture === 'hold') {
+            textContent = 'Keep pushing';
+        } else if (kvGesture === 'parallax') {
+            textContent = 'Keep moving';
+        } else {
+            textContent = 'Keep pushing';
+        }
+    } else {
+        // SP用テキスト
+        if (kvGesture === 'click') {
+            textContent = 'Tap';
+        } else if (kvGesture === 'hold') {
+            textContent = 'Keep pushing';
+        } else if (kvGesture === 'parallax') {
+            textContent = 'Keep dragging';
+        } else {
+            textContent = 'Keep pushing';
+        }
+    }
+
+    // テキストを設定して表示
+    targetText.textContent = textContent;
+};
 
 const setEventListener = () => {
     targetText.addEventListener('animationend', () => {
@@ -24,6 +63,10 @@ export const init = () => {
     );
     if (target == null || visibleTarget.length == 0) return false;
     targetText = target.getElementsByClassName('js-kv-note__text')[0];
+
+    // デバイス判定後にテキストを設定・表示
+    setDeviceSpecificText();
+
     targetText.classList.add('is-animating');
     setEventListener();
 };

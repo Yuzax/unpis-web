@@ -31,6 +31,10 @@ export const isAndroid = () => {
     );
 };
 
+export const isLargeIpadWindowSize = () => {
+    return window.matchMedia('(max-width:880px)').matches;
+};
+
 export const isPhoneWindowSize = () => {
     return window.matchMedia('(max-width:768px)').matches;
 };

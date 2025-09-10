@@ -1,22 +1,28 @@
-header.l-header
+header.l-header.js-header(data-section="1" class!="<?php if (!is_front_page()) { echo 'is-fixed'; } ?>")
 
-    a.l-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動")
-        |unpis
+    .l-header__container.js-header__container(class!="<?php if (!is_front_page()) { echo 'is-fixed'; } ?>")
 
-    |<?php  if (is_front_page()): ?>
-    .l-header__kv-note.js-change-color-target.js-kv-note
-        include ../../src/img/arrow.svg
-        p.js-kv-note__text Keep pushing
+        a.l-header__link.js-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動")
+            |unpis
 
-    button.l-header__button.l-header__button--arrow.js-kv-note__visible-target.js-change-color-target.js-hover.js-scroll-to-btn.js-is-in-kv.is-hide(type="button" aria-label="ワークス一覧へ移動" data-target="1")
-        include ../../src/img/arrow-down.svg
-    |<?php endif; ?>
+        |<?php  if (is_front_page()): ?>
+        |<?php
+        |// kv.pugで設定されたgestureを取得
+        |$kv_gesture = isset($GLOBALS['kv_gesture']) ? $GLOBALS['kv_gesture'] : '';
+        |?>
+        .l-header__kv-note.js-change-color-target.js-kv-note(data-kv-gesture!="<?= $kv_gesture; ?>")
+            include ../../src/img/arrow.svg
+            p.js-kv-note__text
 
-    button.l-header__button.l-header__button--face.js-kv-note__visible-target.js-change-color-btn.js-hover(type="button" aria-label="ダークモード・ライトモードを切り替え" class!="<?php  if (is_front_page()){ echo 'js-is-in-kv is-hide'; }; ?>")
-        span.l-header__button--face-wrapper
-            img.js-face-animation(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/<?php echo (isset($_COOKIE['color_mode']) && $_COOKIE['color_mode'] === 'dark') ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face")
-            span
-                img(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/beam.webp" alt="Face with Light")
+        button.l-header__button.l-header__button--arrow.js-kv-note__visible-target.js-change-color-target.js-hover.js-scroll-to-btn.js-is-in-kv.is-hide(type="button" aria-label="ワークス一覧へ移動" data-target="1")
+            include ../../src/img/arrow-down.svg
+        |<?php endif; ?>
 
-    a.l-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/about/' ); ?>" aria-label="Aboutページに移動")
-        |about
+        button.l-header__button.l-header__button--face.js-kv-note__visible-target.js-change-color-btn.js-hover(type="button" aria-label="ダークモード・ライトモードを切り替え" class!="<?php  if (is_front_page()){ echo 'js-is-in-kv is-hide'; }; ?>")
+            span.l-header__button--face-wrapper
+                img.js-face-animation(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/<?php echo (isset($_COOKIE['color_mode']) && $_COOKIE['color_mode'] === 'dark') ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face")
+                span
+                    img(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/beam.webp" alt="Face with Light")
+
+        a.l-header__link.js-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/about/' ); ?>" aria-label="Aboutページに移動")
+            |about

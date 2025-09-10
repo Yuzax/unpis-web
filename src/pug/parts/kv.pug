@@ -1,2 +1,125 @@
+//- スライドリピーターフィールドの取得
+//- cookieを使って順番に表示
+|<?php
+|if(get_field('kv_slide' )):
+|$kv_sliders = get_field('kv_slide');
+|
+|// cookieを使った順番表示の実装
+|$cookie_name = 'kv_slide_counter';
+|$last_visit_cookie = 'kv_last_visit';
+|$total_slides = count($kv_sliders);
+|
+|// 現在の時刻を取得
+|$current_time = time();
+|
+|// cookieから現在のカウンターと最後の訪問時刻を取得
+|$current_counter = isset($_COOKIE[$cookie_name]) ? intval($_COOKIE[$cookie_name]) : 0;
+|$last_visit = isset($_COOKIE[$last_visit_cookie]) ? intval($_COOKIE[$last_visit_cookie]) : 0;
+|
+|// カウンターが範囲外の場合は0にリセット
+|if ($current_counter >= $total_slides || $current_counter < 0) {
+|    $current_counter = 0;
+|}
+|
+|// 現在のスライドを取得
+|$target_row = $kv_sliders[$current_counter];
+|$gesture = $target_row['gesture'];
+|$slide_group = null;
+|$GLOBALS['kv_gesture'] = $gesture;
+|
+|// 5秒以上経過している場合のみカウンターを更新（リロード対策）
+|if ($current_time - $last_visit > 0.1) {
+|    $next_counter = ($current_counter + 1) % $total_slides;
+|
+|    // cookieの有効期限を30日に設定
+|    $expire_time = time() + (30 * 24 * 60 * 60);
+|
+|    // cookieを設定（HTTPSの場合はsecureフラグも設定）
+|    $secure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+|    setcookie($cookie_name, $next_counter, $expire_time, '/', '', $secure, true);
+|    setcookie($last_visit_cookie, $current_time, $expire_time, '/', '', $secure, true);
+|}
+|?>
+
 .c-kv
-    |Key Visual
+
+    //- クリック or ホールド
+    |<?php
+    |if($gesture == 'click' || $gesture == 'hold'):
+    |   $slide_group = $gesture == 'click'? $target_row['kv_click_image'] : $target_row['kv_hold_image'];
+    |   $pc_images = $slide_group['pc_image'];
+    |   $sp_images = $slide_group['sp_image'];
+    |?>
+    .c-kv__container.js-kv(class!="<?php if($gesture == 'click'){ echo 'js-kv--click'; }else{ echo 'js-kv--hold'; } ?>")
+        //- PC用画像
+        .c-kv__image-wrap.c-kv__image-wrap--pc.js-kv__image-wrap
+            |<?php
+            |$index = 0;
+            |if($pc_images): foreach($pc_images as $pc_image):
+            |   $image_array = get_image_array($pc_image['image']);
+            |   $add_class = $index != 0? 'is-hide' : '';
+            |?>
+            img(
+                alt!="KV Image"
+                width!="<?= $image_array['width']; ?>"
+                height!="<?= $image_array['height']; ?>"
+                src!="<?= $image_array['small']; ?>"
+                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>"
+                sizes="150vw"
+                class!="<?= $add_class; ?>"
+            )
+            |<?php $index = $index + 1; endforeach; endif; ?>
+        //- SP用画像
+        .c-kv__image-wrap.c-kv__image-wrap--sp.js-kv__image-wrap
+            |<?php
+            |$index = 0;
+            |if($sp_images): foreach($sp_images as $sp_image):
+            |   $image_array = get_image_array($sp_image['image']);
+            |   $add_class = $index != 0? 'is-hide' : '';
+            |?>
+            img(
+                alt!="KV Image"
+                width!="<?= $image_array['width']; ?>"
+                height!="<?= $image_array['height']; ?>"
+                src!="<?= $image_array['small']; ?>"
+                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>"
+                sizes="100vw"
+                class!="<?= $add_class; ?>"
+            )
+            |<?php $index = $index + 1; endforeach; endif; ?>
+    |<?php endif; ?>
+
+    //- パララックス
+    |<?php
+    |if($gesture == 'parallax'):
+    |  $slide_images = $target_row['kv_parallax_image'];
+    |?>
+    .c-kv__container.js-kv.js-kv--parallax
+        |<?php
+        |if($slide_images):
+        |   $slide_images = array_reverse($slide_images);
+        |   foreach($slide_images as $slide_image):
+        |?>
+        .c-kv__image-wrap.c-kv__image-wrap--parallax.js-kv__image-wrap(data-parallax-strength!="<?= $slide_image['parallax_strength']; ?>")
+            |<?php $image_array = get_image_array($slide_image['image_group']['pc_image']); ?>
+            img(
+                alt!="KV Image"
+                width!="<?= $image_array['width']; ?>"
+                height!="<?= $image_array['height']; ?>"
+                src!="<?= $image_array['small']; ?>"
+                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>"
+                sizes="150vw"
+            )
+            |<?php $image_array = get_image_array($slide_image['image_group']['sp_image']); ?>
+            img(
+                alt!="KV Image"
+                width!="<?= $image_array['width']; ?>"
+                height!="<?= $image_array['height']; ?>"
+                src!="<?= $image_array['small']; ?>"
+                srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>"
+                sizes="100vw"
+            )
+        |<?php endforeach; endif; ?>
+    |<?php endif; ?>
+
+|<?php endif; ?>

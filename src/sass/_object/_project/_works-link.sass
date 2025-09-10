@@ -1,8 +1,9 @@
 @use "../../_foundation" as f
 
 .p-works-link
+    margin: 0 0 5px 0
     &:not(:last-child)
-        margin: 0 8px 0 0
+        margin: 0 8px 5px 0
 
 
     &__body
@@ -22,7 +23,7 @@
             height: 1px
             background: f.$color-black
             pointer-events: none
-            @include f.hover-opacity
+            transition: background 0.1s f.ease("easeOutCubic")
 
         &.is-hover
             &::after

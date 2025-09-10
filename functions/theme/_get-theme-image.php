@@ -2,10 +2,9 @@
 
 // 画像を出力するfunction
 // 画像はIDで表示
-function get_image_array($target, $option='', $is_sub_field = false) {
+// $imgはfield value（get_field('hoge')など）
+function get_image_array($img) {
     $img_array = [];
-    if($is_sub_field) $img = get_sub_field($target, $option);
-    else $img = get_field($target, $option);
     if($img){
         $img_array['small'] = wp_get_attachment_image_src( $img , 'small' )[0];
         $img_array['thumbnail'] = wp_get_attachment_image_src( $img , 'thumbnail' )[0];

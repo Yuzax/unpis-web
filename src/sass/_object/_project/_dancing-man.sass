@@ -29,9 +29,20 @@
         loading: eager
         decoding: sync
 
+        &:last-child
+            display: none
+
 
     &.is-active
         right: 6px
         @include f.media()
             right: 7px
+
+    &.is-hover
+        img
+            &:first-child
+                display: none
+
+            &:last-child
+                display: inline
 

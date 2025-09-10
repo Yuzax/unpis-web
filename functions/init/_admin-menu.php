@@ -67,4 +67,61 @@ add_filter('menu_order', 'custom_menu_order');
 //     exit();
 //   }
 // }
+
+// 管理画面に日本語スラッグの投稿・タームを一覧表示
+add_action('admin_notices', function () {
+    // 管理画面かどうか＆get_current_screen関数が使えるかをチェック
+    if (!is_admin() || !function_exists('get_current_screen')) return;
+
+    // 現在の画面情報を取得
+    $s = get_current_screen(); 
+    $out = []; // 対象リストの出力用配列
+
+    // 投稿・ターム共通の検出処理をコールバック化
+    $check = function ($label, $items, $get_link, $get_name, $get_slug) use (&$out) {
+        foreach ($items as $item) {
+            // スラッグに日本語（URLエンコードで%が含まれる）を検出
+            if (strpos(urlencode($get_slug($item)), '%') !== false) {
+                // 編集リンク付きでリストに追加
+                $out[] = sprintf('<li><a href="%s">%s</a>（%s）</li>',
+                    esc_url($get_link($item)),     // 編集画面へのリンク
+                    esc_html($get_name($item)),    // 投稿・ターム名
+                    esc_html($get_slug($item))     // スラッグ
+                );
+            }
+        }
+    };
+
+    // 投稿一覧ページでの検出処理（投稿・固定ページ・カスタム投稿に対応）
+    if ($s->base === 'edit') {
+        $check('post',
+            get_posts([
+                'post_type'   => $s->post_type,
+                'numberposts' => -1,
+                'post_status' => 'any',
+            ]),
+            fn($p) => get_edit_post_link($p->ID),
+            fn($p) => get_the_title($p),
+            fn($p) => $p->post_name
+        );
+    }
+
+    // ターム一覧ページでの検出処理（カテゴリー・タグ・カスタムタクソノミーに対応）
+    if ($s->base === 'edit-tags') {
+        $check('term',
+            get_terms([
+                'taxonomy'   => $s->taxonomy,
+                'hide_empty' => false,
+            ]),
+            fn($t) => get_edit_term_link($t->term_id, $s->taxonomy),
+            fn($t) => $t->name,
+            fn($t) => $t->slug
+        );
+    }
+
+    // 日本語スラッグが1件以上見つかった場合、メッセージとして表示
+    if ($out) {
+        echo '<div class="notice notice-warning"><p>日本語スラッグを変更してください！：</p><ul>' . implode('', $out) . '</ul></div>';
+    }
+});
 ?>

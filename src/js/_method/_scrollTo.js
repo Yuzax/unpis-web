@@ -62,9 +62,9 @@ const addCheckUserActionSP = () => {
 };
 
 const initVariable = () => {
-    (isEnableScrolling = false),
+    ((isEnableScrolling = false),
         (scrollThreshold = browser() == 'safari' ? 1 : 20),
-        (scrollTimeout = null);
+        (scrollTimeout = null));
 };
 
 export const init = () => {

@@ -18,9 +18,7 @@ const totalFrames = 18; // 0.webp から 17.webp まで
 
 // 特別な画像
 let kimeImage = null;
-let hoverImage = null;
 let isAtBottom = false;
-let isHovered = false;
 
 // ダンサーをトグルする処理
 const toggleDancer = (_scrollTop) => {
@@ -75,11 +73,6 @@ const preloadImages = async () => {
             kimeImage = img;
         }),
     );
-    loadPromises.push(
-        loadSingleImage(`${basePath}hover.webp`).then((img) => {
-            hoverImage = img;
-        }),
-    );
     // すべての画像の読み込み完了を待つ
     await Promise.all(loadPromises);
 };
@@ -87,12 +80,6 @@ const preloadImages = async () => {
 // フレームを更新する関数
 const updateFrame = (frame) => {
     if (!dancingManImg) return;
-
-    // ホバー状態の場合はhover.webpを表示
-    if (isHovered && hoverImage && hoverImage.complete) {
-        dancingManImg.src = hoverImage.src;
-        return;
-    }
 
     // ページ最下部の場合はkime.webpを表示
     if (isAtBottom && kimeImage && kimeImage.complete) {
@@ -119,17 +106,6 @@ const checkIfAtBottom = (scrollTop) => {
     if (wasAtBottom !== isAtBottom) {
         updateFrame(currentFrame);
     }
-};
-
-// ホバーイベントハンドラー
-const handleMouseEnter = () => {
-    isHovered = true;
-    updateFrame(currentFrame);
-};
-
-const handleMouseLeave = () => {
-    isHovered = false;
-    updateFrame(currentFrame);
 };
 
 // スクロール速度を計算する関数
@@ -185,33 +161,14 @@ const initVariable = (scrollTop) => {
     lastScrollTime = performance.now();
 };
 
-// イベントリスナーの追加
-const addEventListeners = () => {
-    if (dancingManElement) {
-        // ホバーイベントを追加
-        dancingManElement.addEventListener('mouseenter', handleMouseEnter);
-        dancingManElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-};
-
-// イベントリスナーの削除
-const removeEventListeners = () => {
-    if (dancingManElement) {
-        dancingManElement.removeEventListener('mouseenter', handleMouseEnter);
-        dancingManElement.removeEventListener('mouseleave', handleMouseLeave);
-    }
-};
-
 // クリーンアップ関数
 const cleanup = () => {
     if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
         animationFrameId = null;
     }
-    removeEventListeners();
     isInitialized = false;
     isAtBottom = false;
-    isHovered = false;
     isActive = false;
     scrollCounter = 0;
 };
@@ -222,7 +179,6 @@ export const update = () => {
     isInitialized = false;
     isActive = false;
     isAtBottom = false;
-    isHovered = false;
     scrollCounter = 0;
 
     // 現在のスクロール位置を取得して再初期化
@@ -256,8 +212,6 @@ export const init = (_scrollTop) => {
     if (dancingManElement && dancingManImg) {
         // 画像をプリロード（非同期）
         preloadImages().then(() => {
-            // プリロード完了後にイベントリスナーを追加
-            addEventListeners();
             isInitialized = true;
 
             // 再度現在のスクロール位置を確認

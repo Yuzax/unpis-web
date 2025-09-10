@@ -9,6 +9,7 @@ let modal = null;
 let modalClose = null;
 let modalContent = null;
 let originalUrl = null;
+let originalTitle = null;
 
 /**
  * モーダルを開く
@@ -17,8 +18,9 @@ let originalUrl = null;
 const openModal = (url) => {
     if (!modal) return;
 
-    // 現在のURLを保存
+    // 現在のURLとタイトルを保存
     originalUrl = window.location.href;
+    originalTitle = document.title;
 
     // Push Stateでリンクを設定
     history.pushState({ modal: true, url: url }, '', url);
@@ -29,6 +31,19 @@ const openModal = (url) => {
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = 'none';
+    iframe.style.display = 'block';
+
+    // スマホ対応: viewport設定を強制
+    iframe.setAttribute('loading', 'eager');
+    iframe.setAttribute('importance', 'high');
+
+    // iframeの読み込み完了時にタイトルを更新
+    iframe.onload = () => {
+        const iframeTitle = iframe.contentDocument?.title;
+        if (iframeTitle) {
+            document.title = iframeTitle;
+        }
+    };
 
     // モーダルコンテンツをクリア
     modalContent.innerHTML = '';
@@ -59,6 +74,12 @@ const closeModal = () => {
     if (originalUrl) {
         history.pushState(null, '', originalUrl);
         originalUrl = null;
+    }
+
+    // 元のタイトルに戻す
+    if (originalTitle) {
+        document.title = originalTitle;
+        originalTitle = null;
     }
 };
 

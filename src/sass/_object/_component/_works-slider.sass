@@ -2,8 +2,8 @@
 
 .c-works-slider
     position: relative
-    width: 100svw
-    height: 100svh
+    width: 100dvw
+    height: 100dvh
 
 
     &__button-wrap
@@ -23,7 +23,8 @@
         border: 3px solid f.$color-black
         border-radius: 50%
         box-sizing: border-box
-        @include f.work-slider-item
+        transition: width 0.1s f.ease("easeOutCubic"), height 0.1s f.ease("easeOutCubic"), margin 0.1s f.ease("easeOutCubic"), opacity 0.5s f.ease("easeOutCubic"), border 0.1s f.ease("easeOutCubic")
+        will-change: width, height, margin
         @include f.media()
             bottom: 0
             flex-shrink: 0
@@ -104,6 +105,10 @@
             @include f.media()
                 right: 0
 
+        &.is-disable
+            visibility: hidden
+            pointer-events: none
+
 
     &__information
         @include f.media(desktop)
@@ -121,10 +126,13 @@
 
 
     &__hide-target
-        opacity: 100
+        opacity: 1
         @include f.work-slider-item
 
         &.is-hide
             opacity: 0
             pointer-events: none
+
+        &--light-color
+            opacity: 0.6
 

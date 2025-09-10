@@ -44,6 +44,18 @@ import {
     onResize as OnResizeDancingMan,
     update as UpdateDancingMan,
 } from 'AppJs/_method/_dancingMan';
+import {
+    init as InitKv,
+    resize as ResizeKv,
+    update as UpdateKv,
+} from 'AppJs/_method/_kv';
+import {
+    init as InitHeaderScroll,
+    resize as ResizeHeaderScroll,
+    update as UpdateHeaderScroll,
+    onScroll as OnScrollHeaderScroll,
+} from 'AppJs/_method/_headerScroll';
+import 'AppJs/_method/_faviconAnimation';
 
 // // variable
 let ticking = false;
@@ -79,6 +91,8 @@ const init = async () => {
     InitWorksSlider();
     InitWorksInformationModal();
     InitDancingMan(scrollTop);
+    InitKv();
+    InitHeaderScroll(scrollTop);
 };
 init();
 
@@ -90,6 +104,8 @@ const update = () => {
     UpdateFaceAnimation();
     UpdateDancingMan();
     UpdateWorksSeen();
+    UpdateKv();
+    UpdateHeaderScroll();
 };
 
 ///////////////////////////////////////////////////////
@@ -107,6 +123,8 @@ const resize = () => {
                 ResizeWorksInformationModal();
                 // dancing-manのリサイズ処理を統合
                 OnResizeDancingMan();
+                ResizeKv();
+                ResizeHeaderScroll(scrollTop);
             });
             ticking = true;
         }
@@ -126,6 +144,8 @@ window.addEventListener('scroll', () => {
             ToggleIsInKV(scrollTop);
             // dancing-manのスクロール処理を統合
             OnScrollDancingMan(scrollTop);
+            // ヘッダースクロール処理を統合
+            OnScrollHeaderScroll(scrollTop);
         });
         ticking = true;
     }

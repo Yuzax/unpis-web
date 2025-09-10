@@ -5,8 +5,8 @@
     top: 0
     left: 0
     z-index: 9999
-    width: 100svw
-    height: 100svh
+    width: 100dvw
+    height: 100dvh
     opacity: 0
     visibility: hidden
 
@@ -21,14 +21,28 @@
         height: 100%
         box-sizing: border-box
         background: f.$color-bg
+        transition: background 0.1s f.ease("easeOutCubic")
 
         &.is-rev
             background: f.$color-bg-dark
 
 
     &__content
+        position: relative
+        width: 100%
+        height: 100%
+        overflow: hidden
 
         iframe
+            position: absolute
+            top: 0
+            left: 0
             width: 100%
             height: 100%
             border: none
+            display: block
+            
+            // スマホでのiframe表示問題対策
+            @include f.media()
+                -webkit-overflow-scrolling: touch
+                transform: translateZ(0)

@@ -31,7 +31,7 @@
         width: calc((100% - 64px)/3)
         margin: 0
 
-        @include f.media()
+        @include f.media(largeIpad)
             width: calc((100% - 16px)/2)
             &:nth-child(2n-1)
                 margin: 0 16px 16px 0
@@ -54,12 +54,12 @@
             position: static
             width: 100%
             margin: 0 auto 93px
-            @include f.media()
+            @include f.media(largeIpad)
                 margin: 0 auto 46px
 
         &--vertical.is-active-list
             width: calc(100% - 208px)
-            @include f.media()
+            @include f.media(largeIpad)
                 width: calc(100% - 94px)
 
         //- メーソンリーの時（デフォルトのスタイルにアタッチ）
@@ -67,7 +67,7 @@
             position: absolute
             will-change: top
 
-            @include f.media()
+            @include f.media(largeIpad)
                 &:nth-child(2n-1)
                     left: 0
                 &:nth-child(2n)
@@ -115,7 +115,7 @@
 
             &.is-hover
                 &::after
-                    opacity: 0.2
+                    opacity: 0.1
 
                 &+.c-works-list__text
                     @include f.flash-border
@@ -148,7 +148,8 @@
         border-radius: 20px
         background: f.$color-bg
         pointer-events: none
-        @include f.media(smallDesktop)
+        transition: background 0.1s f.ease("easeOutCubic")
+        @include f.media()
             @include f.font-styling(1.0rem, calc(10/10), 0.02em)
             bottom: 8px
             right: 8px
@@ -171,7 +172,8 @@
 
 
     &__title
-        @include f.font-styling(1.6rem, calc(22/16), 0.02em)
+        @include f.font-styling(1.6rem, calc(22/16), 0.02em, 400)
+        @include f.font-jp
         @include f.media()
             font-size: 1.4rem
             line-height: calc(16/14)
@@ -181,10 +183,19 @@
             @include f.media()
                 margin: 0 0 7px
 
+        span.is-en
+            @include f.font
+            font-weight: 600
+
 
     &__note
-        @include f.font-styling(1.2rem, calc(16/12), 0.02em)
+        @include f.font-styling(1.2rem, calc(16/12), 0.02em, 400)
+        @include f.font-jp
         opacity: 0.3
         @include f.media()
             font-size: 1.1rem
             line-height: calc(12/11)
+
+        span.is-en
+            @include f.font
+            font-weight: 600
