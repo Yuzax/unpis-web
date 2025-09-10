@@ -4,42 +4,44 @@ const getRandomTimeout = () => {
     return 0;
 };
 
+// 共通のIntersectionObserverオプション
+const observerOptions = {
+    root: null,
+    rootMargin: '100px 0px',
+    threshold: 0,
+};
+
+// 共通のlazyload処理関数
+const processLazyImage = (lazyImage) => {
+    const lazySource = lazyImage.previousElementSibling;
+    setTimeout(() => {
+        if (Object.prototype.hasOwnProperty.call(lazyImage.dataset, 'src')) {
+            lazyImage.src = lazyImage.dataset.src;
+        }
+        if (Object.prototype.hasOwnProperty.call(lazyImage.dataset, 'srcset')) {
+            lazyImage.srcset = lazyImage.dataset.srcset;
+        }
+        if (lazySource !== undefined && lazySource != null) {
+            lazySource.srcset = lazySource.dataset.srcset;
+        }
+        lazyImage.classList.add('is-entered');
+    }, getRandomTimeout());
+};
+
 const initImageLazyload = () => {
     // https://weblasts.com/javascript/intersection-observer
     const targets = document.getElementsByClassName('js-lazy');
-    // 範囲の設定
-    const options = {
-        root: null,
-        rootMargin: '100px 0px',
-        threshold: 0,
-    };
     // 交差したときに実行する関数
     const intersect = (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                // 監視中の要素が交差した状態ならtrue
-                const lazyImage = entry.target,
-                    lazySource = lazyImage.previousElementSibling;
-                setTimeout(() => {
-                    if (lazyImage.dataset.hasOwnProperty('src')) {
-                        // data-src 属性値があれば、src 属性にコピーします
-                        lazyImage.src = lazyImage.dataset.src;
-                    }
-                    if (lazyImage.dataset.hasOwnProperty('srcset')) {
-                        // data-srcset 属性値があれば、srcset 属性にコピーします
-                        lazyImage.srcset = lazyImage.dataset.srcset;
-                    }
-                    if (lazySource !== undefined && lazySource != null) {
-                        lazySource.srcset = lazySource.dataset.srcset;
-                    }
-                    lazyImage.classList.add('is-entered');
-                }, getRandomTimeout());
+                processLazyImage(entry.target);
                 observer.unobserve(entry.target);
             }
         });
     };
     // Intersection Observerを使えるようにする
-    const observer = new IntersectionObserver(intersect, options);
+    const observer = new IntersectionObserver(intersect, observerOptions);
     // 対象の要素をそれぞれ監視する
     for (let i = 0; i < targets.length; i++) {
         observer.observe(targets[i]);
@@ -89,6 +91,22 @@ const initImageLazyload = () => {
 //         observer.observe(targets[i]);
 //     }
 // };
+
+// 交差している画像に対してlazyload処理を手動実行
+export const processIntersectingLazyImages = (elements) => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                processLazyImage(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    elements.forEach((element) => {
+        observer.observe(element);
+    });
+};
 
 export const init = () => {
     initImageLazyload();

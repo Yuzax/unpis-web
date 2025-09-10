@@ -67,6 +67,9 @@
                 srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>"
                 sizes="150vw"
                 class!="<?= $add_class; ?>"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
             )
             |<?php $index = $index + 1; endforeach; endif; ?>
         //- SP用画像
@@ -85,6 +88,9 @@
                 srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>"
                 sizes="100vw"
                 class!="<?= $add_class; ?>"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
             )
             |<?php $index = $index + 1; endforeach; endif; ?>
     |<?php endif; ?>
@@ -109,6 +115,9 @@
                 src!="<?= $image_array['small']; ?>"
                 srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>"
                 sizes="150vw"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
             )
             |<?php $image_array = get_image_array($slide_image['image_group']['sp_image']); ?>
             img(
@@ -118,6 +127,9 @@
                 src!="<?= $image_array['small']; ?>"
                 srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>"
                 sizes="100vw"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="high"
             )
         |<?php endforeach; endif; ?>
     |<?php endif; ?>

@@ -34,7 +34,7 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
                 sizes="(max-width: 768px) 50vw, (max-width: 2000px) 33vw, 25vw"
                 data-sizes-list="100vw"
             )
-            .c-works-list__seen-icon.js-change-color-target.js-works-seen-icon
+            .c-works-list__seen-icon.js-change-color-target.js-works-seen-icon(class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
                 |seen
         .c-works-list__text
             h2.c-works-list__title <?= add_span_to_en(get_the_title()); ?>
@@ -44,10 +44,10 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
     |<?php endforeach; endif; wp_reset_postdata(); ?>
 
 |<?php if($has_more_posts): ?>
-button.p-infinite-scroll-button.js-infinite-scroll-button.js-change-color-target.js-hover(type="button" aria-label="投稿を更に読み込む" aria-pressed="false")
+button.p-infinite-scroll-button.js-infinite-scroll-button.js-change-color-target.js-hover(type="button" aria-label="投稿を更に読み込む" aria-pressed="false" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
 |<?php endif; ?>
 
 //- モーダル
 .c-works-modal.js-works-modal
-    .c-works-modal__container.js-change-color-target
+    .c-works-modal__container.js-change-color-target(class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
         .c-works-modal__content.js-works-modal__content

@@ -7,7 +7,7 @@ const FACE_ANIMATION_CONFIG = {
         defaultImage: 'light-0.webp',
         animationImage: 'light-1.webp',
         animationDuration: 400, // 2秒間表示
-        interval: 5000, // アニメーション間隔（ミリ秒）
+        interval: 8000, // アニメーション間隔（ミリ秒）
     },
 
     // ダークモードアニメーション設定

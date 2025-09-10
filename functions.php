@@ -30,5 +30,6 @@ require_once locate_template('functions/theme/_modify-wysiwyg.php');     // wysi
 require_once locate_template('functions/theme/_get-theme-image.php');     // カテゴリを出力する関数
 require_once locate_template('functions/theme/_infinite-scroll.php');     // 無限スクロール機能
 require_once locate_template('functions/theme/_add-span-to-en.php');     // 無限スクロール機能
+require_once locate_template('functions/theme/_color-mode.php');     // カラーモード取得関数
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

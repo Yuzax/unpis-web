@@ -33,6 +33,9 @@ block contents
                     src!="<?= $image_array['small']; ?>"
                     srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
                     sizes="100vw"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="high"
                 )
             |<?php if(get_sub_field('description')): ?>
             .c-works-slider-item__description.c-works-slider__hide-target.c-works-slider__hide-target--light-color.js-works-slider__hide-target
@@ -46,18 +49,18 @@ block contents
 
 
         //- ボタンリスト
-        a.c-works-slider__button.c-works-slider__close-button.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-works-close-button.js-hover(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動")
+        a.c-works-slider__button.c-works-slider__close-button.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-works-close-button.js-hover(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
         .c-works-slider__button-wrap
-            button.c-works-slider__button.c-works-slider__handle.c-works-slider__hide-target.js-works-slider__left-handle.js-works-slider__hide-target.js-change-color-target.js-hover.is-disable(type="button" aria-label="前の画像を表示する")
+            button.c-works-slider__button.c-works-slider__handle.c-works-slider__hide-target.js-works-slider__left-handle.js-works-slider__hide-target.js-change-color-target.js-hover.is-disable(type="button" aria-label="前の画像を表示する" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
                 include ../../src/img/arrow.svg
-            button.c-works-slider__button.c-works-slider__information.c-works-slider__hide-target.js-works-slider__information-button.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="ワークスの詳細情報を表示する")
+            button.c-works-slider__button.c-works-slider__information.c-works-slider__hide-target.js-works-slider__information-button.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="ワークスの詳細情報を表示する" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
                 include ../../src/img/info-icon.svg
-            button.c-works-slider__button.c-works-slider__handle.js-works-slider__right-handle.c-works-slider__handle--right.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="次の画像を表示する" class!="<?php if($index == 1){ echo 'is-disable';}; ?>")
+            button.c-works-slider__button.c-works-slider__handle.js-works-slider__right-handle.c-works-slider__handle--right.c-works-slider__hide-target.js-works-slider__hide-target.js-change-color-target.js-hover(type="button" aria-label="次の画像を表示する" class!="<?php if($index == 1){ echo 'is-disable';}; ?><?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
                 include ../../src/img/arrow-right.svg
 
 
         //- information モーダル
-        .c-works-information-modal.js-works-information-modal.js-works-slider__information-modal.js-change-color-target
+        .c-works-information-modal.js-works-information-modal.js-works-slider__information-modal.js-change-color-target(class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
 
             article.c-works-information-modal__container.js-works-information-modal__container
 
@@ -82,7 +85,7 @@ block contents
                 ul.c-works-information-modal__link-list
                     |<?php while(have_rows('links')): the_row(); ?>
                     li.p-works-link
-                        a.p-works-link__body.js-change-color-target.js-hover(href!="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く")
+                        a.p-works-link__body.js-change-color-target.js-hover(href!="<?= get_sub_field('url'); ?>" target="_blank" rel="noopener noreferrer" aria-label="リンクを別タブで開く" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
                             |<?php
                             |if(get_sub_field('text')) echo get_sub_field('text');
                             |else echo get_sub_field('url');
@@ -105,5 +108,5 @@ block contents
                 |<?php endif; ?>
 
                 //- クローズボタン
-                button.c-works-slider__button.c-works-slider__close-button.c-works-information-modal__close-button.js-works-slider__information-modal-close-button.js-change-color-target.js-hover.js-works-information-modal__button(type="button" aria-label="情報モーダルを閉じる")
+                button.c-works-slider__button.c-works-slider__close-button.c-works-information-modal__close-button.js-works-slider__information-modal-close-button.js-change-color-target.js-hover.js-works-information-modal__button(type="button" aria-label="情報モーダルを閉じる" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>")
 
