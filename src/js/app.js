@@ -16,6 +16,7 @@ import {
     update as Update404FaceAnimation,
 } from 'AppJs/_method/_404FaceAnimation';
 import { init as InitCopyAddress } from 'AppJs/_method/_copyAddress';
+import { init as InitImageLoad } from 'AppJs/_method/_imageLoad';
 import { init as InitLazyLoad } from 'AppJs/_method/_activateLazyload';
 import { init as InitTargetScroll } from 'AppJs/_method/_targetScroll';
 import { init as InitBarba } from 'AppJs/_method/_barba';
@@ -80,6 +81,7 @@ const init = async () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     InitMasonry();
     InitHover();
+    InitImageLoad();
     InitLazyLoad();
     InitTargetScroll();
     InitAvoidReload();

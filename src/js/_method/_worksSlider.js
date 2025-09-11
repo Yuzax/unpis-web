@@ -34,6 +34,7 @@ const switchSlide = (_isRight = false) => {
     if (itemIndex < 0) itemIndex = 0;
     if (itemIndex > item.length - 1) itemIndex = item.length - 1;
 
+    // 前の画像が完全に隠れてから次の画像を表示
     item[itemIndex].classList.remove('is-hide');
 
     // ハンドルのdisable状態を更新

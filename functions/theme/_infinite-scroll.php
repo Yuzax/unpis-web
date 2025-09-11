@@ -60,7 +60,7 @@ function load_more_posts_callback() {
         
         $post_html = '<li class="c-works-list__item js-masonry__item js-change-style__item ' . $vertical_class . '">';
         $post_html .= '<a class="c-works-list__item-link js-hover js-works-modal-link js-works-seen-trigger" href="' . get_permalink() . '" data-work-url="' . get_permalink() . '">';
-        $post_html .= '<img class="js-change-style__image js-lazy" ';
+        $post_html .= '<img class="js-change-style__image js-lazy js-img-load" ';
         $post_html .= 'alt="' . get_the_title() . ' thumbnail image" ';
         $post_html .= 'width="' . $image_array['width'] . '" ';
         $post_html .= 'height="' . $image_array['height'] . '" ';

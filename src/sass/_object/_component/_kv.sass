@@ -29,26 +29,7 @@
         height: 100%
         cursor: pointer
         overflow: hidden
-        -webkit-tap-highlight-color: transparent
-        -webkit-touch-callout: none
-        -webkit-user-select: none
-        -moz-user-select: none
-        -ms-user-select: none
-        user-select: none
-        outline: none
-        border: none
-        background: transparent
-
-        &::selection
-            background-color: transparent
-
-        &:focus
-            outline: none
-            border: none
-
-        &:active
-            outline: none
-            border: none
+        @include f.hideSelectedColor
 
 
     &__image-wrap

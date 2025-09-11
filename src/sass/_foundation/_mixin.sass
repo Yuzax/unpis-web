@@ -13,6 +13,28 @@
     &::-webkit-scrollbar
         display: none
 
+@mixin hideSelectedColor
+    -webkit-tap-highlight-color: transparent
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    outline: none
+    border: none
+    background: transparent
+
+    &::selection
+        background-color: transparent
+
+    &:focus
+        outline: none
+        border: none
+
+    &:active
+        outline: none
+        border: none
+
 @mixin underline($color, $line-width, $offset: 0px)
     background-image: linear-gradient(to right, $color, $color) // 線の色
     background-repeat: no-repeat // 背景を繰り返さない

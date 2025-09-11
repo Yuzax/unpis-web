@@ -25,7 +25,7 @@ ol.c-works-list.js-masonry.js-change-style(data-current-page="1" data-category-s
     |?>
     li.c-works-list__item.js-masonry__item.js-change-style__item(class!="<?php if($image_array['width'] <= $image_array['height']){ echo 'c-works-list__item--vertical'; } ?>")
         a.c-works-list__item-link.js-hover.js-works-modal-link.js-works-seen-trigger(href!="<?php the_permalink(); ?>" data-work-url!="<?php the_permalink(); ?>")
-            img.js-change-style__image.js-lazy(
+            img.js-change-style__image.js-lazy.js-img-load(
                 alt!="<?= get_the_title() . ' thumbnail image'; ?>"
                 width!="<?= $image_array['width']; ?>"
                 height!="<?= $image_array['height']; ?>"

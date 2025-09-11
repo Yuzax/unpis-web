@@ -1,2 +1,1 @@
-
 <button class="p-dancing-man js-dancing-man js-scroll-to-btn js-hover" type="button" aria-label="ページの最上部へ移動" data-target="0"><img src="<?php bloginfo('template_directory'); ?>/assets/img/dancers/0.webp" alt="Dancer Image"/><img src="<?php bloginfo('template_directory'); ?>/assets/img/dancers/hover.webp" alt="Dancer Hover Image"/></button>

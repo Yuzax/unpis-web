@@ -1,6 +1,7 @@
 /* global infinite_scroll_ajax */
 import { init as InitHover } from 'AppJs/_method/_hover';
 import { processIntersectingLazyImages } from 'AppJs/_method/_activateLazyload';
+import { processNewImages } from 'AppJs/_method/_imageLoad';
 import { setStyle as SetMasonryStyle } from 'AppJs/_method/_masonry';
 import { init as InitChangeStyle } from 'AppJs/_method/_changeStyle';
 import { update as UpdateWorksModal } from 'AppJs/_method/_worksModal';
@@ -117,6 +118,15 @@ const loadMorePosts = async () => {
 
             if (newLazyImages.length > 0) {
                 processIntersectingLazyImages(newLazyImages);
+            }
+
+            // 新しく追加された画像のロード完了検知処理
+            const newImageLoadTargets = Array.from(newItems)
+                .map((item) => item.querySelector('.js-img-load'))
+                .filter((img) => img !== null);
+
+            if (newImageLoadTargets.length > 0) {
+                processNewImages(newImageLoadTargets);
             }
 
             // スタイル変更機能を再初期化

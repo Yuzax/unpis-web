@@ -2,6 +2,7 @@
 @use "./_typography" as t
 @use "./_variable" as v
 @use "./_animation" as a
+@use "./_easing" as e
 
 // ==========================================================================
 // MAIN ELEMENT
@@ -13,7 +14,7 @@ html
     background: v.$color-bg
     color: v.$color-plain-text
     font-feature-settings: "palt"
-    @include a.rev-transition
+    transition: background 0.1s e.ease("easeOutCubic"), color 0.1s e.ease("easeOutCubic")
 
     &.is-rev
         background: v.$color-bg-dark
