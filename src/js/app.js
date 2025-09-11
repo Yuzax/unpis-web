@@ -11,6 +11,10 @@ import {
     init as InitFaceAnimation,
     update as UpdateFaceAnimation,
 } from 'AppJs/_method/_faceAnimation';
+import {
+    init as Init404FaceAnimation,
+    update as Update404FaceAnimation,
+} from 'AppJs/_method/_404FaceAnimation';
 import { init as InitCopyAddress } from 'AppJs/_method/_copyAddress';
 import { init as InitLazyLoad } from 'AppJs/_method/_activateLazyload';
 import { init as InitTargetScroll } from 'AppJs/_method/_targetScroll';
@@ -81,6 +85,7 @@ const init = async () => {
     InitAvoidReload();
     InitChangeColor();
     InitFaceAnimation();
+    Init404FaceAnimation();
     InitCopyAddress();
     InitIsInKV(scrollTop);
     InitKvNote();
@@ -104,6 +109,7 @@ init();
 const update = () => {
     UpdateChangeColor();
     UpdateFaceAnimation();
+    Update404FaceAnimation();
     UpdateDancingMan();
     UpdateWorksSeen();
     UpdateKv();

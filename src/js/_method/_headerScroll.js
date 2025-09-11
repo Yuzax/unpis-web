@@ -32,6 +32,7 @@ const updateHeaderPosition = (scrollTop) => {
             if (!isHeaderFixed) {
                 header.classList.add('is-fixed');
                 headerContainer.classList.add('is-fixed');
+                document.body.classList.add('is-header-fixed');
                 isHeaderFixed = true;
             }
 
@@ -52,6 +53,7 @@ const updateHeaderPosition = (scrollTop) => {
             if (isHeaderFixed) {
                 header.classList.remove('is-fixed');
                 headerContainer.classList.remove('is-fixed');
+                document.body.classList.remove('is-header-fixed');
                 isHeaderFixed = false;
 
                 // is-fixedが外れたらis-onクラスもremove
@@ -70,6 +72,7 @@ const updateHeaderPosition = (scrollTop) => {
             if (!isHeaderFixed) {
                 header.classList.add('is-fixed');
                 headerContainer.classList.add('is-fixed');
+                document.body.classList.add('is-header-fixed');
                 isHeaderFixed = true;
             }
 
@@ -87,6 +90,7 @@ const updateHeaderPosition = (scrollTop) => {
             if (isHeaderFixed) {
                 header.classList.remove('is-fixed');
                 headerContainer.classList.remove('is-fixed');
+                document.body.classList.remove('is-header-fixed');
                 isHeaderFixed = false;
 
                 // is-fixedが外れたらis-onクラスもremove
@@ -139,9 +143,26 @@ export const onScroll = (scrollTop) => {
 const onResize = () => {
     // リサイズ時にヘッダー位置を再計算
     if (headerContainer) {
-        // リサイズ時は現在固定されていない場合のみ初期位置をリセット
-        if (isFrontPage && !isHeaderFixed) {
+        // リサイズ時は一度状態を完全にリセット
+        if (isFrontPage) {
+            // 状態をリセット
             initialHeaderTopOffset = 0;
+            isHeaderFixed = false;
+
+            // クラスも一度リセット
+            header.classList.remove('is-fixed');
+            headerContainer.classList.remove('is-fixed');
+            document.body.classList.remove('is-header-fixed');
+
+            // リンクのクラスもリセット
+            if (headerLinks && headerLinks.length > 0) {
+                for (let i = 0; i < headerLinks.length; i++) {
+                    headerLinks[i].classList.remove('is-out');
+                    headerLinks[i].classList.remove('is-on');
+                }
+            }
+            isLinksHidden = false;
+            isLinksOn = false;
         }
 
         const scrollTop =
@@ -207,6 +228,7 @@ export const update = (scrollTop = 0) => {
         if (headerContainer) {
             headerContainer.classList.remove('is-fixed');
         }
+        document.body.classList.remove('is-header-fixed');
 
         // リンクのクラスもリセット
         if (headerLinks && headerLinks.length > 0) {

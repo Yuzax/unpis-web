@@ -25,7 +25,7 @@ $is_list_layout = get_layout_style_state();
 </head>
 <body data-barba="wrapper" data-section="0">
   <div class="l-wrap" data-barba="container" data-barba-namespace="common">
-    <?php if ( !is_single() || !is_404() ) : ?>
+    <?php if ( !is_single() && !is_404() ) : ?>
     <?php if ( is_front_page() ) : ?>
     <?php include get_template_directory() . '/parts/kv.php'; ?>
     <?php endif; ?>
@@ -53,7 +53,7 @@ $is_list_layout = get_layout_style_state();
           <button class="c-about__mail-button js-change-color-target js-hover js-copy-address <?php if($is_dark_mode){ echo ' is-rev'; }; ?>" type="button" aria-label="メールアドレスをコピー"><?= get_field('mail_address'); ?></button>
         </div><?php endif; ?>
       </div><?php include get_template_directory() . '/parts/dancing-man.php'; ?>
-    </div><?php if ( !is_single() || !is_404() ) : ?>
+    </div><?php if ( !is_single() && !is_404() ) : ?>
     <?php get_footer(); ?>
     <?php endif; ?>
   </div><?php wp_footer(); ?>

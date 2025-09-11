@@ -8,4 +8,9 @@ block variable
 
 block contents
 
-    |Page Not Found
+    article.c-404
+
+        h1.c-404__title 404 not found.
+        .c-404__face.js-404-face
+            img(src!="<?php bloginfo('template_directory'); ?>/assets/img/404/<?php echo get_color_mode_state() ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face")
+        a.c-404__link.js-hover.js-change-color-target(href!="<?= home_url( '/' ); ?>" aria-label="ホームページに移動" class!="<?php if($is_dark_mode){ echo ' is-rev'; }; ?>") top

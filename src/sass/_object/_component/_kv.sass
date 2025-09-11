@@ -12,6 +12,14 @@
     @include f.media()
         height: calc(100svh - 132px)
 
+    // ヘッダーが固定された時の調整
+    body.is-header-fixed &
+        margin-top: 112px
+        height: calc(100svh - 144px - 112px)
+        @include f.media()
+            margin-top: 86px
+            height: calc(100svh - 132px - 86px)
+
 
     &__container
         position: absolute

@@ -25,7 +25,7 @@ $is_list_layout = get_layout_style_state();
 </head>
 <body data-barba="wrapper" data-section="0">
   <div class="l-wrap" data-barba="container" data-barba-namespace="common">
-    <?php if ( !is_single() || !is_404() ) : ?>
+    <?php if ( !is_single() && !is_404() ) : ?>
     <?php if ( is_front_page() ) : ?>
     <?php include get_template_directory() . '/parts/kv.php'; ?>
     <?php endif; ?>
@@ -78,7 +78,7 @@ $is_list_layout = get_layout_style_state();
           </article>
         </div>
       </article>
-    </div><?php if ( !is_single() || !is_404() ) : ?>
+    </div><?php if ( !is_single() && !is_404() ) : ?>
     <?php get_footer(); ?>
     <?php endif; ?>
   </div><?php wp_footer(); ?>
