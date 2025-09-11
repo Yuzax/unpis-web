@@ -33,9 +33,6 @@ block contents
                     src!="<?= $image_array['small']; ?>"
                     srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
                     sizes="100vw"
-                    loading="lazy"
-                    decoding="async"
-                    fetchpriority="high"
                 )
             |<?php if(get_sub_field('description')): ?>
             .c-works-slider-item__description.c-works-slider__hide-target.c-works-slider__hide-target--light-color.js-works-slider__hide-target

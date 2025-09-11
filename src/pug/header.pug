@@ -22,7 +22,11 @@ header.l-header.js-header(data-section="1")
             span.l-header__button--face-wrapper
                 img.js-face-animation(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/<?php echo get_color_mode_state() ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face")
                 span
-                    img(src!="<?php bloginfo('template_directory'); ?>/assets/img/face/beam.webp" alt="Face with Light")
+                    img(
+                        src!="<?php bloginfo('template_directory'); ?>/assets/img/face/beam.webp" alt="Face with Light"
+                        decoding="async"
+                        fetchpriority="high"
+                        )
 
         a.l-header__link.js-header__link.js-hover.js-avoid-reload(href!="<?= home_url( '/about/' ); ?>" aria-label="Aboutページに移動")
             |about

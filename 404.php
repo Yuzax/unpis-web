@@ -14,6 +14,6 @@ body{margin:0!important;width:100%!important;height:100%!important;-webkit-font-
 <?php include get_template_directory() . '/parts/kv.php'; ?>
 <?php endif; ?>
 <?php get_header(); ?>
-<?php endif; ?><div class="l-container"><article class="c-404"><h1 class="c-404__title">404 not found.</h1><div class="c-404__face js-404-face"><img src="<?php bloginfo('template_directory'); ?>/assets/img/404/<?php echo get_color_mode_state() ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face"/></div><a class="c-404__link js-hover js-change-color-target <?php if($is_dark_mode){ echo ' is-rev'; }; ?>" href="<?= home_url( '/' ); ?>" aria-label="ホームページに移動">top</a></article></div><?php if ( !is_single() && !is_404() ) : ?>
+<?php endif; ?><div class="l-container"><article class="c-404"><h1 class="c-404__title">404 not found.</h1><div class="c-404__face js-404-face"><img src="<?php bloginfo('template_directory'); ?>/assets/img/404/<?php echo get_color_mode_state() ? 'dark-0.webp' : 'light-0.webp'; ?>" alt="Face" decoding="async" fetchpriority="high"/></div><a class="c-404__link js-hover js-change-color-target <?php if($is_dark_mode){ echo ' is-rev'; }; ?>" href="<?= home_url( '/' ); ?>" aria-label="ホームページに移動">top</a></article></div><?php if ( !is_single() && !is_404() ) : ?>
 <?php get_footer(); ?>
 <?php endif; ?></div><?php wp_footer(); ?></body></html>
