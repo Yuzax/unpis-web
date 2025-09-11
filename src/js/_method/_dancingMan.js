@@ -175,6 +175,11 @@ const cleanup = () => {
 
 // ページ遷移時の更新関数
 export const update = () => {
+    // 既存の要素からis-activeクラスを確実に削除
+    if (dancingManElement) {
+        dancingManElement.classList.remove('is-active');
+    }
+
     // ページ遷移時に状態をリセット
     isInitialized = false;
     isActive = false;
