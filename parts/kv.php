@@ -1,3 +1,4 @@
+
 <?php
 if(get_field('kv_slide' )):
 $kv_sliders = get_field('kv_slide');
@@ -37,27 +38,42 @@ if ($current_time - $last_visit > 0.1) {
    setcookie($cookie_name, $next_counter, $expire_time, '/', '', $secure, true);
    setcookie($last_visit_cookie, $current_time, $expire_time, '/', '', $secure, true);
 }
-?><div class="c-kv"><?php
-if($gesture == 'click' || $gesture == 'hold'):
-  $slide_group = $gesture == 'click'? $target_row['kv_click_image'] : $target_row['kv_hold_image'];
-  $pc_images = $slide_group['pc_image'];
-  $sp_images = $slide_group['sp_image'];
-?><div class="c-kv__container js-kv <?php if($gesture == 'click'){ echo 'js-kv--click'; }else{ echo 'js-kv--hold'; } ?>"><div class="c-kv__image-wrap c-kv__image-wrap--pc js-kv__image-wrap"><?php
-$index = 0;
-if($pc_images): foreach($pc_images as $pc_image):
-  $image_array = get_image_array($pc_image['image']);
-  $add_class = $index != 0? 'is-hide' : '';
-?><img class="<?= $add_class; ?>" alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>" sizes="150vw"/><?php $index = $index + 1; endforeach; endif; ?></div><div class="c-kv__image-wrap c-kv__image-wrap--sp js-kv__image-wrap"><?php
-$index = 0;
-if($sp_images): foreach($sp_images as $sp_image):
-  $image_array = get_image_array($sp_image['image']);
-  $add_class = $index != 0? 'is-hide' : '';
-?><img class="<?= $add_class; ?>" alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>" sizes="100vw"/><?php $index = $index + 1; endforeach; endif; ?></div></div><?php endif; ?>
-<?php
-if($gesture == 'parallax'):
- $slide_images = $target_row['kv_parallax_image'];
-?><div class="c-kv__container js-kv js-kv--parallax"><?php
-if($slide_images):
-  $slide_images = array_reverse($slide_images);
-  foreach($slide_images as $slide_image):
-?><div class="c-kv__image-wrap c-kv__image-wrap--parallax js-kv__image-wrap" data-parallax-strength="<?= $slide_image['parallax_strength']; ?>"><?php $image_array = get_image_array($slide_image['image_group']['pc_image']); ?><img alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>" sizes="150vw"/><?php $image_array = get_image_array($slide_image['image_group']['sp_image']); ?><img alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>" sizes="100vw"/></div><?php endforeach; endif; ?></div><?php endif; ?></div><?php endif; ?>
+?>
+<div class="c-kv">
+  <?php
+  if($gesture == 'click' || $gesture == 'hold'):
+    $slide_group = $gesture == 'click'? $target_row['kv_click_image'] : $target_row['kv_hold_image'];
+    $pc_images = $slide_group['pc_image'];
+    $sp_images = $slide_group['sp_image'];
+  ?>
+  <div class="c-kv__container js-kv <?php if($gesture == 'click'){ echo 'js-kv--click'; }else{ echo 'js-kv--hold'; } ?>">
+    <div class="c-kv__image-wrap c-kv__image-wrap--pc js-kv__image-wrap">
+      <?php
+      $index = 0;
+      if($pc_images): foreach($pc_images as $pc_image):
+        $image_array = get_image_array($pc_image['image']);
+        $add_class = $index != 0? 'is-hide' : '';
+      ?><img class="<?= $add_class; ?>" alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>" sizes="150vw"/><?php $index = $index + 1; endforeach; endif; ?>
+    </div>
+    <div class="c-kv__image-wrap c-kv__image-wrap--sp js-kv__image-wrap">
+      <?php
+      $index = 0;
+      if($sp_images): foreach($sp_images as $sp_image):
+        $image_array = get_image_array($sp_image['image']);
+        $add_class = $index != 0? 'is-hide' : '';
+      ?><img class="<?= $add_class; ?>" alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>" sizes="100vw"/><?php $index = $index + 1; endforeach; endif; ?>
+    </div>
+  </div><?php endif; ?>
+  <?php
+  if($gesture == 'parallax'):
+   $slide_images = $target_row['kv_parallax_image'];
+  ?>
+  <div class="c-kv__container js-kv js-kv--parallax">
+    <?php
+    if($slide_images):
+      $slide_images = array_reverse($slide_images);
+      foreach($slide_images as $slide_image):
+    ?>
+    <div class="c-kv__image-wrap c-kv__image-wrap--parallax js-kv__image-wrap" data-parallax-strength="<?= $slide_image['parallax_strength']; ?>"><?php $image_array = get_image_array($slide_image['image_group']['pc_image']); ?><img alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w, ' . $image_array['ex_large'] . ' 4000w' ; ?>" sizes="150vw"/><?php $image_array = get_image_array($slide_image['image_group']['sp_image']); ?><img alt="KV Image" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w'; ?>" sizes="100vw"/></div><?php endforeach; endif; ?>
+  </div><?php endif; ?>
+</div><?php endif; ?>
