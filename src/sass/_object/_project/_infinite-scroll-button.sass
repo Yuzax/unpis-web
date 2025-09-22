@@ -7,9 +7,10 @@
     width: 48px
     height: 48px
     border: 3px solid f.$color-black
+    background: f.$color-white
     border-radius: 50%
     box-sizing: border-box
-    transition: border 0.1s f.ease("easeOutCubic"), width 0.1s f.ease("easeOutCubic"), height 0.1s f.ease("easeOutCubic"), margin 0.1s f.ease("easeOutCubic"), opacity 0.5s f.ease("easeOutCubic")
+    transition: border 0.1s f.ease("easeOutCubic"), width 0.1s f.ease("easeOutCubic"), height 0.1s f.ease("easeOutCubic"), margin 0.1s f.ease("easeOutCubic"), background 0.1s f.ease("easeOutCubic"), opacity 0.5s f.ease("easeOutCubic")
     will-change: width, height, margin
     @include f.media()
         bottom: 118px
@@ -38,6 +39,7 @@
 
     &.is-rev
         border: 3px solid f.$color-white
+        background: f.$color-black
         &::before, &::after
             background: f.$color-white
         @include f.media()
