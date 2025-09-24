@@ -139,9 +139,28 @@
         align-items: center
         justify-content: center
         @include f.hideSelectedColor
-    
+
 
     &__video
-        position: relative
         width: 100%
+        height: 100%
         @include f.hideSelectedColor
+
+        &--youtube
+            width: 100%
+            height: 100%
+            object-fit: contain
+
+        &--vimeo
+            width: 100%
+            height: 100%
+
+            &>div
+                padding: 0 !important
+                width: 100%
+                height: 100%
+
+            iframe
+                width: 100%
+                height: 100%
+                object-fit: contain

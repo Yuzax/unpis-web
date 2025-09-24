@@ -50,7 +50,7 @@ block contents
                 |   $video_id = get_youtube_video_id(get_sub_field('url'));
                 |?>
                 div.c-works-slider-item__video-wrap.js-yt-player__video-wrap
-                    div.c-works-slider-item__video.js-yt-player(
+                    div.c-works-slider-item__video.c-works-slider-item__video--youtube.js-yt-player(
                         data-video-id!="<?= $video_id; ?>"
                         data-auto-play!="<?= get_sub_field('auto_play'); ?>"
                         data-aspect-ratio!="<?= get_sub_field('aspect_ratio'); ?>"
@@ -64,7 +64,7 @@ block contents
                 |   $video_id = get_vimeo_video_id(get_sub_field('url'));
                 |?>
                 div.c-works-slider-item__video-wrap.js-vimeo-player__video-wrap
-                    div.c-works-slider-item__video.js-vimeo-player(
+                    div.c-works-slider-item__video.c-works-slider-item__video--vimeo.js-vimeo-player(
                         data-video-id!="<?= $video_id; ?>"
                         data-auto-play!="<?= get_sub_field('auto_play'); ?>"
                         data-aspect-ratio!="<?= get_sub_field('aspect_ratio'); ?>"
