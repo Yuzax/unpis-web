@@ -20,12 +20,12 @@ block contents
         |while(have_rows('works_slider')): the_row();
         |?>
         //- スライド内の情報を取得
-        |<?php $image_array = get_image_array(get_sub_field('image')); ?>
-        .c-works-slider-item.js-works-slider__item(class!="<?php if($index != 0) echo 'is-hide'; ?>")
-            //- |<?php if($index == 0): ?>
-            //- h1.c-works-slider-item__title.js-works-slider__hide-target <?= the_title(); ?>
-            //- |<?php endif; ?>
-            .c-works-slider-item__image.js-works-slider-image-fit__wrap(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
+        .c-works-slider-item.js-works-slider__item.js-works-slider-image-fit__wrap(class!="<?php if($index != 0) echo 'is-hide'; ?>")
+            .c-works-slider-item__media(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
+                |<?php
+                |if(get_sub_field('type') == 'image'):
+                |  $image_array = get_image_array(get_sub_field('image'));
+                |?>
                 img.js-works-slider-image-fit__img.js-img-load(
                     alt!="<?= get_the_title() . ' image'; ?>"
                     width!="<?= $image_array['width']; ?>"
@@ -34,6 +34,46 @@ block contents
                     srcset!="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>"
                     sizes="100vw"
                 )
+                |<?php
+                |elseif(get_sub_field('type') == 'gif'):
+                |  $image_array = get_image_array(get_sub_field('image'), false);
+                |?>
+                img.js-img-load(
+                    alt!="<?= get_the_title() . ' image'; ?>"
+                    width!="<?= $image_array['width']; ?>"
+                    height!="<?= $image_array['height']; ?>"
+                    src!="<?= $image_array['full']; ?>"
+                    sizes="100vw"
+                )
+                |<?php
+                |elseif(get_sub_field('type') == 'youtube'):
+                |   $video_id = get_youtube_video_id(get_sub_field('url'));
+                |?>
+                div.c-works-slider-item__video-wrap.js-yt-player__video-wrap
+                    div.c-works-slider-item__video.js-yt-player(
+                        data-video-id!="<?= $video_id; ?>"
+                        data-auto-play!="<?= get_sub_field('auto_play'); ?>"
+                        data-aspect-ratio!="<?= get_sub_field('aspect_ratio'); ?>"
+                        )
+                    |<?php if(!$is_auto_play): ?>
+                    button.c-works-slider__button.c-works-slider__play-button.js-yt-player__play-button.js-change-color-target.js-hover(type="button" aria-label="動画を再生する" class!="<?php if($is_dark_mode){ echo 'is-rev'; }; ?>")
+                        include ../../src/img/play-icon.svg
+                    |<?php endif; ?>
+                |<?php
+                |elseif(get_sub_field('type') == 'vimeo'):
+                |   $video_id = get_vimeo_video_id(get_sub_field('url'));
+                |?>
+                div.c-works-slider-item__video-wrap.js-vimeo-player__video-wrap
+                    div.c-works-slider-item__video.js-vimeo-player(
+                        data-video-id!="<?= $video_id; ?>"
+                        data-auto-play!="<?= get_sub_field('auto_play'); ?>"
+                        data-aspect-ratio!="<?= get_sub_field('aspect_ratio'); ?>"
+                        )
+                    |<?php if(!$is_auto_play): ?>
+                    button.c-works-slider__button.c-works-slider__play-button.js-vimeo-player__play-button.js-change-color-target.js-hover(type="button" aria-label="動画を再生する" class!="<?php if($is_dark_mode){ echo 'is-rev'; }; ?>")
+                        include ../../src/img/play-icon.svg
+                    |<?php endif; ?>
+                |<?php endif; ?>
             |<?php if(get_sub_field('description')): ?>
             .c-works-slider-item__description.c-works-slider__hide-target.c-works-slider__hide-target--light-color.js-works-slider__hide-target
                 p

@@ -19,15 +19,9 @@ const getStyleSheetValue = (element, property) => {
 
     if (property === 'width') {
         const calculatedWidth = viewportWidth - widthOffset;
-        console.log(
-            `Calculated width: ${viewportWidth} - ${widthOffset} = ${calculatedWidth}`,
-        );
         return calculatedWidth;
     } else if (property === 'height') {
         const calculatedHeight = viewportHeight - heightOffset;
-        console.log(
-            `Calculated height: ${viewportHeight} - ${heightOffset} = ${calculatedHeight}`,
-        );
         return calculatedHeight;
     }
 
@@ -48,8 +42,6 @@ export const worksSliderImageFit = () => {
 
             const containerRatio = containerWidth / containerHeight;
             const imgRatio = img.naturalWidth / img.naturalHeight;
-
-            console.log(container, containerWidth, containerHeight);
 
             // 既存のクラスを削除
             img.classList.remove('is-vertical', 'is-horizontal');

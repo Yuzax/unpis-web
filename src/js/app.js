@@ -62,6 +62,14 @@ import {
 } from 'AppJs/_method/_headerScroll';
 import 'AppJs/_method/_faviconAnimation';
 import { worksSliderImageFit } from 'AppJs/_method/_worksSliderImageFit';
+import {
+    init as InitYouTubePlayer,
+    update as UpdateYouTubePlayer,
+} from 'AppJs/_method/_youtubePlayer';
+import {
+    init as InitVimeoPlayer,
+    update as UpdateVimeoPlayer,
+} from 'AppJs/_method/_vimeoPlayer';
 
 // // variable
 let ticking = false;
@@ -98,6 +106,8 @@ const init = async () => {
     // InitIframeDetection();
     InitWorksSlider();
     worksSliderImageFit();
+    InitYouTubePlayer();
+    InitVimeoPlayer();
     InitWorksInformationModal();
     InitDancingMan(scrollTop);
     InitKv();
@@ -114,6 +124,8 @@ const update = () => {
     Update404FaceAnimation();
     UpdateDancingMan();
     UpdateWorksSeen();
+    UpdateYouTubePlayer();
+    UpdateVimeoPlayer();
     UpdateKv();
     UpdateHeaderScroll();
 };

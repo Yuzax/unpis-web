@@ -37,9 +37,30 @@ $is_list_layout = get_layout_style_state();
         if(have_rows('works_slider')):
         while(have_rows('works_slider')): the_row();
         ?>
-        <?php $image_array = get_image_array(get_sub_field('image')); ?>
-        <div class="c-works-slider-item js-works-slider__item <?php if($index != 0) echo 'is-hide'; ?>">
-          <div class="c-works-slider-item__image js-works-slider-image-fit__wrap <?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>"><img class="js-works-slider-image-fit__img js-img-load" alt="<?= get_the_title() . ' image'; ?>" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>" sizes="100vw"></div><?php if(get_sub_field('description')): ?>
+        <div class="c-works-slider-item js-works-slider__item js-works-slider-image-fit__wrap <?php if($index != 0) echo 'is-hide'; ?>">
+          <div class="c-works-slider-item__media <?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>">
+            <?php
+            if(get_sub_field('type') == 'image'):
+             $image_array = get_image_array(get_sub_field('image'));
+            ?><img class="js-works-slider-image-fit__img js-img-load" alt="<?= get_the_title() . ' image'; ?>" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['small']; ?>" srcset="<?= $image_array['small'] . ' 375w, ' . $image_array['thumbnail'] . ' 750w, ' . $image_array['medium'] . ' 1500w, ' . $image_array['large'] . ' 3000w'; ?>" sizes="100vw"><?php
+            elseif(get_sub_field('type') == 'gif'):
+             $image_array = get_image_array(get_sub_field('image'), false);
+            ?><img class="js-img-load" alt="<?= get_the_title() . ' image'; ?>" width="<?= $image_array['width']; ?>" height="<?= $image_array['height']; ?>" src="<?= $image_array['full']; ?>" sizes="100vw"><?php
+            elseif(get_sub_field('type') == 'youtube'):
+              $video_id = get_youtube_video_id(get_sub_field('url'));
+            ?>
+            <div class="c-works-slider-item__video-wrap js-yt-player__video-wrap">
+              <div class="c-works-slider-item__video js-yt-player" data-video-id="<?= $video_id; ?>" data-auto-play="<?= get_sub_field('auto_play'); ?>" data-aspect-ratio="<?= get_sub_field('aspect_ratio'); ?>"></div><?php if(!$is_auto_play): ?>
+              <button class="c-works-slider__button c-works-slider__play-button js-yt-player__play-button js-change-color-target js-hover <?php if($is_dark_mode){ echo 'is-rev'; }; ?>" type="button" aria-label="動画を再生する"><svg fill="none" height="22" viewBox="0 0 22 22" width="22" xmlns="http://www.w3.org/2000/svg"><path d="m21.5 11c0 .5764-.3303 1.1017-.8496 1.3516l-18.00001 8.6601c-.46463.2236-1.01163.1932-1.44824-.081-.4367-.2745-.702151-.7547-.702151-1.2705l.000001-17.32033c0-.51581.265451-.996.70215-1.27051.43661-.274202.98362-.304594 1.44824-.081052l18.00001 8.660162.0947.0498c.4645.2657.7549.76123.7549 1.30173zm-18-6.27439v12.54879l13.041-6.2744z"/></svg></button><?php endif; ?>
+            </div><?php
+            elseif(get_sub_field('type') == 'vimeo'):
+              $video_id = get_vimeo_video_id(get_sub_field('url'));
+            ?>
+            <div class="c-works-slider-item__video-wrap js-vimeo-player__video-wrap">
+              <div class="c-works-slider-item__video js-vimeo-player" data-video-id="<?= $video_id; ?>" data-auto-play="<?= get_sub_field('auto_play'); ?>" data-aspect-ratio="<?= get_sub_field('aspect_ratio'); ?>"></div><?php if(!$is_auto_play): ?>
+              <button class="c-works-slider__button c-works-slider__play-button js-vimeo-player__play-button js-change-color-target js-hover <?php if($is_dark_mode){ echo 'is-rev'; }; ?>" type="button" aria-label="動画を再生する"><svg fill="none" height="22" viewBox="0 0 22 22" width="22" xmlns="http://www.w3.org/2000/svg"><path d="m21.5 11c0 .5764-.3303 1.1017-.8496 1.3516l-18.00001 8.6601c-.46463.2236-1.01163.1932-1.44824-.081-.4367-.2745-.702151-.7547-.702151-1.2705l.000001-17.32033c0-.51581.265451-.996.70215-1.27051.43661-.274202.98362-.304594 1.44824-.081052l18.00001 8.660162.0947.0498c.4645.2657.7549.76123.7549 1.30173zm-18-6.27439v12.54879l13.041-6.2744z"/></svg></button><?php endif; ?>
+            </div><?php endif; ?>
+          </div><?php if(get_sub_field('description')): ?>
           <div class="c-works-slider-item__description c-works-slider__hide-target c-works-slider__hide-target--light-color js-works-slider__hide-target">
             <p><?= add_span_to_en(get_sub_field('description')); ?></p>
           </div><?php endif; ?>

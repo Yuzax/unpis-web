@@ -51,6 +51,9 @@
             bottom: 50%
             transform: translate(50%, 50%)
 
+            path
+                fill: f.$color-black
+
         &.is-rev
             border: 3px solid f.$color-white
             background: f.$color-button-bg-dark
@@ -119,6 +122,25 @@
                 right: 0
 
         &.is-disable
+            visibility: hidden
+            pointer-events: none
+
+
+    &__play-button
+        cursor: pointer
+        @include f.media(desktop)
+            bottom: calc(50% - 24px)
+            right: calc(50% - 24px)
+
+        svg
+            width: auto
+            height: 21px
+            transform: translate(calc(50% + 1.67px), 50%)
+            @include f.media()
+                width: auto
+                height: 17px
+
+        &.is-hide
             visibility: hidden
             pointer-events: none
 
