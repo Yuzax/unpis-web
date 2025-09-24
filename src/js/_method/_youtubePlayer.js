@@ -83,6 +83,7 @@ const createPlayer = (element, videoId, autoPlay = false) => {
                     videoId: videoId,
                     autoPlay: autoPlay,
                     isPlaying: false,
+                    hasPlayed: false,
                     slideIndex: slideIndex,
                     playButton: playButton,
                 };
@@ -106,6 +107,12 @@ const createPlayer = (element, videoId, autoPlay = false) => {
 
                     // 再生開始時の処理
                     if (event.data === window.YT.PlayerState.PLAYING) {
+                        // 初回再生時にis-playedクラスを追加
+                        if (!playerData.hasPlayed) {
+                            playerData.hasPlayed = true;
+                            playerData.element.classList.add('is-played');
+                        }
+
                         // 現在表示されているスライドかチェック
                         if (isCurrentSlide(playerData.slideIndex)) {
                             hidePlayButton(playerData);

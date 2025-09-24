@@ -18,7 +18,8 @@ let item = [],
     itemIndex = 0,
     informationButton = null,
     informationModal = null,
-    informationModalCloseButton = null;
+    informationModalCloseButton = null,
+    sliderContainer = null;
 
 const updateHandleStates = () => {
     // leftHandleの状態を更新
@@ -76,6 +77,10 @@ const addEventListener = () => {
 
 const addInformationModalEventListener = () => {
     informationButton.addEventListener('click', () => {
+        // 情報モーダル表示時に全ての動画を一時停止
+        pauseYouTubeVideosInSlide(itemIndex);
+        pauseVimeoVideosInSlide(itemIndex);
+
         informationModal.classList.add('is-active');
         ToggleInformationModalState(true);
     });
@@ -83,6 +88,10 @@ const addInformationModalEventListener = () => {
     informationModalCloseButton.addEventListener('click', () => {
         informationModal.classList.remove('is-active');
         ToggleInformationModalState(false);
+
+        // 情報モーダル閉じた時に現在のスライドの自動再生動画を再開
+        playAutoPlayYouTubeVideosInSlide(itemIndex);
+        playAutoPlayVimeoVideosInSlide(itemIndex);
     });
 };
 
@@ -155,9 +164,13 @@ const hideUI = () => {
     // resetTimerを外部からアクセス可能にする
     resetUITimer = resetTimer;
 
-    // マウス移動イベントリスナーを追加
+    // スライダーコンテナにマウス移動イベントリスナーを追加
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mousemove', resetTimer);
+        sliderContainer.addEventListener('mouseleave', handleMouseLeave);
+    }
+    // フォールバックとしてdocumentにも追加
     document.addEventListener('mousemove', resetTimer);
-    // マウスがブラウザ外に出た時のイベントリスナーを追加
     document.addEventListener('mouseleave', handleMouseLeave);
     // 初期タイマーを設定
     resetTimer();
@@ -182,7 +195,8 @@ export const init = () => {
         )),
         (informationModalCloseButton = document.querySelector(
             '.js-works-slider__information-modal-close-button',
-        )));
+        )),
+        (sliderContainer = document.querySelector('.js-works-slider')));
     if (item.length != 0 && item.length != 1) addEventListener();
     if (informationModal) addInformationModalEventListener();
     if (hideTarget.length != 0 && isDesktop()) hideUI();

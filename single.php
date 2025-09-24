@@ -31,14 +31,14 @@ $is_list_layout = get_layout_style_state();
     <?php get_header(); ?>
     <?php endif; ?>
     <div class="l-container">
-      <article class="c-works-slider">
+      <article class="c-works-slider js-works-slider">
         <h1 class="c-works-slider-item__title c-works-slider__hide-target js-works-slider__hide-target"><span><?= add_span_to_en(get_the_title()); ?></span></h1><?php
         $index = 0;
         if(have_rows('works_slider')):
         while(have_rows('works_slider')): the_row();
         ?>
         <div class="c-works-slider-item js-works-slider__item js-works-slider-image-fit__wrap <?php if($index != 0) echo 'is-hide'; ?>">
-          <div class="c-works-slider-item__media <?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>">
+          <div class="c-works-slider-item__media <?php if(get_sub_field('description')){ echo 'c-works-slider-item__media--with-description'; } ?>">
             <?php
             if(get_sub_field('type') == 'image'):
              $image_array = get_image_array(get_sub_field('image'));

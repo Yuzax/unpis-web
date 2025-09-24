@@ -8,7 +8,7 @@ block variable
 
 block contents
 
-    article.c-works-slider
+    article.c-works-slider.js-works-slider
 
         h1.c-works-slider-item__title.c-works-slider__hide-target.js-works-slider__hide-target
             span <?= add_span_to_en(get_the_title()); ?>
@@ -21,7 +21,7 @@ block contents
         |?>
         //- スライド内の情報を取得
         .c-works-slider-item.js-works-slider__item.js-works-slider-image-fit__wrap(class!="<?php if($index != 0) echo 'is-hide'; ?>")
-            .c-works-slider-item__media(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__image--with-description'; } ?>")
+            .c-works-slider-item__media(class!="<?php if(get_sub_field('description')){ echo 'c-works-slider-item__media--with-description'; } ?>")
                 |<?php
                 |if(get_sub_field('type') == 'image'):
                 |  $image_array = get_image_array(get_sub_field('image'));

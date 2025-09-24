@@ -65,7 +65,7 @@ const createPlayer = (element, videoId, autoPlay = false) => {
         autoplay: autoPlay,
         muted: autoPlay, // 自動再生の場合はミュート
         loop: autoPlay, // 自動再生の場合はループ
-        controls: true, // Vimeoは常にコントロールを有効にする
+        controls: autoPlay, // 自動再生の場合のみ初期状態でコントロールを表示
         responsive: true,
         // ミュート解除ボタンを非表示にする
         autopause: false,
@@ -84,6 +84,7 @@ const createPlayer = (element, videoId, autoPlay = false) => {
         videoId: videoId,
         autoPlay: autoPlay,
         isPlaying: false,
+        hasPlayed: false,
         slideIndex: slideIndex,
         playButton: playButton,
     };
@@ -93,11 +94,18 @@ const createPlayer = (element, videoId, autoPlay = false) => {
     player.on('play', () => {
         playerData.isPlaying = true;
 
+        // 初回再生時にis-playedクラスを追加
+        if (!playerData.hasPlayed) {
+            playerData.hasPlayed = true;
+            playerData.element.classList.add('is-played');
+        }
+
         // 現在表示されているスライドかチェック
         if (isCurrentSlide(playerData.slideIndex)) {
             hidePlayButton(playerData);
         } else {
             // 現在のスライドでない場合は一時停止
+            console.log('Pausing video - not current slide');
             playerData.player.pause();
         }
     });
@@ -129,7 +137,17 @@ const addPlayButtonListener = (playerData) => {
         playButton.addEventListener('click', () => {
             // クリックした瞬間に再生ボタンを非表示
             hidePlayButton(playerData);
-            playerData.player.play();
+
+            // 自動再生でない場合、コントローラーを表示してから再生
+            if (!playerData.autoPlay) {
+                showVimeoControls(playerData);
+                // コントローラー表示後に十分な時間を待ってから再生
+                setTimeout(() => {
+                    playerData.player.play();
+                }, 500);
+            } else {
+                playerData.player.play();
+            }
         });
     }
 };
@@ -168,6 +186,34 @@ const showPlayButton = (playerData) => {
 };
 
 /**
+ * Vimeoコントローラーを表示する
+ */
+const showVimeoControls = (playerData) => {
+    // iframe要素のURLパラメータを変更してコントローラーを表示
+    try {
+        const iframe = playerData.element.querySelector('iframe');
+        if (iframe) {
+            const currentSrc = iframe.src;
+            let newSrc = currentSrc;
+
+            // controlsパラメータを追加/変更
+            if (newSrc.includes('controls=0')) {
+                newSrc = newSrc.replace('controls=0', 'controls=1');
+            } else if (!newSrc.includes('controls=1')) {
+                const separator = newSrc.includes('?') ? '&' : '?';
+                newSrc = newSrc + separator + 'controls=1';
+            }
+
+            if (newSrc !== currentSrc) {
+                iframe.src = newSrc;
+            }
+        }
+    } catch (error) {
+        console.warn('Failed to show Vimeo controls:', error);
+    }
+};
+
+/**
  * 自動再生の処理
  */
 const handleAutoPlay = (playerData) => {
@@ -198,8 +244,11 @@ const playAutoPlayVideosInSlide = (slideIndex) => {
  */
 const pauseVideosInSlide = (slideIndex) => {
     players.forEach((playerData) => {
-        if (playerData.slideIndex === slideIndex && playerData.isPlaying) {
+        if (playerData.slideIndex === slideIndex) {
+            // isPlayingフラグに関係なく、該当スライドの全ての動画を一時停止
+            console.log(`Pausing Vimeo video in slide ${slideIndex}`);
             playerData.player.pause();
+            playerData.isPlaying = false;
         }
     });
 };
